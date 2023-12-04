@@ -13,8 +13,8 @@ set(CMAKE_PREFIX_PATH "C:/Qt/6.3.2/msvc2019_64/lib/cmake")
 #set(Vulkan_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include")
 
 #set(Qt6_DIR "C:/Qt/6.3.2/msvc2019_64/lib/cmake/Qt6")
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick Qml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -47,7 +47,7 @@ else()
 endif()
 
 target_link_libraries(quick_demo
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick )
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

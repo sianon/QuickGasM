@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>quick_item.qml</file>
+        <file>images/playback.png</file>
+        <file>images/record.png</file>
+        <file>images/take_shot.png</file>
+        <file>images/back.png</file>
+        <file>images/color.png</file>
+        <file>images/iso.png</file>
+        <file>images/param.png</file>
+        <file>images/settings.png</file>
+        <file>images/ls.png</file>
     </qresource>
 </RCC>

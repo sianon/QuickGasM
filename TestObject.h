@@ -6,6 +6,7 @@
 #define QUICK_DEMO_TESTOBJECT_H
 
 #include <QObject>
+#include <QQuickView>
 
 class TestObject : public QObject{
     Q_OBJECT
@@ -14,8 +15,10 @@ public:
 
 signals:
 
-public slots:
-    void onTestSlot(int a, int b);
+public:
+    Q_INVOKABLE void onTestSlot(int a, int b);
+private:
+    QQuickView* view;
 };
 
 
