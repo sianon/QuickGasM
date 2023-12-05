@@ -10,7 +10,7 @@ ApplicationWindow {
     height: 300
     title: "Floating Subcontrol Example"
     color: "#185abd"
-    //    flags: Qt.FramelessWindowHint
+    flags: Qt.FramelessWindowHint
 
     //QML中的方法可以被cpp调用，也可以作为槽函数
     function qml_method(val_arg){
@@ -21,7 +21,6 @@ ApplicationWindow {
         var dialog = LsDialog.showModal();
         dialog.exec();
     }
-
     Frame {
         id: floating_subcontrol_left
         visible: true
@@ -73,12 +72,11 @@ ApplicationWindow {
                     anchors.fill: parent
                     onClicked: {
                         // 在点击时创建并显示新窗口
-                        var component = Qt.createComponent("LsDialog.qml");
+                        var component = Qt.createComponent("ls_mode_dlg.qml");
                         var dialog = component.createObject(mainWindow);
                         dialog.open();
                     }
                 }
-
                 Rectangle {
                     implicitHeight:parent.height
                     implicitWidth:parent.height
@@ -90,11 +88,13 @@ ApplicationWindow {
                 }
             }
             Button {
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked: {
-                    qml_method(123);
+                    // 在点击时创建并显示新窗口
+                    var component = Qt.createComponent("LsDialog.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 Rectangle {
                     implicitHeight:parent.height
@@ -107,11 +107,12 @@ ApplicationWindow {
                 }
             }
             Button {
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked: {
-                    qml_method(123);
+                    var component = Qt.createComponent("param_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 Rectangle {
                     implicitHeight:parent.height
@@ -124,11 +125,12 @@ ApplicationWindow {
                 }
             }
             Button {
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked: {
-                    qml_method(123);
+                    var component = Qt.createComponent("param_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 Rectangle {
                     implicitHeight:parent.height
@@ -160,9 +162,9 @@ ApplicationWindow {
                         var formattedTime = padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
                         timeLabel.text = formattedTime;
                         // 通过Qt调用UI线程更新Text元素的文本
-//                        Qt.callLater(function() {
-//                            timeLabel.text = + formattedTime;
-//                        });
+                        //                        Qt.callLater(function() {
+                        //                            timeLabel.text = + formattedTime;
+                        //                        });
                     }
                 }
 
@@ -175,7 +177,6 @@ ApplicationWindow {
             }
         }
     }
-
     Pane {
         id: floating_subcontrol_mid
         visible: true
@@ -213,7 +214,9 @@ ApplicationWindow {
                 Layout.preferredWidth: 44
                 Layout.preferredHeight: 44
                 onClicked: {
-                    qml_method(123);
+                    var component = Qt.createComponent("gas_enhance_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 text: "增强"
             }

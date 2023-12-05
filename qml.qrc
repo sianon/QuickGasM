@@ -14,5 +14,9 @@
         <file>MainButton.qml</file>
         <file>LsDialog.qml</file>
         <file>settings_dlg.qml</file>
+        <file>gas_enhance_dlg.qml</file>
+        <file>ls_mode_dlg.qml</file>
+        <file>iso_dlg.qml</file>
+        <file>param_dlg.qml</file>
     </qresource>
 </RCC>

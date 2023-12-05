@@ -46,7 +46,6 @@ Dialog{
             Layout.preferredWidth: 40
             onClicked: dialog.close()
         }
-
         Button {
             text: "白热"
             Layout.preferredHeight: 40
@@ -59,7 +58,6 @@ Dialog{
             Layout.preferredWidth: 40
             onClicked: dialog.close()
         }
-
         Button {
             text: "羽红"
             Layout.preferredHeight: 40
@@ -72,7 +70,6 @@ Dialog{
             Layout.preferredWidth: 40
             onClicked: dialog.close()
         }
-
         Button {
             text: "黑热"
             Layout.preferredHeight: 40
@@ -85,7 +82,6 @@ Dialog{
             Layout.preferredWidth: 40
             onClicked: dialog.close()
         }
-
         Button {
             text: "反羽红"
             Layout.preferredHeight: 40
