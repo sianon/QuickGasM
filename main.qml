@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
+import testobject 1.0
 
 ApplicationWindow {
     id:mainWindow
@@ -14,6 +15,7 @@ ApplicationWindow {
 
     //QML中的方法可以被cpp调用，也可以作为槽函数
     function qml_method(val_arg){
+        cpp_obj.onTestSlot(1,2)
         console.log("qml method runing",val_arg,"return ok")
         return "ok"
     }
@@ -28,7 +30,10 @@ ApplicationWindow {
         height: parent.height
         background: Rectangle{
             color: "#010101"
-            border.color: "#21be2b"
+            //            border.color: "#21be2b"
+        }
+        TestObject {
+            id:cpp_obj
         }
         ColumnLayout{
             anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +56,9 @@ ApplicationWindow {
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked: {
-                    qml_method(123);
+                    var component = Qt.createComponent("iso_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 Rectangle {
                     implicitHeight:parent.height
@@ -300,7 +307,6 @@ ApplicationWindow {
             //            }
         }
     }
-
     Pane {
         id: floating_subcontrol_right
         visible: true
@@ -309,7 +315,7 @@ ApplicationWindow {
         anchors.right: parent.right
         background: Rectangle{
             color: "#20232c"
-            border.color: "#21be2b"
+            //            border.color: "#21be2b"
         }
         ColumnLayout{
             id:grid_pane_right

@@ -17,9 +17,8 @@ Dialog{
         anchors.centerIn: parent
         spacing: 15
         RadioButton {
-            text: "Group 1, Option 1"
+            text: TestObject.getAuthor
             checked: true
-
             onCheckedChanged: {
                 if (checked) {
                     console.log("Group 1, Option 1 selected");

@@ -10,14 +10,22 @@
 
 class TestObject : public QObject{
     Q_OBJECT
+    Q_PROPERTY(QString author READ getAuthor WRITE setAuthor NOTIFY onAuthorChanged FINAL)
 public:
     explicit TestObject(QObject *parent = nullptr);
+    QString getAuthor(){
+        return "name_";
+    }
 
-signals:
-
+    void setAuthor(QString& name){
+        name_ = name;
+    }
 public:
     Q_INVOKABLE void onTestSlot(int a, int b);
+signals:
+    void onAuthorChanged();
 private:
+    QString name_;
     QQuickView* view;
 };
 
