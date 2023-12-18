@@ -2,7 +2,9 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import testobject 1.0
+import QtMultimedia 5.15
+import pkg.producer 1.0
+import pkg.custom_video_surface 1.0
 
 ApplicationWindow {
     id:mainWindow
@@ -23,6 +25,44 @@ ApplicationWindow {
         var dialog = LsDialog.showModal();
         dialog.exec();
     }
+    background: Rectangle {
+        //        Producers{
+        //            id: producer
+        //            //            videoSink:video_output.videoSink
+        //        }
+        //        CustomVideoSurface{
+
+        //        }
+        VideoOutput {
+            id: video_output
+            anchors.fill: parent
+            source: _provider
+        }
+        Timer{
+            id: myTimer
+            interval: 80 // 每隔一秒触发一次定时器
+            running: true   // 启动定时器
+            repeat: true    // 重复执行
+
+            onTriggered: {
+                _provider.test();
+            }
+        }
+        //        MouseArea {
+        //            anchors.fill: parent
+        //            onClicked: {
+        // 在点击时创建并显示新窗口
+
+        //                var component = Qt.createComponent("ls_mode_dlg.qml");
+        //                var dialog = component.createObject(mainWindow);
+        //                dialog.open();
+        //            }
+        //        }
+        //        Component.onCompleted: {
+        //            producer.setVideoSink(video_output.videoSink)
+        //            producer.start()
+        //        }
+    }
     Frame {
         id: floating_subcontrol_left
         visible: true
@@ -31,9 +71,6 @@ ApplicationWindow {
         background: Rectangle{
             color: "#010101"
             //            border.color: "#21be2b"
-        }
-        TestObject {
-            id:cpp_obj
         }
         ColumnLayout{
             anchors.horizontalCenter: parent.horizontalCenter
@@ -99,7 +136,7 @@ ApplicationWindow {
                 Layout.preferredHeight: 34
                 onClicked: {
                     // 在点击时创建并显示新窗口
-                    var component = Qt.createComponent("LsDialog.qml");
+                    var component = Qt.createComponent("ls_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
                 }

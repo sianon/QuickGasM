@@ -11,8 +11,7 @@
         <file>images/param.png</file>
         <file>images/settings.png</file>
         <file>images/ls.png</file>
-        <file>MainButton.qml</file>
-        <file>LsDialog.qml</file>
+        <file>ls_dlg.qml</file>
         <file>settings_dlg.qml</file>
         <file>gas_enhance_dlg.qml</file>
         <file>ls_mode_dlg.qml</file>
