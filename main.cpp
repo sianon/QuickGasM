@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "producer.h"
 #include "frame_provider.h"
 
 int main(int argc, char *argv[])
@@ -16,12 +15,8 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctx = engine.rootContext();
     FrameProvider provider;
-//    ctx->setContextProperty("Config", config);
 
     ctx->setContextProperty("_provider", &provider);
-
-    qmlRegisterType<Producer>("pkg.producer", 1, 0, "Producers");
-    qmlRegisterType<Producer>("pkg.custom_video_surface", 1, 0, "CustomVideoSurface");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

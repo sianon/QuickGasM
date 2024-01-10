@@ -3,8 +3,6 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtMultimedia 5.15
-import pkg.producer 1.0
-import pkg.custom_video_surface 1.0
 
 ApplicationWindow {
     id:mainWindow
@@ -15,7 +13,6 @@ ApplicationWindow {
     color: "#185abd"
     flags: Qt.FramelessWindowHint
 
-    //QML中的方法可以被cpp调用，也可以作为槽函数
     function qml_method(val_arg){
         cpp_obj.onTestSlot(1,2)
         console.log("qml method runing",val_arg,"return ok")
@@ -26,42 +23,21 @@ ApplicationWindow {
         dialog.exec();
     }
     background: Rectangle {
-        //        Producers{
-        //            id: producer
-        //            //            videoSink:video_output.videoSink
-        //        }
-        //        CustomVideoSurface{
-
-        //        }
         VideoOutput {
-            id: video_output
+            id: video_outputs
             anchors.fill: parent
             source: _provider
         }
         Timer{
             id: myTimer
-            interval: 80 // 每隔一秒触发一次定时器
-            running: true   // 启动定时器
-            repeat: true    // 重复执行
+            interval: 800
+            running: true
+            repeat: true
 
             onTriggered: {
                 _provider.test();
             }
         }
-        //        MouseArea {
-        //            anchors.fill: parent
-        //            onClicked: {
-        // 在点击时创建并显示新窗口
-
-        //                var component = Qt.createComponent("ls_mode_dlg.qml");
-        //                var dialog = component.createObject(mainWindow);
-        //                dialog.open();
-        //            }
-        //        }
-        //        Component.onCompleted: {
-        //            producer.setVideoSink(video_output.videoSink)
-        //            producer.start()
-        //        }
     }
     Frame {
         id: floating_subcontrol_left
@@ -70,7 +46,6 @@ ApplicationWindow {
         height: parent.height
         background: Rectangle{
             color: "#010101"
-            //            border.color: "#21be2b"
         }
         ColumnLayout{
             anchors.horizontalCenter: parent.horizontalCenter
@@ -84,7 +59,7 @@ ApplicationWindow {
                     qml_method(123);
                 }
                 Image {
-                    anchors.fill: parent  // 图片充满整个 Rectangle 区域
+                    anchors.fill: parent
                     source: "./images/back.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
                 }
             }
@@ -231,7 +206,7 @@ ApplicationWindow {
 
         background: Rectangle{
             color: "transparent"
-            //            border.color: "#21be2b"
+            //border.color: "#21be2b"
         }
         RowLayout{
             id:grid_right
@@ -352,14 +327,14 @@ ApplicationWindow {
         anchors.right: parent.right
         background: Rectangle{
             color: "#20232c"
-            //            border.color: "#21be2b"
+            //border.color: "#21be2b"
         }
         ColumnLayout{
             id:grid_pane_right
             Layout.fillWidth: true
             Layout.fillHeight: true
             anchors.fill: parent
-            //            anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.horizontalCenter: parent.horizontalCenter
             Button {
                 Layout.fillWidth: true
                 Layout.preferredWidth: 47
@@ -379,10 +354,10 @@ ApplicationWindow {
                 Rectangle {
                     implicitHeight:parent.height
                     implicitWidth:parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image {
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/take_shot.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/take_shot.png"
                     }
                 }
             }
@@ -396,10 +371,10 @@ ApplicationWindow {
                 Rectangle {
                     implicitHeight:parent.height
                     implicitWidth:parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image {
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/record.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/record.png"
                     }
                 }
             }
@@ -413,10 +388,10 @@ ApplicationWindow {
                 Rectangle {
                     implicitHeight:parent.height
                     implicitWidth:parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image {
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/playback.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/playback.png"
                     }
                 }
             }

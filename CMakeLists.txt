@@ -9,10 +9,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/msvc2019_64/lib/cmake")
-#set(Vulkan_INCLUDE_DIR "C:/VulkanSDK/1.3.268.0/Include")
+set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+#set(CMAKE_PREFIX_PATH "/home/cao/qt_5.15.5/lib/cmake")
 
-#set(Qt6_DIR "C:/Qt/6.3.2/msvc2019_64/lib/cmake/Qt6")
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 
@@ -27,7 +26,6 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(quick_demo
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        producer.h producer.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET quick_demo APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -43,9 +41,7 @@ else()
     else()
         add_executable(quick_demo
           ${PROJECT_SOURCES}
-          producer.h
-          producer.cpp
-          custom_video_surface.h
+                custom_video_surface.h
           custom_video_surface.cpp
           frame_provider.h frame_provider.cpp
           video_dlg.h
