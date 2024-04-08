@@ -8,8 +8,8 @@ Dialog{
     modal: true
     width: 200
     height: 150
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+//    x: (parent.width - width) / 2
+//    y: (parent.height - height) / 2
     background:Rectangle {
         color: "#1e2129"
     }
