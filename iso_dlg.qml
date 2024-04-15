@@ -1,51 +1,49 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Window 2.15
 
-Window{
+Dialog{
     id: dialog
-    // modal: true
+    modal: true
     width: 200
     height: 150
-    // x: (parent.height - width) / 2
-    // y: (parent.height - height) / 2
-    x: 100
-    y: 100
-    // background:Rectangle {
-    //     color: "#1e2129"
-    // }
 
-    ColumnLayout{
+    background:Rectangle {
+        color: "#1e2129"
+    }
+
+    ColumnLayout {
         anchors.centerIn: parent
-        spacing: 5
+        spacing: 15
         BeaverRadioBtn{
-            id: myRadioBtn
-            text: "Group 1, Option 1"
-            width: 80
-            height: 10
-            onCheckedChanged:{
-                if(checked){
-                    console.log("Group 1, Option 1 selected");
+            text: TestObject.getAuthor
+            checked: true
+            //            onCheckedChanged: {
+            //                if (checked) {
+            //                    console.log("Group 1, Option 1 selected");
+            //                }
+            //            }
+        }
+        RadioButton {
+            text: "Group 1, Option 2"
+            onCheckedChanged: {
+                if (checked) {
+                    console.log("Group 1, Option 2 selected");
                 }
             }
         }
-        BeaverRadioBtn{
+        RadioButton {
             text: "Group 2, Option 1"
-            width: 80
-            height: 10
-            onCheckedChanged:{
-                if(checked){
+            onCheckedChanged: {
+                if (checked) {
                     console.log("Group 2, Option 1 selected");
                 }
             }
         }
-        BeaverRadioBtn{
+        RadioButton {
             text: "Group 2, Option 2"
-            width: 80
-            height: 10
-            onCheckedChanged:{
-                if(checked){
+            onCheckedChanged: {
+                if (checked) {
                     console.log("Group 2, Option 2 selected");
                 }
             }
