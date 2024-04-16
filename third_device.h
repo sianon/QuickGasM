@@ -1,3 +1,5 @@
+#ifndef QUICK_GAS_COMMON_H
+#define QUICK_GAS_COMMON_H
 #include <string>
 using namespace std;
 
@@ -17,3 +19,4 @@ public:
     virtual bool mbSetValueByPropertyName(QString property_name) = 0;
     virtual QString mvGetValueByPropertyName(QString property_name) = 0;
 };
+#endif // QUICK_GAS_COMMON_H

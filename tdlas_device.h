@@ -6,7 +6,7 @@
 #define QUICK_DEMO_TDLAS_DEVICE_H
 
 #include <QObject>
-#include <QJsonValue>
+// #include <QJsonValue>
 #include "third_device.h"
 
 class TdlasDevice : public QObject, public IThirdDevice{

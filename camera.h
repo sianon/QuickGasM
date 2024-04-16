@@ -2,8 +2,8 @@
 // Created by cao on 24-4-15.
 //
 
-#ifndef QUICK_DEMO_TDLAS_DEVICE_H
-#define QUICK_DEMO_TDLAS_DEVICE_H
+#ifndef QUICK_CAMERA_DEVICE_H
+#define QUICK_CAMERA_DEVICE_H
 
 #include <QObject>
 #include <QJsonObject>
@@ -46,4 +46,4 @@ private:
 
 };
 
-#endif //QUICK_DEMO_TDLAS_DEVICE_H
+#endif //QUICK_CAMERA_DEVICE_H
