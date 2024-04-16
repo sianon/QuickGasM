@@ -3,6 +3,7 @@
 #include <QQmlContext>
 
 #include "frame_provider.h"
+#include "tdlas_device.h"
 
 int main(int argc, char *argv[])
 {
@@ -10,12 +11,12 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
+
+    qmlRegisterType<TdlasDevice>("Local", 1, 0, "TdlasDevice");
 
     QQmlContext *ctx = engine.rootContext();
     FrameProvider provider;
-
     ctx->setContextProperty("_provider", &provider);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));

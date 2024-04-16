@@ -8,23 +8,21 @@
 /*!
  * \brief FrameProvider 作为qml VideoOutput.source
  */
-class FrameProvider : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(QAbstractVideoSurface *videoSurface READ videoSurface WRITE setVideoSurface)
-
+class FrameProvider : public QObject{
+Q_OBJECT
+    Q_PROPERTY(QAbstractVideoSurface* videoSurface READ videoSurface WRITE setVideoSurface)
 
 public:
     FrameProvider();
     ~FrameProvider();
 
-    QAbstractVideoSurface *videoSurface() const;
+    QAbstractVideoSurface* videoSurface() const;
 
     /*!
      * \brief 可设置外部自定义QAbstractVideoSurface
      * \param surface
      */
-    void setVideoSurface(QAbstractVideoSurface *surface);
+    void setVideoSurface(QAbstractVideoSurface* surface);
 
     /*!
      * \brief 设置视频格式
@@ -39,10 +37,11 @@ public slots:
      * \brief 接收外部数据源，视频帧
      * \param frame
      */
-    void onNewVideoContentReceived(const QVideoFrame &frame);
+    void onNewVideoContentReceived(const QVideoFrame& frame);
 
 private:
-    QAbstractVideoSurface *m_surface = NULL;
+    QAbstractVideoSurface* m_surface = NULL;
     QVideoSurfaceFormat m_format;
 };
+
 #endif // FRAMEPRODER_H
