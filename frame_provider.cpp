@@ -48,7 +48,7 @@ void FrameProvider::setFormat(int width, int heigth, QVideoFrame::PixelFormat fo
 
 void FrameProvider::test(){
     int plane = 0;
-    QImage image(640, 480, QImage::Format_ARGB32);
+    QImage image(800, 480, QImage::Format_ARGB32);
     image.fill(QColor::fromRgb(QRandomGenerator::global()->generate()));
     QFont font;
     font.setPointSize(25);
@@ -65,11 +65,6 @@ void FrameProvider::test(){
     setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
     if(m_surface)
         m_surface->present(video_frame);
-
-    //    VideoDialog* dialog = new VideoDialog();
-    //    dialog->show();
-    //    // 在 QDialog 中显示 QVideoFrame
-    //    dialog->setVideoFrame(video_frame);
 }
 
 void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){

@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
         third_device.h
         tdlas_device.cpp
         tdlas_device.h
+        camera.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
