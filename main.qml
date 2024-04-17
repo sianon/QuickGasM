@@ -207,14 +207,14 @@ ApplicationWindow{
     Pane{
         id: floating_subcontrol_mid
         visible: true
-        height: 65
+        height: 110
         Layout.fillWidth: true
         anchors.left: floating_subcontrol_left.right
         anchors.bottom: floating_subcontrol_left.bottom
         anchors.right: floating_subcontrol_right.left
         background: Rectangle{
             color: "transparent"
-            border.color: "#21be2b"
+//            border.color: "#21be2b"
         }
 
         RowLayout{
@@ -223,23 +223,51 @@ ApplicationWindow{
             Layout.fillHeight: true
             anchors.verticalCenter: parent.verticalCenter
             ColumnLayout{
+                Rectangle{
+                    radius: 5 // 设置圆角大小
+                    color: "#553c3f41"
+                    anchors.fill: parent
+                }
+                Layout.preferredWidth: 120
+                Layout.preferredHeight: 110
+                Layout.fillWidth: true
                 Label{
+                    Layout.alignment: Qt.AlignTop
                     text: "辐射率：1.00"
-                    font.pixelSize: 8
+                    color: "#ffffff"
+                    font.pixelSize: 12
+                    leftPadding: 6
+                    topPadding: 6
+                    bottomPadding: 0
                 }
                 Label{
+                    Layout.alignment: Qt.AlignTop
                     id: distance_label
                     text: "距离："
-                    font.pixelSize: 8
+                    color: "#ffffff"
+                    font.pixelSize: 12
+                    leftPadding: 6
+                    topPadding: 2
+                    bottomPadding: 0
                 }
                 Label{
+                    Layout.alignment: Qt.AlignTop
                     id: consentration_label
                     text: "浓度："
-                    font.pixelSize: 8
+                    color: "#ffffff"
+                    font.pixelSize: 12
+                    leftPadding: 6
+                    topPadding: 2
+                    bottomPadding: 0
                 }
                 Label{
+                    Layout.alignment: Qt.AlignTop
                     text: "环境湿度："
-                    font.pixelSize: 8
+                    color: "#ffffff"
+                    font.pixelSize: 12
+                    leftPadding: 6
+                    topPadding: 2
+                    bottomPadding: 0
                 }
                 Timer{
                     id: tdlas_timer
