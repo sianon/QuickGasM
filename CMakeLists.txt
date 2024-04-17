@@ -9,25 +9,18 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
-#set(CMAKE_PREFIX_PATH "/home/cao/qt_5.15.5/lib/cmake")
-set(CMAKE_PREFIX_PATH "C:/Qt/5.15.2/mingw81_64/lib/cmake")
+set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
-)
-
-
-add_executable(quick_demo
-        ${PROJECT_SOURCES}
-        custom_video_surface.h
-        custom_video_surface.cpp
-        frame_provider.h
-        frame_provider.cpp
-        video_dlg.h
+        third_device.h
+        tdlas_device.cpp
+        tdlas_device.h
+        camera.h
 )
 
 

@@ -7,45 +7,38 @@
 #include <QDebug>
 #include "video_dlg.h"
 
-FrameProvider::FrameProvider()
-{
+FrameProvider::FrameProvider(){
 
 }
 
-FrameProvider::~FrameProvider()
-{
+FrameProvider::~FrameProvider(){
 
 }
 
-QAbstractVideoSurface *FrameProvider::videoSurface() const {
+QAbstractVideoSurface* FrameProvider::videoSurface() const{
     return m_surface;
 }
 
-void FrameProvider::setVideoSurface(QAbstractVideoSurface *surface)
-{
-    if (m_surface && m_surface != surface  && m_surface->isActive()) {
+void FrameProvider::setVideoSurface(QAbstractVideoSurface* surface){
+    if(m_surface && m_surface != surface && m_surface->isActive()){
         m_surface->stop();
     }
 
     m_surface = surface;
 
-    if (m_surface && m_format.isValid())
-    {
+    if(m_surface && m_format.isValid()){
         m_format = m_surface->nearestFormat(m_format);
         m_surface->start(m_format);
     }
 }
 
-void FrameProvider::setFormat(int width, int heigth, QVideoFrame::PixelFormat format)
-{
+void FrameProvider::setFormat(int width, int heigth, QVideoFrame::PixelFormat format){
     QSize size(width, heigth);
     QVideoSurfaceFormat vsformat(size, format);
     m_format = vsformat;
 
-    if (m_surface)
-    {
-        if (m_surface->isActive())
-        {
+    if(m_surface){
+        if(m_surface->isActive()){
             m_surface->stop();
         }
         m_format = m_surface->nearestFormat(m_format);
@@ -53,10 +46,9 @@ void FrameProvider::setFormat(int width, int heigth, QVideoFrame::PixelFormat fo
     }
 }
 
-void FrameProvider::test()
-{
+void FrameProvider::test(){
     int plane = 0;
-    QImage image(640, 480, QImage::Format_ARGB32);
+    QImage image(800, 480, QImage::Format_ARGB32);
     image.fill(QColor::fromRgb(QRandomGenerator::global()->generate()));
     QFont font;
     font.setPointSize(25);
@@ -67,21 +59,15 @@ void FrameProvider::test()
     painter.end();
 
     QVideoFrame video_frame(image);
-//    video_frame.unmap();
+    //    video_frame.unmap();
 
     //按照视频帧设置格式
-    setFormat(video_frame.width(),video_frame.height(),video_frame.pixelFormat());
-    if (m_surface)
+    setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
+    if(m_surface)
         m_surface->present(video_frame);
-
-//    VideoDialog* dialog = new VideoDialog();
-//    dialog->show();
-//    // 在 QDialog 中显示 QVideoFrame
-//    dialog->setVideoFrame(video_frame);
 }
 
-void FrameProvider::onNewVideoContentReceived(const QVideoFrame &frame)
-{
+void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
     int plane = 0;
     QImage image(640, 480, QImage::Format_ARGB32);
     image.fill(QColor::fromRgb(QRandomGenerator::global()->generate()));
@@ -97,8 +83,8 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame &frame)
     video_frame.unmap();
 
     //按照视频帧设置格式
-    setFormat(video_frame.width(),video_frame.height(),video_frame.pixelFormat());
-    if (m_surface)
+    setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
+    if(m_surface)
         m_surface->present(video_frame);
 
     VideoDialog dialog;
