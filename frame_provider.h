@@ -4,44 +4,33 @@
 #include <QObject>
 #include <QAbstractVideoSurface>
 #include <QVideoSurfaceFormat>
+#include "common.h"
 
-/*!
- * \brief FrameProvider 作为qml VideoOutput.source
- */
 class FrameProvider : public QObject{
 Q_OBJECT
     Q_PROPERTY(QAbstractVideoSurface* videoSurface READ videoSurface WRITE setVideoSurface)
-
 public:
     FrameProvider();
     ~FrameProvider();
 
     QAbstractVideoSurface* videoSurface() const;
 
-    /*!
-     * \brief 可设置外部自定义QAbstractVideoSurface
-     * \param surface
-     */
     void setVideoSurface(QAbstractVideoSurface* surface);
 
-    /*!
-     * \brief 设置视频格式
-     * \param width     视频宽
-     * \param heigth    视频高
-     * \param format    enum QVideoFrame::PixelFormat
-     */
     void setFormat(int width, int heigth, QVideoFrame::PixelFormat format);
+
+    inline void mvSetRenderType(VideoType type){
+        render_type_ = type;
+    }
+
     Q_INVOKABLE void test();
 public slots:
-    /*!
-     * \brief 接收外部数据源，视频帧
-     * \param frame
-     */
     void onNewVideoContentReceived(const QVideoFrame& frame);
 
 private:
     QAbstractVideoSurface* m_surface = NULL;
     QVideoSurfaceFormat m_format;
+    VideoType render_type_;
 };
 
 #endif // FRAMEPRODER_H

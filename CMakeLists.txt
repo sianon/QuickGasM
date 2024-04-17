@@ -21,6 +21,11 @@ set(PROJECT_SOURCES
         tdlas_device.cpp
         tdlas_device.h
         camera.h
+        video_hub.h
+        video_hub.cpp
+        common.h
+        RingBuffer.cpp
+        RingBuffer.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

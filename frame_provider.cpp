@@ -7,7 +7,8 @@
 #include <QDebug>
 #include "video_dlg.h"
 
-FrameProvider::FrameProvider(){
+FrameProvider::FrameProvider()
+:render_type_(VIDEO_TYPE_WHITE){
 
 }
 
