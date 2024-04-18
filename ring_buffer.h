@@ -2,13 +2,14 @@
 // Created by cao on 24-4-17.
 //
 
-#ifndef QUICK_DEMO_RINGBUFFER_H
-#define QUICK_DEMO_RINGBUFFER_H
+#ifndef QUICK_DEMO_RING_BUFFER_H
+#define QUICK_DEMO_RING_BUFFER_H
 
 #include <atomic>
+#include <iostream>
 #include "common.h"
 
-#define LOCK_FREE_Q_DEFAULT_SIZE 60
+#define LOCK_FREE_Q_DEFAULT_SIZE 25
 #define QUEUE_INT unsigned int
 
 template<typename ELEM_T, QUEUE_INT Q_SIZE = LOCK_FREE_Q_DEFAULT_SIZE>
@@ -25,7 +26,9 @@ public:
 
     }
 
-    QUEUE_INT size();
+    QUEUE_INT size(){
+        return count_;
+    }
     bool enqueue(const ELEM_T& a_data);
     bool dequeue(ELEM_T& a_data);
 //    bool try_dequeue(ELEM_T& a_data);
@@ -50,6 +53,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::enqueue(const ELEM_T& a_data){
         current_write_index = write_index_;
         current_read_index = read_index_;
         if(countToIndex(current_write_index + 1) == countToIndex(current_read_index)){
+            std::cout << "RingBuffer is full:" << size() << std::endl;
             return false;
         }
     }while(!CAS(&write_index_, current_write_index, (current_write_index + 1)));
@@ -59,7 +63,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::enqueue(const ELEM_T& a_data){
         sched_yield();
     }
     count_++;
-
+    std::cout << "En----RingBuffer size:" << size() << "count:" << count_ << std::endl;
     return true;
 }
 
@@ -77,6 +81,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::dequeue(ELEM_T& a_data){
 
         a_data = thequeue_[countToIndex(current_read_index)];
 
+        std::cout << "Deq----RingBuffer size:" << size() << "count:" << count_ << std::endl;
         if(CAS(&read_index_, current_read_index, (current_read_index + 1))){
             count_--;
             return true;
@@ -87,4 +92,4 @@ bool RingBuffer<ELEM_T, Q_SIZE>::dequeue(ELEM_T& a_data){
 
 }
 
-#endif //QUICK_DEMO_RINGBUFFER_H
+#endif //QUICK_DEMO_RING_BUFFER_H

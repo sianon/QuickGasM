@@ -3,5 +3,5 @@
 //
 #include "video_hub.h"
 
-static VideoHub* instance_ = nullptr;
-static std::mutex mutex_;
+VideoHub* VideoHub::instance_;
+std::mutex VideoHub::mutex_;

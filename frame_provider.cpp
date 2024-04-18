@@ -6,6 +6,7 @@
 #include <QVideoFrame>
 #include <QDebug>
 #include "video_dlg.h"
+#include "video_hub.h"
 
 FrameProvider::FrameProvider()
 :render_type_(VIDEO_TYPE_WHITE){
@@ -59,6 +60,8 @@ void FrameProvider::test(){
     painter.drawText(image.rect(), Qt::AlignCenter, QDateTime::currentDateTime().toString());
     painter.end();
 
+    image = VideoHub::moGetInstance()->moGetVideoFromQueue(render_type_);
+    if(image.isNull()) return;
     QVideoFrame video_frame(image);
     //    video_frame.unmap();
 
@@ -92,5 +95,9 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
     dialog.show();
     // 在 QDialog 中显示 QVideoFrame
     dialog.setVideoFrame(video_frame);
+}
+
+void FrameProvider::mvSetRanderMode(){
+    render_type_;
 }
 

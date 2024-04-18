@@ -24,6 +24,7 @@ public:
     }
 
     Q_INVOKABLE void test();
+    Q_INVOKABLE void mvSetRanderMode();
 public slots:
     void onNewVideoContentReceived(const QVideoFrame& frame);
 

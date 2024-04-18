@@ -2,8 +2,11 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
+#include <thread>
+
 #include "frame_provider.h"
 #include "tdlas_device.h"
+#include "video_hub.h"
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +17,10 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<TdlasDevice>("Local", 1, 0, "TdlasDevice");
+
+    thread t1([&]() {
+        VideoHub::moGetInstance()->mvTest();
+    });
 
     QQmlContext *ctx = engine.rootContext();
     FrameProvider provider;

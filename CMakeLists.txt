@@ -11,8 +11,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
 
+find_package(PkgConfig REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
+
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 set(PROJECT_SOURCES
         main.cpp
@@ -24,8 +28,8 @@ set(PROJECT_SOURCES
         video_hub.h
         video_hub.cpp
         common.h
-        RingBuffer.cpp
-        RingBuffer.h
+        ring_buffer.cpp
+        ring_buffer.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -56,7 +60,7 @@ else()
 endif()
 
 target_link_libraries(quick_demo
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Widgets Qt5::Multimedia)
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Widgets Qt5::Multimedia ${OpenCV_LIBS})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

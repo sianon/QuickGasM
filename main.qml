@@ -14,8 +14,11 @@ ApplicationWindow{
     color: "#185abd"
     flags: Qt.FramelessWindowHint
 
-    function qml_method(val_arg){
-        cpp_obj.onTestSlot(1, 2)
+    function testbtn(val_arg){
+        console.log("testbtn", val_arg, "return ok")
+        return "ok"
+    }
+    function switchRenderMode(val_arg){
         console.log("qml method runing", val_arg, "return ok")
         return "ok"
     }
@@ -37,7 +40,7 @@ ApplicationWindow{
         }
         Timer{
             id: myTimer
-            interval: 800
+            interval: 40
             running: true
             repeat: true
 
@@ -63,7 +66,7 @@ ApplicationWindow{
                 id: mybutton
 
                 onClicked:{
-                    qml_method(123);
+                    testbtn(123);
                 }
                 Image{
                     anchors.fill: parent
@@ -313,7 +316,7 @@ ApplicationWindow{
                         anchors.fill: parent
                     }
                     onClicked:{
-                        qml_method(123);
+                        testbtn(123);
                     }
                     text: "曝"
                 }
@@ -328,7 +331,7 @@ ApplicationWindow{
                         anchors.fill: parent
                     }
                     onClicked:{
-                        qml_method(123);
+                        testbtn(123);
                     }
                     text: "锁"
                 }
@@ -343,7 +346,7 @@ ApplicationWindow{
                         anchors.fill: parent
                     }
                     onClicked:{
-                        qml_method(123);
+                        testbtn(123);
                     }
                     text: "激"
                 }
@@ -378,7 +381,7 @@ ApplicationWindow{
                     anchors.fill: parent
                 }
                 onClicked:{
-                    qml_method(123);
+                    switchRenderMode(123);
                 }
                 text: "切"
             }
@@ -388,7 +391,6 @@ ApplicationWindow{
                 //                Layout.preferredHeight: 30
                 Layout.margins: 0
                 onPressed:{
-                    //                    qml_method(123);
                     canvas.circleColor = "#cacacb";
                     canvas.requestPaint();
                 }
@@ -434,7 +436,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 47
                 Layout.preferredHeight: 47
                 onClicked:{
-                    qml_method(123);
+                    testbtn(123);
                 }
                 Rectangle{
                     implicitHeight: parent.height
@@ -451,7 +453,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 47
                 Layout.preferredHeight: 47
                 onClicked:{
-                    qml_method(123);
+                    testbtn(123);
                 }
                 Rectangle{
                     implicitHeight: parent.height
