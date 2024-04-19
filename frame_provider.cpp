@@ -54,13 +54,14 @@ void FrameProvider::test(){
     image.fill(QColor::fromRgb(QRandomGenerator::global()->generate()));
     QFont font;
     font.setPointSize(25);
-
-    QPainter painter(&image);
-    painter.setFont(font);
-    painter.drawText(image.rect(), Qt::AlignCenter, QDateTime::currentDateTime().toString());
-    painter.end();
-
     image = VideoHub::moGetInstance()->moGetVideoFromQueue(render_type_);
+//    QPainter painter(&image);
+//    painter.setFont(font);
+////    painter.drawText(image.rect(), Qt::AlignCenter,  QDateTime::currentDateTime().toString());
+//    painter.drawText(image.rect(), Qt::AlignCenter, "韩");
+//    painter.end();
+
+
     if(image.isNull()) return;
     QVideoFrame video_frame(image);
     //    video_frame.unmap();
@@ -98,6 +99,9 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
 }
 
 void FrameProvider::mvSetRanderMode(){
-    render_type_;
+    if(render_type_ == VIDEO_TYPE_WHITE)
+        render_type_ = VIDEO_TYPE_THERMAL;
+    else
+        render_type_ = VIDEO_TYPE_WHITE;
 }
 

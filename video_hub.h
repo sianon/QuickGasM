@@ -15,11 +15,13 @@
 #include <opencv4/opencv2/opencv.hpp>
 #include <chrono>
 #include <thread>
+#include <string>
 
 #include "common.h"
 #include "ring_buffer.h"
 
 //class RingBuffer;
+using namespace std;
 
 class VideoHub{
 public:
@@ -33,8 +35,8 @@ public:
         return instance_;
     }
 
-    int mvTest(){
-        cv::VideoCapture cap("thermal1.mp4");
+    int mvTest(VideoType ens, string file_name){
+        cv::VideoCapture cap(file_name);
 
         if(!cap.isOpened()){
             std::cerr << "Error: Unable to open video file" << std::endl;
@@ -58,7 +60,7 @@ public:
             cv::cvtColor(frame, rgbMat, cv::COLOR_BGR2RGBA);
 
             QImage img(rgbMat.data, rgbMat.cols, rgbMat.rows, QImage::Format_RGBA8888);
-            mvPushVideo2Queue(VIDEO_TYPE_WHITE, img.rgbSwapped());
+            mvPushVideo2Queue(ens, img.rgbSwapped());
         }
         cap.release();
     }

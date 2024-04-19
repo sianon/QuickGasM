@@ -19,6 +19,7 @@ ApplicationWindow{
         return "ok"
     }
     function switchRenderMode(val_arg){
+        providers.mvSetRanderMode();
         console.log("qml method runing", val_arg, "return ok")
         return "ok"
     }
@@ -32,11 +33,15 @@ ApplicationWindow{
         id: tdlas_ctrl
     }
 
+    FrameProvider{
+        id: providers
+    }
+
     background: Rectangle{
         VideoOutput{
             id: video_outputs
             anchors.fill: parent
-            source: _provider
+            source: providers
         }
         Timer{
             id: myTimer
@@ -45,7 +50,7 @@ ApplicationWindow{
             repeat: true
 
             onTriggered:{
-                _provider.test();
+                providers.test();
             }
         }
     }

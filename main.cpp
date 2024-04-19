@@ -19,12 +19,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<TdlasDevice>("Local", 1, 0, "TdlasDevice");
 
     thread t1([&]() {
-        VideoHub::moGetInstance()->mvTest();
+        VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_THERMAL, "thermal1.mp4");
+    });
+    thread t2([&]() {
+        VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_WHITE, "thermal2.mp4");
     });
 
     QQmlContext *ctx = engine.rootContext();
-    FrameProvider provider;
-    ctx->setContextProperty("_provider", &provider);
+
+    qmlRegisterType<FrameProvider>("Local", 1, 0, "FrameProvider");
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
