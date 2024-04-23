@@ -63,7 +63,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::enqueue(const ELEM_T& a_data){
         sched_yield();
     }
     count_++;
-    std::cout << "En----RingBuffer size:" << size() << "count:" << count_ << std::endl;
+//    std::cout << "En----RingBuffer size:" << size() << "count:" << count_ << std::endl;
     return true;
 }
 
@@ -81,7 +81,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::dequeue(ELEM_T& a_data){
 
         a_data = thequeue_[countToIndex(current_read_index)];
 
-        std::cout << "Deq----RingBuffer size:" << size() << "count:" << count_ << std::endl;
+//        std::cout << "Deq----RingBuffer size:" << size() << "count:" << count_ << std::endl;
         if(CAS(&read_index_, current_read_index, (current_read_index + 1))){
             count_--;
             return true;

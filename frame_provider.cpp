@@ -5,11 +5,69 @@
 #include <QRandomGenerator>
 #include <QVideoFrame>
 #include <QDebug>
+
 #include "video_dlg.h"
 #include "video_hub.h"
+#include "common.h"
 
-FrameProvider::FrameProvider()
-:render_type_(VIDEO_TYPE_WHITE){
+cv::Mat oQImage2Mat(const QImage &image){
+    cv::Mat mat;
+    int height, width;
+    float ratio;
+    switch(image.format()){
+        case QImage::Format_Grayscale8:
+            mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*) image.constBits(), image.bytesPerLine());
+            break;
+        case QImage::Format_ARGB32: // uint32存储0xAARRGGBB，pc一般小端存储低位在前，所以字节顺序就成了BGRA
+        case QImage::Format_RGB32: // Alpha为FF
+            //    case QImage::Format_ARGB32_Premultiplied:
+            //        mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
+            //        break;
+        case QImage::Format_ARGB32_Premultiplied:{
+            mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*) image.constBits(), image.bytesPerLine());
+            std::vector<cv::Mat> channels;
+            split(mat, channels);
+            channels.pop_back();
+            cv::merge(channels, mat);
+            return mat;
+        }
+        case QImage::Format_RGB888: // RR,GG,BB字节顺序存储
+        case QImage::Format_RGBA8888:
+            mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*) image.constBits(), image.bytesPerLine());
+            return mat.clone();
+            break;
+        case QImage::Format_RGBA64: // uint64存储，顺序和Format_ARGB32相反，RGBA
+            mat = cv::Mat(image.height(), image.width(), CV_16UC4, (void*) image.constBits(), image.bytesPerLine());
+            // opencv需要转为BGRA的字节顺序
+            cv::cvtColor(mat, mat, cv::COLOR_RGBA2BGRA);
+            break;
+
+        case QImage::Format_Mono:
+        case QImage::Format_MonoLSB:{
+            QImage rgbImage = image.convertToFormat(QImage::Format_Grayscale8);
+            return cv::Mat(rgbImage.height(), rgbImage.width(), CV_8UC1, (void*) rgbImage.bits(),
+                           rgbImage.bytesPerLine()).clone();
+        }
+        case QImage::Format_Indexed8:{
+            mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*) image.constBits(), image.bytesPerLine());
+            return mat.clone();
+        }
+        default:
+            return mat;
+    }
+//    int x, y;
+//    height = image.height() * ratio;
+//    width = image.width() * ratio;
+//
+//    x = (image.width() - width) / 2;
+//    y = (image.height() - height) / 2;
+//
+//    cv::Mat roi(mat, cv::Rect(x, y, width, height));
+    return mat;
+}
+
+
+FrameProvider::FrameProvider() : render_type_(VIDEO_TYPE_WHITE){
 
 }
 
@@ -51,20 +109,23 @@ void FrameProvider::setFormat(int width, int heigth, QVideoFrame::PixelFormat fo
 void FrameProvider::test(){
     int plane = 0;
     QImage image(800, 480, QImage::Format_ARGB32);
+    QImage image_tmp(800, 480, QImage::Format_ARGB32);
     image.fill(QColor::fromRgb(QRandomGenerator::global()->generate()));
     QFont font;
     font.setPointSize(25);
     image = VideoHub::moGetInstance()->moGetVideoFromQueue(render_type_);
-//    QPainter painter(&image);
-//    painter.setFont(font);
-////    painter.drawText(image.rect(), Qt::AlignCenter,  QDateTime::currentDateTime().toString());
-//    painter.drawText(image.rect(), Qt::AlignCenter, "韩");
-//    painter.end();
+    //    QPainter painter(&image);
+    //    painter.setFont(font);
+    ////    painter.drawText(image.rect(), Qt::AlignCenter,  QDateTime::currentDateTime().toString());
+    //    painter.drawText(image.rect(), Qt::AlignCenter, "韩");
+    //    painter.end();
 
-
+//    scale_ratio_ = 1;
     if(image.isNull()) return;
+    if(scale_ratio_ < 1){
+        mvScaleImage(image);
+    }
     QVideoFrame video_frame(image);
-    //    video_frame.unmap();
 
     //按照视频帧设置格式
     setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
@@ -92,10 +153,10 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
     if(m_surface)
         m_surface->present(video_frame);
 
-    VideoDialog dialog;
-    dialog.show();
-    // 在 QDialog 中显示 QVideoFrame
-    dialog.setVideoFrame(video_frame);
+//    VideoDialog dialog;
+//    dialog.show();
+//    // 在 QDialog 中显示 QVideoFrame
+//    dialog.setVideoFrame(video_frame);
 }
 
 void FrameProvider::mvSetRanderMode(){
@@ -105,3 +166,53 @@ void FrameProvider::mvSetRanderMode(){
         render_type_ = VIDEO_TYPE_WHITE;
 }
 
+QImage FrameProvider::mvScaleImage(QImage& image){
+    if(image.isNull()) return QImage();
+
+    using namespace cv;
+    int height, width;
+    float ratio = scale_ratio_;
+    Mat src, res, dest, rgba_roi;
+
+    src = oQImage2Mat(image);
+    if(!src.data){
+        printf("could not load image...\n");
+        return QImage();
+    }
+
+    dest = Mat::zeros(480, 800, CV_8UC4);
+    int x, y;
+    height = image.height() * ratio;
+    width = image.width() * ratio;
+    x = (image.width() - width) / 2;
+    y = (image.height() - height) / 2;
+
+    cv::Mat roi(src, cv::Rect(x, y, width, height));
+
+    resize(roi, dest, dest.size(), cv::INTER_NEAREST);
+    cv::cvtColor(roi, rgba_roi, cv::COLOR_BGR2RGBA);
+//    cv::imshow( "scale test", src );
+    QImage res_img(rgba_roi.data, roi.cols, roi.rows, QImage::Format_RGBA8888);
+    image = res_img.copy();
+    return QImage();
+    //    /* 图像金字塔 */
+    //    Mat dst3, dst4;
+    //    pyrUp(src, dst3, Size(src.cols * 1, src.rows * 1)); //放大一倍
+    //    pyrDown(src, dst4, Size(src.cols * 0.5, src.rows * 0.5)); //缩小为原来的一半
+}
+
+void FrameProvider::mvSetScaleRatio(float ratio){
+    scale_ratio_ = ratio;
+}
+
+void FrameProvider::mvZoomIn(){
+    if(scale_ratio_ <= 0.1f)
+        return;
+    scale_ratio_ -= 0.1;
+}
+
+void FrameProvider::mvZoomOut(){
+    if(scale_ratio_ > 1.0f)
+        return;
+    scale_ratio_ += 0.1;
+}

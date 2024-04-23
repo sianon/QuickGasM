@@ -9,6 +9,8 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <opencv2/opencv.hpp>
+#include <QImage>
 
 #define CAS(a_ptr, a_oldVal, a_newVal) __sync_bool_compare_and_swap(a_ptr, a_oldVal, a_newVal)
 
@@ -17,4 +19,5 @@ enum VideoType{
     VIDEO_TYPE_THERMAL,
     VIDEO_TYPE_MIX
 };
+
 #endif //QUICK_DEMO_COMMON_H

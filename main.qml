@@ -14,8 +14,14 @@ ApplicationWindow{
     color: "#185abd"
     flags: Qt.FramelessWindowHint
 
-    function testbtn(val_arg){
-        console.log("testbtn", val_arg, "return ok")
+    function zoomin(val_arg){
+        providers.mvZoomIn();
+        console.log("zoomin", val_arg, "return ok")
+        return "ok"
+    }
+    function zoomout(val_arg){
+        providers.mvZoomOut();
+        console.log("zoomout", val_arg, "return ok")
         return "ok"
     }
     function switchRenderMode(val_arg){
@@ -354,6 +360,36 @@ ApplicationWindow{
                         testbtn(123);
                     }
                     text: "激"
+                }
+                Button{
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 33
+                    Layout.preferredHeight: 33
+                    background: Rectangle{
+                        radius: 15 // 设置圆角大小
+                        color: parent.pressed ? "#881d262f" : "#00552623"
+                        border.width: 1
+                        anchors.fill: parent
+                    }
+                    onClicked:{
+                        zoomin(123);
+                    }
+                    text: "+"
+                }
+                Button{
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 33
+                    Layout.preferredHeight: 33
+                    background: Rectangle{
+                        radius: 15 // 设置圆角大小
+                        color: parent.pressed ? "#881d262f" : "#00552623"
+                        border.width: 1
+                        anchors.fill: parent
+                    }
+                    onClicked:{
+                        zoomout(123);
+                    }
+                    text: "-"
                 }
             }
         }

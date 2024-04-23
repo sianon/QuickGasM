@@ -24,6 +24,10 @@ public:
     }
 
     Q_INVOKABLE void test();
+    Q_INVOKABLE void mvSetScaleRatio(float ratio);
+    Q_INVOKABLE void mvZoomIn();
+    Q_INVOKABLE void mvZoomOut();
+    Q_INVOKABLE QImage mvScaleImage(QImage& img);
     Q_INVOKABLE void mvSetRanderMode();
 public slots:
     void onNewVideoContentReceived(const QVideoFrame& frame);
@@ -32,6 +36,7 @@ private:
     QAbstractVideoSurface* m_surface = NULL;
     QVideoSurfaceFormat m_format;
     VideoType render_type_;
+    float scale_ratio_ = 1;
 };
 
 #endif // FRAMEPRODER_H
