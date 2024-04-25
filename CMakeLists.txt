@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
         common.h
         ring_buffer.cpp
         ring_buffer.h
+        device_status.h
+        src/device_control.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

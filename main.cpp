@@ -7,6 +7,7 @@
 #include "frame_provider.h"
 #include "tdlas_device.h"
 #include "video_hub.h"
+#include "device_status.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     qmlRegisterType<TdlasDevice>("Local", 1, 0, "TdlasDevice");
+    qmlRegisterType<DeviceStatus>("Local", 1, 0, "DeviceStatus");
 
     thread t1([&]() {
         VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_THERMAL, "thermal1.mp4");

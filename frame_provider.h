@@ -1,5 +1,5 @@
-#ifndef FRAMEPRODER_H
-#define FRAMEPRODER_H
+#ifndef FRAMEPROVIDER_H
+#define FRAMEPROVIDER_H
 
 #include <QObject>
 #include <QAbstractVideoSurface>
@@ -39,4 +39,4 @@ private:
     float scale_ratio_ = 1;
 };
 
-#endif // FRAMEPRODER_H
+#endif // FRAMEPROVIDER_H

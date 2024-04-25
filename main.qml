@@ -42,6 +42,9 @@ ApplicationWindow{
     FrameProvider{
         id: providers
     }
+    DeviceStatus{
+        id: device_status
+    }
 
     background: Rectangle{
         VideoOutput{
@@ -90,7 +93,7 @@ ApplicationWindow{
                 Layout.preferredHeight: 34
                 onClicked:{
                     var component = Qt.createComponent("iso_dlg.qml");
-                    var dialog = component.createObject(mainWindow);
+                    var dialog = component.createObject(mainWindow);            
                     dialog.open();
                 }
                 Rectangle{
@@ -202,17 +205,34 @@ ApplicationWindow{
 
                         var formattedTime = padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
                         timeLabel.text = formattedTime;
-                        // 通过Qt调用UI线程更新Text元素的文本
-                        //                        Qt.callLater(function() {
-                        //                            timeLabel.text = + formattedTime;
-                        //                        });
+                        signal_label.text = device_status.mvGetSignalLevel();
+                        battery_label.text = device_status.mvGetBatteryLevel();
+                        wifi_label.text = device_status.mvGetWifiLevel();
                     }
                 }
 
                 Text{
                     id: timeLabel
                     text: ""
-                    font.pixelSize: 8
+                    font.pixelSize: 12
+                    color: "#ffffff"
+                }
+                Label{
+                    id: signal_label
+                    text: "signal"
+                    font.pixelSize: 12
+                    color: "#ffffff"
+                }
+                Label{
+                    id: battery_label
+                    text: "battery"
+                    font.pixelSize: 12
+                    color: "#ffffff"
+                }
+                Label{
+                    id: wifi_label
+                    text: "wifi"
+                    font.pixelSize: 12
                     color: "#ffffff"
                 }
             }
