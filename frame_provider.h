@@ -5,6 +5,7 @@
 #include <QAbstractVideoSurface>
 #include <QVideoSurfaceFormat>
 #include "common.h"
+#include "color_setting.h"
 
 class FrameProvider : public QObject{
 Q_OBJECT
@@ -23,6 +24,10 @@ public:
         render_type_ = type;
     }
 
+    Q_INVOKABLE void mvSetColorType(QString type){
+        color_setting_.mbChangeColorByName(type);
+    }
+
     Q_INVOKABLE void test();
     Q_INVOKABLE void mvSetScaleRatio(float ratio);
     Q_INVOKABLE void mvZoomIn();
@@ -37,6 +42,8 @@ private:
     QVideoSurfaceFormat m_format;
     VideoType render_type_;
     float scale_ratio_ = 1;
+
+    ColorSetting color_setting_;
 };
 
 #endif // FRAMEPROVIDER_H

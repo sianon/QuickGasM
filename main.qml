@@ -135,7 +135,7 @@ ApplicationWindow{
                 Layout.preferredHeight: 34
                 onClicked:{
                     // 在点击时创建并显示新窗口
-                    var component = Qt.createComponent("ls_dlg.qml");
+                    var component = Qt.createComponent("color_setting_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
                 }

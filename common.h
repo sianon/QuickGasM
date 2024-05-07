@@ -20,4 +20,12 @@ enum VideoType{
     VIDEO_TYPE_MIX
 };
 
+enum ColorType{
+    COLOR_TYPE_NULL = 0,
+    COLOR_TYPE_IRON_RED,
+    COLOR_TYPE_BLACK_WITHE,
+    COLOR_TYPE_RAINBOW,
+    COLOR_TYPE_RED
+};
+
 #endif //QUICK_DEMO_COMMON_H

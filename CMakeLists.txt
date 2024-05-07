@@ -32,6 +32,7 @@ set(PROJECT_SOURCES
         ring_buffer.h
         device_status.h
         src/device_control.h
+        color_setting.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

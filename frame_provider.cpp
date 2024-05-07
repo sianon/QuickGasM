@@ -5,6 +5,7 @@
 #include <QRandomGenerator>
 #include <QVideoFrame>
 #include <QDebug>
+#include <opencv2/imgproc.hpp>
 
 #include "video_dlg.h"
 #include "video_hub.h"
@@ -55,14 +56,14 @@ cv::Mat oQImage2Mat(const QImage &image){
         default:
             return mat;
     }
-//    int x, y;
-//    height = image.height() * ratio;
-//    width = image.width() * ratio;
-//
-//    x = (image.width() - width) / 2;
-//    y = (image.height() - height) / 2;
-//
-//    cv::Mat roi(mat, cv::Rect(x, y, width, height));
+    //    int x, y;
+    //    height = image.height() * ratio;
+    //    width = image.width() * ratio;
+    //
+    //    x = (image.width() - width) / 2;
+    //    y = (image.height() - height) / 2;
+    //
+    //    cv::Mat roi(mat, cv::Rect(x, y, width, height));
     return mat;
 }
 
@@ -114,17 +115,11 @@ void FrameProvider::test(){
     QFont font;
     font.setPointSize(25);
     image = VideoHub::moGetInstance()->moGetVideoFromQueue(render_type_);
-    //    QPainter painter(&image);
-    //    painter.setFont(font);
-    ////    painter.drawText(image.rect(), Qt::AlignCenter,  QDateTime::currentDateTime().toString());
-    //    painter.drawText(image.rect(), Qt::AlignCenter, "韩");
-    //    painter.end();
 
-//    scale_ratio_ = 1;
     if(image.isNull()) return;
-    if(scale_ratio_ < 1){
-        mvScaleImage(image);
-    }
+    //    if(scale_ratio_ < 1){
+    mvScaleImage(image);
+    //    }
     QVideoFrame video_frame(image);
 
     //按照视频帧设置格式
@@ -152,11 +147,6 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
     setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
     if(m_surface)
         m_surface->present(video_frame);
-
-//    VideoDialog dialog;
-//    dialog.show();
-//    // 在 QDialog 中显示 QVideoFrame
-//    dialog.setVideoFrame(video_frame);
 }
 
 void FrameProvider::mvSetRanderMode(){
@@ -172,33 +162,59 @@ QImage FrameProvider::mvScaleImage(QImage& image){
     using namespace cv;
     int height, width;
     float ratio = scale_ratio_;
-    Mat src, res, dest, rgba_roi;
+    Mat src, res, dest, rgba_roi, roi;
 
     src = oQImage2Mat(image);
+    roi = src;
+
     if(!src.data){
         printf("could not load image...\n");
         return QImage();
     }
 
-    dest = Mat::zeros(480, 800, CV_8UC4);
-    int x, y;
-    height = image.height() * ratio;
-    width = image.width() * ratio;
-    x = (image.width() - width) / 2;
-    y = (image.height() - height) / 2;
+    if(scale_ratio_ < 1){
+        dest = Mat::zeros(480, 800, CV_8UC4);
+        int x, y;
+        height = image.height() * ratio;
+        width = image.width() * ratio;
+        x = (image.width() - width) / 2;
+        y = (image.height() - height) / 2;
 
-    cv::Mat roi(src, cv::Rect(x, y, width, height));
+        cv::Mat tmp_roi(src, cv::Rect(x, y, width, height));
 
-    resize(roi, dest, dest.size(), cv::INTER_NEAREST);
-    cv::cvtColor(roi, rgba_roi, cv::COLOR_BGR2RGBA);
-//    cv::imshow( "scale test", src );
-    QImage res_img(rgba_roi.data, roi.cols, roi.rows, QImage::Format_RGBA8888);
+        resize(tmp_roi, dest, dest.size(), cv::INTER_LINEAR);
+        roi = tmp_roi;
+    }
+
+
+    Mat im_color;
+    if(render_type_ == VIDEO_TYPE_THERMAL && color_setting_.meGetCurrentColorType() != COLOR_TYPE_NULL){
+        cv::cvtColor(roi, roi, cv::COLOR_BGRA2GRAY);
+        auto color_template = COLORMAP_HOT;
+        switch(color_setting_.meGetCurrentColorType()){
+            case COLOR_TYPE_IRON_RED:{
+                color_template = COLORMAP_INFERNO;
+            }break;
+            case COLOR_TYPE_BLACK_WITHE:{
+                color_template = COLORMAP_BONE;
+            }break;
+            case COLOR_TYPE_RAINBOW:{
+                color_template = COLORMAP_RAINBOW;
+            }break;
+            default:
+                color_template = COLORMAP_HOT;
+        }
+
+        applyColorMap(roi, im_color, color_template);
+        cv::cvtColor(im_color, im_color, cv::COLOR_RGB2RGBA);
+    }else{
+        cv::cvtColor(roi, im_color, cv::COLOR_RGB2RGBA);
+    }
+
+    QImage res_img(im_color.data, roi.cols, roi.rows, QImage::Format_RGBA8888);
     image = res_img.copy();
+
     return QImage();
-    //    /* 图像金字塔 */
-    //    Mat dst3, dst4;
-    //    pyrUp(src, dst3, Size(src.cols * 1, src.rows * 1)); //放大一倍
-    //    pyrDown(src, dst4, Size(src.cols * 0.5, src.rows * 0.5)); //缩小为原来的一半
 }
 
 void FrameProvider::mvSetScaleRatio(float ratio){
