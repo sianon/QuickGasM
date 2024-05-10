@@ -6,7 +6,13 @@
 #include <QVideoFrame>
 #include <QDebug>
 #include <opencv2/imgproc.hpp>
-
+#include <chrono>
+#include <ctime>
+#include <QQmlComponent>
+#include <QQuickWindow>
+#include <QQuickItem>
+#include <QQuickView>
+#include <fstream>
 #include "video_dlg.h"
 #include "video_hub.h"
 #include "common.h"
@@ -165,6 +171,7 @@ QImage FrameProvider::mvScaleImage(QImage& image){
     Mat src, res, dest, rgba_roi, roi;
 
     src = oQImage2Mat(image);
+    current_src_mat_ = src;
     roi = src;
 
     if(!src.data){
@@ -231,4 +238,115 @@ void FrameProvider::mvZoomOut(){
     if(scale_ratio_ > 1.0f)
         return;
     scale_ratio_ += 0.1;
+}
+
+bool FrameProvider::mbSnapShot(){
+    using namespace cv;
+    if(render_type_ != VIDEO_TYPE_WHITE){
+//        QImage image = VideoHub::moGetInstance()->moGetVideoFromQueue(VIDEO_TYPE_THERMAL);
+        QImage res;
+//        if(image.isNull()){
+//            cout << "no frame" << endl;
+//            return false;
+//        }
+        cv::Mat src, im_color;
+        src = current_src_mat_;
+
+        if(render_type_ == VIDEO_TYPE_THERMAL && color_setting_.meGetCurrentColorType() != COLOR_TYPE_NULL){
+            cv::cvtColor(src, src, cv::COLOR_BGRA2GRAY);
+            auto color_template = COLORMAP_HOT;
+            switch(color_setting_.meGetCurrentColorType()){
+                case COLOR_TYPE_IRON_RED:{
+                    color_template = COLORMAP_INFERNO;
+                }
+                    break;
+                case COLOR_TYPE_BLACK_WITHE:{
+                    color_template = COLORMAP_BONE;
+                }
+                    break;
+                case COLOR_TYPE_RAINBOW:{
+                    color_template = COLORMAP_RAINBOW;
+                }
+                    break;
+                default:
+                    color_template = COLORMAP_HOT;
+            }
+
+            applyColorMap(src, im_color, color_template);
+            cv::cvtColor(im_color, im_color, cv::COLOR_BGR2RGBA);
+        }else{
+            cv::cvtColor(src, im_color, cv::COLOR_RGB2RGBA);
+        }
+
+        QImage res_img(im_color.data, im_color.cols, im_color.rows, QImage::Format_RGBA8888);
+        snap_shot_img_ = res_img.copy();
+
+        {
+            auto now = std::chrono::system_clock::now();
+            std::time_t now_c = std::chrono::system_clock::to_time_t(now);
+
+            char timeString[100];
+            std::strftime(timeString, sizeof(timeString), "%Y%m%d%H%M%S", std::localtime(&now_c));
+            strcat(timeString, ".jpg");
+
+            //        QQmlComponent component(&engine, QUrl(QStringLiteral("qrc:/color_setting_dlg.qml")));
+
+            //        QObject* dialogItem = qobject_cast<QObject*>(component.create());
+            //
+            //        dialogItem->setParent((QQuickWindow*)engine.rootObjects().first());
+            //        if (dialogItem) {
+            //            dialogItem->setProperty("visible", true);
+            ////            dialogItem->show();
+            //            QEventLoop loop;
+            //            QObject::connect(dialogItem, SIGNAL(closed()), &loop, SLOT(quit()));
+            //            loop.exec();
+            //        } else {
+            //            qWarning() << "Failed to cast dialog object to QQuickItem";
+            ////            delete dialogObject;
+            //        }
+
+            QEventLoop loop;
+            QObject::connect(this, &FrameProvider::mvSnapOver, &loop, &QEventLoop::quit);
+
+            QQmlApplicationEngine& engine = QmlEngineSingleton::instance();
+            QObject* rootObject = engine.rootObjects().first();
+            QVariant ret_msg;
+            QMetaObject::invokeMethod(rootObject, "showLsDialog", Qt::DirectConnection, Q_RETURN_ARG(QVariant, ret_msg));
+
+            loop.exec();
+
+            if(cmd_ == "cancel"){
+                return false;
+            }
+
+            snap_shot_img_.save(timeString, "jpg", 100);
+
+            fstream file;
+            file.open(timeString, ios::app | ios::binary);
+
+            if(cmd_ == "record_voice_done"){
+                char data[] = {0x01, 0x02, 0x03, 0x04};
+                file.write(data, sizeof(data));
+                file.close();
+            }
+
+        }
+        return false;
+    }
+}
+
+QString FrameProvider::moGetDialogRes(){
+    emit mvSnapOver();
+
+    return QString();
+}
+
+void FrameProvider::mvCallBackMsg(QString cmd){
+    cmd_ = cmd;
+    emit mvSnapOver();
+}
+
+void FrameProvider::mvSetAudioBuf(char* src, size_t size){
+    audio_buf_ = src;
+    audio_buf_size_ = size;
 }
