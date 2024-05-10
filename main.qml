@@ -7,6 +7,7 @@ import Local 1.0
 
 ApplicationWindow{
     id: mainWindow
+    objectName: "mainWindow"
     visible: true
     width: 800
     height: 480
@@ -26,13 +27,20 @@ ApplicationWindow{
     }
     function switchRenderMode(val_arg){
         providers.mvSetRanderMode();
-        console.log("qml method runing", val_arg, "return ok")
+        console.log("qml method runing", val_arg, "return ok");
         return "ok"
     }
 
     function showLsDialog(){
-        var dialog = LsDialog.showModal();
-        dialog.exec();
+        var component = Qt.createComponent("snapshot_func_dlg.qml");
+        var dialog = component.createObject(mainWindow);
+        dialog.open();
+        console.log("qml showLsDialog runing", "return ok");
+    }
+
+    function snapshot(){
+        providers.mbSnapShot();
+        console.log("qml method runing snapshot", "return ok");
     }
 
     TdlasDevice{
@@ -454,6 +462,7 @@ ApplicationWindow{
                 onPressed:{
                     canvas.circleColor = "#cacacb";
                     canvas.requestPaint();
+                    snapshot();
                 }
                 onReleased:{
                     canvas.circleColor = "white"
