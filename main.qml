@@ -43,6 +43,13 @@ ApplicationWindow{
         console.log("qml method runing snapshot", "return ok");
     }
 
+    function showMediaWind(){
+        var component = Qt.createComponent("img_grid_dlg.qml");
+        var dialog = component.createObject(mainWindow);
+        dialog.open();
+        console.log("qml showMediaWind runing", "return ok");
+    }
+
     TdlasDevice{
         id: tdlas_ctrl
     }
@@ -523,7 +530,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 47
                 Layout.preferredHeight: 47
                 onClicked:{
-                    testbtn(123);
+                    showMediaWind();
                 }
                 Rectangle{
                     implicitHeight: parent.height
