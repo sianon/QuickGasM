@@ -39,6 +39,7 @@ public:
     Q_INVOKABLE QImage mvScaleImage(QImage& img);
     Q_INVOKABLE void mvSetRanderMode();
     Q_INVOKABLE void mvCallBackMsg(QString cmd);
+    Q_INVOKABLE void mvStartRecordAudio(QString cmd);
 public slots:
     void onNewVideoContentReceived(const QVideoFrame& frame);
 signals:

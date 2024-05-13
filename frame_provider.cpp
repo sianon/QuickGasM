@@ -17,7 +17,7 @@
 #include "video_hub.h"
 #include "common.h"
 
-cv::Mat oQImage2Mat(const QImage &image){
+cv::Mat oQImage2Mat(const QImage& image){
     cv::Mat mat;
     int height, width;
     float ratio;
@@ -73,8 +73,7 @@ cv::Mat oQImage2Mat(const QImage &image){
     return mat;
 }
 
-
-FrameProvider::FrameProvider() : render_type_(VIDEO_TYPE_WHITE){
+FrameProvider::FrameProvider() : render_type_(VIDEO_TYPE_WHITE), audio_buf_(0){
 
 }
 
@@ -193,7 +192,6 @@ QImage FrameProvider::mvScaleImage(QImage& image){
         roi = tmp_roi;
     }
 
-
     Mat im_color;
     if(render_type_ == VIDEO_TYPE_THERMAL && color_setting_.meGetCurrentColorType() != COLOR_TYPE_NULL){
         cv::cvtColor(roi, roi, cv::COLOR_BGRA2GRAY);
@@ -201,13 +199,16 @@ QImage FrameProvider::mvScaleImage(QImage& image){
         switch(color_setting_.meGetCurrentColorType()){
             case COLOR_TYPE_IRON_RED:{
                 color_template = COLORMAP_INFERNO;
-            }break;
+            }
+                break;
             case COLOR_TYPE_BLACK_WITHE:{
                 color_template = COLORMAP_BONE;
-            }break;
+            }
+                break;
             case COLOR_TYPE_RAINBOW:{
                 color_template = COLORMAP_RAINBOW;
-            }break;
+            }
+                break;
             default:
                 color_template = COLORMAP_HOT;
         }
@@ -243,12 +244,12 @@ void FrameProvider::mvZoomOut(){
 bool FrameProvider::mbSnapShot(){
     using namespace cv;
     if(render_type_ != VIDEO_TYPE_WHITE){
-//        QImage image = VideoHub::moGetInstance()->moGetVideoFromQueue(VIDEO_TYPE_THERMAL);
+        //        QImage image = VideoHub::moGetInstance()->moGetVideoFromQueue(VIDEO_TYPE_THERMAL);
         QImage res;
-//        if(image.isNull()){
-//            cout << "no frame" << endl;
-//            return false;
-//        }
+        //        if(image.isNull()){
+        //            cout << "no frame" << endl;
+        //            return false;
+        //        }
         cv::Mat src, im_color;
         src = current_src_mat_;
 
@@ -311,7 +312,8 @@ bool FrameProvider::mbSnapShot(){
             QQmlApplicationEngine& engine = QmlEngineSingleton::instance();
             QObject* rootObject = engine.rootObjects().first();
             QVariant ret_msg;
-            QMetaObject::invokeMethod(rootObject, "showLsDialog", Qt::DirectConnection, Q_RETURN_ARG(QVariant, ret_msg));
+            QMetaObject::invokeMethod(rootObject, "showLsDialog", Qt::DirectConnection,
+                                      Q_RETURN_ARG(QVariant, ret_msg));
 
             loop.exec();
 
@@ -324,12 +326,26 @@ bool FrameProvider::mbSnapShot(){
             fstream file;
             file.open(timeString, ios::app | ios::binary);
 
+            //#ifdef _DEBUG
+            fstream tmp_file;
+            tmp_file.open("sample4.aac", ios::in | ios::binary);
+            tmp_file.seekg(0, std::ios::end);
+            std::streampos fileSize = tmp_file.tellg();
+            tmp_file.seekg(0, std::ios::beg);
+
+            audio_buf_size_ = fileSize;
+            audio_buf_ = new char[fileSize];
+            tmp_file.read(audio_buf_, fileSize);
+
+            tmp_file.close();
+            //#endif
+
             if(cmd_ == "record_voice_done"){
-                char data[] = {0x01, 0x02, 0x03, 0x04};
-                file.write(data, sizeof(data));
+                //stop record audio
+                file.write(audio_buf_, audio_buf_size_);
                 file.close();
             }
-
+            delete[] audio_buf_;
         }
         return false;
     }
@@ -349,4 +365,8 @@ void FrameProvider::mvCallBackMsg(QString cmd){
 void FrameProvider::mvSetAudioBuf(char* src, size_t size){
     audio_buf_ = src;
     audio_buf_size_ = size;
+}
+
+void FrameProvider::mvStartRecordAudio(QString cmd){
+    qDebug() << "start record";
 }

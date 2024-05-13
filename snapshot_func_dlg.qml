@@ -56,12 +56,22 @@ Dialog{
                 return "save";
             }
         }
-        Button {
+        Button{
             text: "语音"
             Layout.preferredHeight: 40
             Layout.preferredWidth: 60
-            onClicked: {
-                dialog.close();
+            property bool recorddone: true
+            onClicked:{
+                recorddone = !recorddone
+                if (recorddone) {
+                    providers.mvCallBackMsg("record_voice_done");
+                    dialog.close();
+                } else {
+                    text = "结束"
+                    //发送录制信号
+                    console.log("mvStartRecordAudio", "return ok");
+                    providers.mvStartRecordAudio("");
+                }
                 return "start_voice";
             }
         }
