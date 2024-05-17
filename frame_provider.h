@@ -7,6 +7,8 @@
 #include "common.h"
 #include "color_setting.h"
 #include "ring_buffer.h"
+#include "media_file_manage.h"
+#include "media_file_preview.h"
 
 class FrameProvider : public QObject{
 Q_OBJECT
@@ -40,6 +42,12 @@ public:
     Q_INVOKABLE void mvSetRanderMode();
     Q_INVOKABLE void mvCallBackMsg(QString cmd);
     Q_INVOKABLE void mvStartRecordAudio(QString cmd);
+    Q_INVOKABLE void mvRefeshFileList(QString cmd);
+    Q_INVOKABLE void mvDeleteFile(QString path);
+    Q_INVOKABLE QStringList moGetFilePaths();
+    Q_INVOKABLE void mvPreviewMediaByPath(QString path);
+    Q_INVOKABLE void mvStopPreviewMediaByPath(QString path);
+    Q_INVOKABLE void mvPlayPreviewMediaByPath(QString path);
 public slots:
     void onNewVideoContentReceived(const QVideoFrame& frame);
 signals:
@@ -47,6 +55,8 @@ signals:
 private:
     QAbstractVideoSurface* m_surface = NULL;
     QVideoSurfaceFormat m_format;
+    MediaFileManage media_file_manage_;
+    MediaFilePreview media_file_preview_;
     VideoType render_type_;
     float scale_ratio_ = 1;
     cv::Mat current_src_mat_;

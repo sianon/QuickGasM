@@ -33,6 +33,8 @@ set(PROJECT_SOURCES
         device_status.h
         src/device_control.h
         color_setting.h
+        media_file_manage.h
+        media_file_preview.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
