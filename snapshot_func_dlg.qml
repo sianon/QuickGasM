@@ -19,38 +19,38 @@ Dialog{
         return "ok";
     }
 
-    GridLayout {
+    GridLayout{
         anchors.fill: parent
         columns: 3
         width: dialog.width
         height: dialog.height
-        RowLayout {
+        RowLayout{
             Layout.columnSpan: 3
             anchors.left: parent.left
             Layout.fillWidth: true
             Layout.preferredHeight: 10
-            Text {
+            Text{
                 Layout.alignment: Qt.AlignHCenter
                 text: "拍照"
                 color: "#ffffffff"
             }
-            Item {
+            Item{
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 // 此 Item 是占位布局，不显示内容
             }
-//            Button {
-//                Layout.preferredWidth: 30
-//                anchors.centerIn: dialog.right
-//                text: "X"
-//                onClicked: dialog.close()
-//            }
+            //            Button {
+            //                Layout.preferredWidth: 30
+            //                anchors.centerIn: dialog.right
+            //                text: "X"
+            //                onClicked: dialog.close()
+            //            }
         }
-        Button {
+        Button{
             text: "保存"
             Layout.preferredHeight: 40
             Layout.preferredWidth: 60
-            onClicked: {
+            onClicked:{
                 providers.mvCallBackMsg("save");
                 dialog.close();
                 return "save";
@@ -63,10 +63,10 @@ Dialog{
             property bool recorddone: true
             onClicked:{
                 recorddone = !recorddone
-                if (recorddone) {
+                if(recorddone){
                     providers.mvCallBackMsg("record_voice_done");
                     dialog.close();
-                } else {
+                }else{
                     text = "结束"
                     //发送录制信号
                     console.log("mvStartRecordAudio", "return ok");
@@ -75,11 +75,11 @@ Dialog{
                 return "start_voice";
             }
         }
-        Button {
+        Button{
             text: "取消"
             Layout.preferredHeight: 40
             Layout.preferredWidth: 60
-            onClicked: {
+            onClicked:{
                 providers.mvCallBackMsg("cancel");
                 dialog.close();
             }

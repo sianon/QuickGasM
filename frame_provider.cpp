@@ -370,3 +370,27 @@ void FrameProvider::mvSetAudioBuf(char* src, size_t size){
 void FrameProvider::mvStartRecordAudio(QString cmd){
     qDebug() << "start record";
 }
+
+void FrameProvider::mvRefeshFileList(QString cmd){
+    media_file_manage_.mvRefreshFileList("");
+}
+
+void FrameProvider::mvDeleteFile(QString path){
+    media_file_manage_.mvDeleteFile(path);
+}
+
+QStringList FrameProvider::moGetFilePaths(){
+    return media_file_manage_.moGetFilePaths();
+}
+
+void FrameProvider::mvPreviewMediaByPath(QString path){
+    media_file_preview_.mvPreviewMediaByPath(path);
+}
+
+void FrameProvider::mvStopPreviewMediaByPath(QString path){
+    media_file_preview_.mvStop();
+}
+
+void FrameProvider::mvPlayPreviewMediaByPath(QString path){
+    media_file_preview_.mvPlay();
+}

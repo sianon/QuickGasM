@@ -53,7 +53,7 @@ bool RingBuffer<ELEM_T, Q_SIZE>::enqueue(const ELEM_T& a_data){
         current_write_index = write_index_;
         current_read_index = read_index_;
         if(countToIndex(current_write_index + 1) == countToIndex(current_read_index)){
-            std::cout << "RingBuffer is full:" << size() << std::endl;
+//            std::cout << "RingBuffer is full:" << size() << std::endl;
             return false;
         }
     }while(!CAS(&write_index_, current_write_index, (current_write_index + 1)));

@@ -44,6 +44,7 @@ ApplicationWindow{
     }
 
     function showMediaWind(){
+        providers.mvRefeshFileList("");
         var component = Qt.createComponent("img_grid_dlg.qml");
         var dialog = component.createObject(mainWindow);
         dialog.open();

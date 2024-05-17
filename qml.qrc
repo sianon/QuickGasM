@@ -20,5 +20,6 @@
         <file>color_setting_dlg.qml</file>
         <file>snapshot_func_dlg.qml</file>
         <file>img_grid_dlg.qml</file>
+        <file>img_preview_dlg.qml</file>
     </qresource>
 </RCC>
