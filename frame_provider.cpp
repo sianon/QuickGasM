@@ -74,7 +74,7 @@ cv::Mat oQImage2Mat(const QImage& image){
 }
 
 FrameProvider::FrameProvider() : render_type_(VIDEO_TYPE_WHITE), audio_buf_(0){
-
+    qDebug() << QString("123") + CV_VERSION;
 }
 
 FrameProvider::~FrameProvider(){

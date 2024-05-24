@@ -12,7 +12,7 @@
 #include <QImage>
 #include <string>
 #include <QDebug>
-#include <opencv4/opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include <chrono>
 #include <thread>
 #include <string>
