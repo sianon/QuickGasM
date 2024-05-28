@@ -88,6 +88,11 @@ Dialog{
                             Layout.preferredWidth: 160
                             Layout.preferredHeight: 82
                             Layout.alignment: Qt.AlignHCenter
+                            Component.onCompleted:{
+                                if(path.endsWith(".mp4")){
+                                    source = "file://" + providers.mvGetVideoThumbnailByPath(path);
+                                }
+                            }
                         }
                         Text{
                             text: name

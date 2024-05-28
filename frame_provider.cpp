@@ -394,3 +394,13 @@ void FrameProvider::mvStopPreviewMediaByPath(QString path){
 void FrameProvider::mvPlayPreviewMediaByPath(QString path){
     media_file_preview_.mvPlay();
 }
+
+QString FrameProvider::mvGetVideoThumbnailByPath(QString path){
+    QMap<QString, QString> file_map = media_file_manage_.mobGetVideoThumbnailList();
+
+    if(!file_map.contains(path)){
+        return "";
+    }
+
+    return file_map.value(path);
+}

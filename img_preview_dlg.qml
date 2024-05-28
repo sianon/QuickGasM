@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.folderlistmodel 2.1
+import QtMultimedia 5.15
 
 Dialog{
     id: dialog_preview
@@ -34,6 +35,7 @@ Dialog{
             providers.mvPlayPreviewMediaByPath();
         }
     }
+
     ColumnLayout{
         anchors.left: parent.left
         Layout.fillWidth: true
@@ -51,15 +53,43 @@ Dialog{
                 anchors.fill: parent
                 anchors.topMargin: 5
                 Image{
-                    source: "file://" + models.get(gridView.currentIndex).path;
+                    id: img_preview
+//                    source: "file://" + models.get(gridView.currentIndex).path
                     Layout.preferredWidth: 736
                     Layout.preferredHeight: 400
                     Layout.alignment: Qt.AlignHCenter
                 }
+
+                MediaPlayer{
+                    id: mediaPlayer
+//                    source: "file://" + models.get(gridView.currentIndex).path
+                    Component.onCompleted:{
+                        mediaPlayer.play();
+                    }
+                }
+                VideoOutput{
+                    id: videoItem
+                    anchors.fill: parent
+                    source: mediaPlayer
+                }
+
                 Text{
                     text: name
                     color: "#fff"
                     Layout.alignment: Qt.AlignHCenter
+                }
+            }
+            Component.onCompleted:{
+                var file = models.get(gridView.currentIndex).path;
+                if(file.endsWith(".mp4")){
+                    videoItem.visible = true;
+                    img_preview.visible = false;
+                    mediaPlayer.source = "file://" + file;
+                }else{
+                    videoItem.visible = false;
+                    img_preview.visible = true;
+                    mediaPlayer.source = "";
+                    img_preview.source = "file://" + file;
                 }
             }
         }
@@ -76,6 +106,7 @@ Dialog{
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 60
                 onClicked:{
+                    mediaPlayer.stop();
                     dialog_preview.close();
                 }
             }

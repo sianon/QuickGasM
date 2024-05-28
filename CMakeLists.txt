@@ -10,13 +10,28 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+set(FFMPEG_DIR /home/cao/code/aarch64-hilis/ffmpeg_aarch64)
 
 find_package(PkgConfig REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(QT NAMES Qt5 REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick Qml Widgets Multimedia)
 
+set(FFMPEG_INCLUDE_DIRS ${FFMPEG_DIR}/include)
+set(FFMPEG_LIB_DIRS ${FFMPEG_DIR}/lib)
+
 include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${FFMPEG_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+find_library(AVCODEC_LIB avcodec HINTS ${FFMPEG_LIB_DIRS})
+find_library(AVFORMAT_LIB avformat HINTS ${FFMPEG_LIB_DIRS})
+find_library(AVUTIL_LIB avutil HINTS ${FFMPEG_LIB_DIRS})
+find_library(SWSCALE_LIB swscale HINTS ${FFMPEG_LIB_DIRS})
+
+if(NOT AVCODEC_LIB OR NOT AVFORMAT_LIB OR NOT AVUTIL_LIB OR NOT SWSCALE_LIB)
+    message(FATAL_ERROR "Could not find all FFmpeg libraries.")
+endif()
 
 set(PROJECT_SOURCES
         main.cpp
@@ -65,7 +80,7 @@ else()
 endif()
 
 target_link_libraries(quick_demo
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Widgets Qt5::Multimedia ${OpenCV_LIBS})
+  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick Qt${QT_VERSION_MAJOR}::Qml Qt${QT_VERSION_MAJOR}::Widgets Qt5::Multimedia ${OpenCV_LIBS} ${AVCODEC_LIB} ${AVFORMAT_LIB} ${AVUTIL_LIB} ${SWSCALE_LIB})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

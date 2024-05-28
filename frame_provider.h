@@ -48,6 +48,7 @@ public:
     Q_INVOKABLE void mvPreviewMediaByPath(QString path);
     Q_INVOKABLE void mvStopPreviewMediaByPath(QString path);
     Q_INVOKABLE void mvPlayPreviewMediaByPath(QString path);
+    Q_INVOKABLE QString mvGetVideoThumbnailByPath(QString path);
 public slots:
     void onNewVideoContentReceived(const QVideoFrame& frame);
 signals:

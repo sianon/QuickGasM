@@ -28,7 +28,7 @@ public:
     }
 
     void mvPreviewMediaByPath(QString path){
-        if(!QFile::exists(path)){
+        if(!QFile::exists(path) || !path.endsWith(".jpg")){
             return;
         }
 
