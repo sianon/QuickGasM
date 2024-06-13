@@ -50,6 +50,8 @@ set(PROJECT_SOURCES
         color_setting.h
         media_file_manage.h
         media_file_preview.h
+        SettingsManager.cpp
+        SettingsManager.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

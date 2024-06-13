@@ -15,15 +15,15 @@ Dialog{
     ColumnLayout {
         anchors.centerIn: parent
         spacing: 15
-        BeaverRadioBtn{
-            text: TestObject.getAuthor
-            checked: true
-            //            onCheckedChanged: {
-            //                if (checked) {
-            //                    console.log("Group 1, Option 1 selected");
-            //                }
-            //            }
-        }
+//        BeaverRadioBtn{
+//            text: TestObject.getAuthor
+//            checked: true
+//            //            onCheckedChanged: {
+//            //                if (checked) {
+//            //                    console.log("Group 1, Option 1 selected");
+//            //                }
+//            //            }
+//        }
         RadioButton {
             text: "Group 1, Option 2"
             onCheckedChanged: {

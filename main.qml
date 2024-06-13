@@ -187,7 +187,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked:{
-                    var component = Qt.createComponent("param_dlg.qml");
+                    var component = Qt.createComponent("advance_sys_setting_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
                 }

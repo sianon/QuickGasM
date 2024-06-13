@@ -16,10 +16,19 @@
         <file>gas_enhance_dlg.qml</file>
         <file>ls_mode_dlg.qml</file>
         <file>iso_dlg.qml</file>
-        <file>param_dlg.qml</file>
+        <file>advance_sys_setting_dlg.qml</file>
         <file>color_setting_dlg.qml</file>
         <file>snapshot_func_dlg.qml</file>
         <file>img_grid_dlg.qml</file>
         <file>img_preview_dlg.qml</file>
+        <file>content/AndroidDelegate.qml</file>
+        <file>content/sys_setting_dlg.qml</file>
+        <file>content/time_setting_dlg.qml</file>
+        <file>content/bat_manage_dlg.qml</file>
+        <file>content/store_manage_dlg.qml</file>
+        <file>content/sys_upgrade_dlg.qml</file>
+        <file>content/reset_dlg.qml</file>
+        <file>content/sys_log_dlg.qml</file>
+        <file>content/about_dlg.qml</file>
     </qresource>
 </RCC>

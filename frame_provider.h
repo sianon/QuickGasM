@@ -9,6 +9,7 @@
 #include "ring_buffer.h"
 #include "media_file_manage.h"
 #include "media_file_preview.h"
+#include "SettingsManager.h"
 
 class FrameProvider : public QObject{
 Q_OBJECT
@@ -58,6 +59,7 @@ private:
     QVideoSurfaceFormat m_format;
     MediaFileManage media_file_manage_;
     MediaFilePreview media_file_preview_;
+    SettingsManager setting_manager_;
     VideoType render_type_;
     float scale_ratio_ = 1;
     cv::Mat current_src_mat_;
