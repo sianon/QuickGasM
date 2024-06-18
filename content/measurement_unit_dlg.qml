@@ -15,11 +15,11 @@ Item{
 
         ListModel{
             id: pageModelsys_bat
-            ListElement{type: "screenLevel"}
-            ListElement{type: "screenLevelHigh"}
-            ListElement{type: "screenLevelMid"}
-            ListElement{type: "screenLevelLow"}
-            ListElement{type: "distenceLevel"}
+            ListElement{type: "tempUnit"}
+            ListElement{type: "tempUnitC"}
+            ListElement{type: "tempUnitF"}
+            ListElement{type: "tempUnitk"}
+            ListElement{type: "distenceUnit"}
             ListElement{type: "miter"}
             ListElement{type: "inch"}
         }
@@ -34,16 +34,16 @@ Item{
                     sourceComponent: {
                         if (model.type === "batShow") {
                             return batShow;
-                        } else if (model.type === "screenLevel") {
-                            return screenLevel;
-                        } else if (model.type === "screenLevelHigh") {
-                            return screenLevelHigh;
-                        } else if (model.type === "screenLevelMid") {
-                            return screenLevelMid;
-                        } else if (model.type === "screenLevelLow") {
-                            return screenLevelLow;
-                        }else if (model.type === "distenceLevel") {
-                            return distenceLevel;
+                        } else if (model.type === "tempUnit") {
+                            return tempUnit;
+                        } else if (model.type === "tempUnitC") {
+                            return tempUnitC;
+                        } else if (model.type === "tempUnitF") {
+                            return tempUnitF;
+                        } else if (model.type === "tempUnitk") {
+                            return tempUnitk;
+                        }else if (model.type === "distenceUnit") {
+                            return distenceUnit;
                         }else if (model.type === "miter") {
                             return miter;
                         }else if (model.type === "inch") {
@@ -110,7 +110,7 @@ Item{
                 }
             }
             Component {
-                id: screenLevel
+                id: tempUnit
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -134,7 +134,7 @@ Item{
             }
 
             Component {
-                id: screenLevelHigh
+                id: tempUnitC
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -166,7 +166,7 @@ Item{
                 }
             }
             Component {
-                id: screenLevelMid
+                id: tempUnitF
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -198,7 +198,7 @@ Item{
                 }
             }
             Component {
-                id: screenLevelLow
+                id: tempUnitk
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -231,7 +231,7 @@ Item{
             }
 
             Component {
-                id: distenceLevel
+                id: distenceUnit
                 Rectangle {
                     width: parent.width
                     height: parent.height

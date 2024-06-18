@@ -14,8 +14,8 @@ Item{
 
         ListModel{
             id: pageModelsys_gas_leak
-            ListElement{type: "type2"}
-            ListElement{type: "ntp_server"}
+            ListElement{type: "leakAlarm"}
+            ListElement{type: "leakNum"}
             ListElement{type: "autosnap"}
             ListElement{type: "autosnapInter"}
             ListElement{type: "autorecord"}
@@ -34,10 +34,10 @@ Item{
                     sourceComponent: {
                         if (model.type === "type1") {
                             //                        return delegate;
-                        } else if (model.type === "type2") {
-                            return type2Component;
-                        } else if (model.type === "ntp_server") {
-                            return ntpServer;
+                        } else if (model.type === "leakAlarm") {
+                            return leakAlarm;
+                        } else if (model.type === "leakNum") {
+                            return leakNum;
                         }else if (model.type === "autosnap") {
                             return autosnap;
                         }else if (model.type === "autosnapInter") {
@@ -54,7 +54,7 @@ Item{
             }
 
             Component {
-                id: type2Component
+                id: leakAlarm
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -86,7 +86,7 @@ Item{
                 }
             }
             Component {
-                id: ntpServer
+                id: leakNum
                 Rectangle {
                     width: parent.width
                     height: parent.height

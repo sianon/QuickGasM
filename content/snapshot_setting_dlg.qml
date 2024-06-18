@@ -14,13 +14,12 @@ Item{
 
         ListModel{
             id: pageSnapShot
-            ListElement{type: "type2"}
-            ListElement{type: "lowTempretureAlarm"}
+            ListElement{type: "autosave"}
+            ListElement{type: "autoupload"}
             ListElement{type: "autosnap"}
             ListElement{type: "autosnapInter"}
             ListElement{type: "autorecord"}
             ListElement{type: "audioalarm"}
-
         }
 
         ListView{
@@ -33,14 +32,10 @@ Item{
                     sourceComponent: {
                         if (model.type === "type1") {
                             //                        return delegate;
-                        } else if (model.type === "type2") {
-                            return type2Component;
-                        } else if (model.type === "ntp_server") {
-                            return ntpServer;
-                        }else if (model.type === "lowTempretureAlarm") {
-                            return lowTempretureAlarm;
-                        }else if (model.type === "lowTempretureNum") {
-                            return lowTempretureNum;
+                        } else if (model.type === "autosave") {
+                            return autosave;
+                        }else if (model.type === "autoupload") {
+                            return autoupload;
                         }else if (model.type === "autosnap") {
                             return autosnap;
                         }else if (model.type === "autosnapInter") {
@@ -57,7 +52,7 @@ Item{
             }
 
             Component{
-                id: type2Component
+                id: autosave
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -88,41 +83,9 @@ Item{
                     }
                 }
             }
-            Component {
-                id: ntpServer
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
 
-                    RowLayout {
-                        spacing: 10
-                        Text {
-                            Layout.leftMargin: 30
-                            Layout.preferredWidth: 110
-                            text: "高温报警温度"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {width: 100}
-                        TextField {
-                            text: "40"
-                            Layout.preferredHeight: 25
-                            Layout.preferredWidth: 50
-                            color: "black"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            text: "°C (-20-150)"
-                            color: "white"
-                        }
-                    }
-                }
-            }
             Component {
-                id: lowTempretureAlarm
+                id: autoupload
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -153,39 +116,7 @@ Item{
                     }
                 }
             }
-            Component {
-                id: lowTempretureNum
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
 
-                    RowLayout {
-                        spacing: 10
-                        Text {
-                            Layout.leftMargin: 30
-                            Layout.preferredWidth: 110
-                            text: "低温报警温度"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {width: 100}
-                        TextField {
-                            text: "40"
-                            Layout.preferredHeight: 25
-                            Layout.preferredWidth: 50
-                            color: "black"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            text: "°C (-20-150)"
-                            color: "white"
-                        }
-                    }
-                }
-            }
             Component {
                 id: autosnap
                 Rectangle {

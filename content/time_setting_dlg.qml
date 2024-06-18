@@ -14,7 +14,7 @@ Item{
 
         ListModel{
             id: pageModelsys_time
-            ListElement{type: "type2"}
+            ListElement{type: "ntpAuto"}
             ListElement{type: "ntp_server"}
             ListElement{type: "syncRound"}
             ListElement{title: "手动校时"}
@@ -33,8 +33,8 @@ Item{
                     sourceComponent: {
                         if (model.type === "type1") {
                             //                        return delegate;
-                        } else if (model.type === "type2") {
-                            return type2Component;
+                        } else if (model.type === "ntpAuto") {
+                            return ntpAuto;
                         } else if (model.type === "ntp_server") {
                             return ntpServer;
                         }else if (model.type === "syncRound") {
@@ -49,7 +49,7 @@ Item{
             }
 
             Component {
-                id: type2Component
+                id: ntpAuto
                 Rectangle {
                     width: parent.width
                     height: parent.height

@@ -25,7 +25,6 @@ Item{
             anchors.fill: parent
             delegate: AndroidDelegate{
                 text: title
-                onClicked: stackView.push(Qt.resolvedUrl(page))
                 Loader {
                     width: parent.width
                     sourceComponent: {
@@ -49,7 +48,7 @@ Item{
                     RowLayout {
                         spacing: 10
                         Text {
-                            text: "恢复出产设置"
+                            text: "恢复出厂设置"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
@@ -59,7 +58,7 @@ Item{
                         Item {width: 100}
                         Button {
                             Layout.preferredHeight: 25
-                            text: "恢复出产设置"
+                            text: "恢复出厂设置"
                             style: ButtonStyle{
                                 background: Rectangle{
                                     implicitWidth: 100
@@ -73,128 +72,6 @@ Item{
                                     color: "white" // Set the desired font color here
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            Component {
-                id: sysVersion
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 10
-
-                        Text {
-                            text: "当前系统版本号"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Text {
-                            text: "V01.20240805"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                    }
-                }
-            }
-
-            Component {
-                id: screenLevelHigh
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 10
-
-                        Text {
-                            text: "选择升级文件"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        TextField {
-                            text: "点击选择升级文件"
-//                            color: "black"
-
-                        }
-                        Button {
-                            text: "开始升级"
-                            onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            Component {
-                id: screenLevelMid
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 10
-
-                        Text {
-                            text: "中"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {width: 100}
-                        RadioButton {
-                            text: "Group 1, Option 2"
-                            onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            Component {
-                id: screenLevelLow
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-
-                    RowLayout {
-                        anchors.fill: parent
-                        spacing: 10
-
-                        Text {
-                            text: "低"
-                            color: "white"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {width: 100}
-                        RadioButton {
-                            text: "Group 1, Option 2"
-                            onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
                                 }
                             }
                         }

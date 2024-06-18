@@ -51,7 +51,7 @@ Item{
 
                     width: 120
                     height: 30
-                    color:"white"
+                    color:"black"
                     font.pixelSize: fontSizeMedium
                     Layout.alignment: Qt.AlignRight
                 }
@@ -186,28 +186,6 @@ Item{
                 height: 66
                 width: parent.width - 480
                 visible: wlan.checked
-                Repeater{
-                    model: 5
-                    Row{
-                        Layout.leftMargin: 90
-                        Label{
-                            width: 118
-                            text: "CMCC-EDU"
-                            color: "white"
-                            font.pixelSize: fontSizeMedium
-                            //                Layout.alignment: Qt.AlignVCenter
-                        }
-                        Label{
-                            text: "NO Signal"
-
-                            width: 120
-                            height: 30
-                            color: "white"
-                            font.pixelSize: fontSizeMedium
-                            Layout.alignment: Qt.AlignRight
-                        }
-                    }
-                }
             }
             Row{
                 Layout.leftMargin: 50

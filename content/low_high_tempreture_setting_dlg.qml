@@ -14,8 +14,8 @@ Item{
 
         ListModel{
             id: pageModelsys_time
-            ListElement{name: "系统时间";type: "type2"}
-            ListElement{type: "ntp_server"}
+            ListElement{type: "highTempretureAlarm"}
+            ListElement{type: "highTempretureNum"}
             ListElement{type: "lowTempretureAlarm"}
             ListElement{type: "lowTempretureNum"}
             ListElement{type: "autosnap"}
@@ -35,10 +35,10 @@ Item{
                     sourceComponent: {
                         if (model.type === "type1") {
                             //                        return delegate;
-                        } else if (model.type === "type2") {
-                            return type2Component;
-                        } else if (model.type === "ntp_server") {
-                            return ntpServer;
+                        } else if (model.type === "highTempretureAlarm") {
+                            return highTempretureAlarm;
+                        } else if (model.type === "highTempretureNum") {
+                            return highTempretureNum;
                         }else if (model.type === "lowTempretureAlarm") {
                             return lowTempretureAlarm;
                         }else if (model.type === "lowTempretureNum") {
@@ -59,7 +59,7 @@ Item{
             }
 
             Component {
-                id: type2Component
+                id: highTempretureAlarm
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -91,7 +91,7 @@ Item{
                 }
             }
             Component {
-                id: ntpServer
+                id: highTempretureNum
                 Rectangle {
                     width: parent.width
                     height: parent.height

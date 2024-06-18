@@ -14,8 +14,8 @@ Item{
 
         ListModel{
             id: pageSnapShot
-            ListElement{type: "type2"}
-            ListElement{type: "ntpServer"}
+            ListElement{type: "autoTrack"}
+            ListElement{type: "mannulTrack"}
         }
 
         ListView{
@@ -26,12 +26,10 @@ Item{
                 Loader {
                     width: parent.width
                     sourceComponent: {
-                        if (model.type === "type1") {
-                            //                        return delegate;
-                        } else if (model.type === "type2") {
-                            return type2Component;
-                        } else if (model.type === "ntpServer") {
-                            return ntpServer;
+                        if (model.type === "autoTrack") {
+                            return autoTrack;
+                        } else if (model.type === "mannulTrack") {
+                            return mannulTrack;
                         } else {
                             return null;
                         }
@@ -40,7 +38,7 @@ Item{
             }
 
             Component{
-                id: type2Component
+                id: autoTrack
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -72,7 +70,7 @@ Item{
                 }
             }
             Component {
-                id: ntpServer
+                id: mannulTrack
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -95,72 +93,6 @@ Item{
                             onToggled:{
                                 console.log("Switch toggled, checked: " + checked)
                             }
-                        }
-                    }
-                }
-            }
-
-            Component {
-                id: autorecord
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    anchors.fill: parent
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-                    RowLayout {
-                        spacing: 10
-                        Text {
-                            Layout.leftMargin: 30
-                            text: "拍摄张数"
-                            color: "white"
-                            Layout.preferredHeight: 25
-                            Layout.preferredWidth: 110
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {width: 100}
-                        TextField {
-                            text: "10"
-                            id: autoSnapNum
-                            Layout.preferredHeight: 25
-                            Layout.preferredWidth: 50
-                            color: "black"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            text: "张 (5-1000)"
-                            color: "white"
-                        }
-                    }
-                }
-            }
-            Component {
-                id: audioalarm
-                Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    anchors.fill: parent
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
-                    RowLayout {
-                        spacing: 10
-                        Text {
-                            Layout.leftMargin: 30
-                            text: "视频格式"
-                            color: "white"
-                            Layout.preferredHeight: 25
-                            Layout.preferredWidth: 110
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {
-
-                            width: 100
-                        }
-                        Label{
-                            text: "mp4格式"
-                            color: "white"
                         }
                     }
                 }
