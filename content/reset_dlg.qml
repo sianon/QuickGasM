@@ -1,7 +1,9 @@
 
 import QtQuick 2.2
 import QtQuick.Controls 2.15
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.15
+import QtQuick.Controls.Styles 1.4
 
 Item{
     width: 800
@@ -58,6 +60,21 @@ Item{
                         Button {
                             Layout.preferredHeight: 25
                             text: "恢复出产设置"
+                            style: ButtonStyle{
+                                background: Rectangle{
+                                    implicitWidth: 100
+                                    implicitHeight: 40
+                                    radius: 9
+                                    color: control.pressed ? "#ffffff" : "#d9001b"
+                                }
+                                label: Text {
+                                    text: control.text
+                                    font.pixelSize: 16
+                                    color: "white" // Set the desired font color here
+                                    horizontalAlignment: Text.AlignHCenter
+                                    verticalAlignment: Text.AlignVCenter
+                                }
+                            }
                         }
                     }
                 }
@@ -110,7 +127,7 @@ Item{
                         }
                         TextField {
                             text: "点击选择升级文件"
-                            color: "black"
+//                            color: "black"
 
                         }
                         Button {

@@ -30,5 +30,16 @@
         <file>content/reset_dlg.qml</file>
         <file>content/sys_log_dlg.qml</file>
         <file>content/about_dlg.qml</file>
+        <file>content/gas_leak_setting_dlg.qml</file>
+        <file>content/alarm_manage_dlg.qml</file>
+        <file>content/low_high_tempreture_setting_dlg.qml</file>
+        <file>content/alarm_log_dlg.qml</file>
+        <file>content/AppleStyleSwitch.qml</file>
+        <file>content/snapshot_setting_dlg.qml</file>
+        <file>content/recorder_setting_dlg.qml</file>
+        <file>content/login.qml</file>
+        <file>content/vision_mix_setting_dlg.qml</file>
+        <file>content/measurement_unit_dlg.qml</file>
+        <file>content/network_setting_dlg.qml</file>
     </qresource>
 </RCC>

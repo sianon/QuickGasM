@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
@@ -13,17 +13,18 @@ Item{
         anchors.fill: parent
 
         ListModel{
-            id: pageModelsys_time
+            id: pageModelsys_gas_leak
             ListElement{type: "type2"}
             ListElement{type: "ntp_server"}
-            ListElement{type: "syncRound"}
-            ListElement{title: "手动校时"}
-            ListElement{type: "manualInput"}
+            ListElement{type: "autosnap"}
+            ListElement{type: "autosnapInter"}
+            ListElement{type: "autorecord"}
+            ListElement{type: "audioalarm"}
 
         }
 
         ListView{
-            model: pageModelsys_time
+            model: pageModelsys_gas_leak
             anchors.fill: parent
             delegate: AndroidDelegate{
                 text: title
@@ -37,10 +38,14 @@ Item{
                             return type2Component;
                         } else if (model.type === "ntp_server") {
                             return ntpServer;
-                        }else if (model.type === "syncRound") {
-                            return syncRound;
-                        }else if (model.type === "manualInput") {
-                            return manualInput;
+                        }else if (model.type === "autosnap") {
+                            return autosnap;
+                        }else if (model.type === "autosnapInter") {
+                            return autosnapInter;
+                        }else if (model.type === "autorecord") {
+                            return autorecord;
+                        }else if (model.type === "audioalarm") {
+                            return audioalarm;
                         } else {
                             return null;
                         }
@@ -61,7 +66,7 @@ Item{
                         spacing: 10
                         Text {
                             Layout.leftMargin: 30
-                            text: "NTP自动校时"
+                            text: "气体报警"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
@@ -71,17 +76,15 @@ Item{
 
                             width: 100
                         }
-                        Button {
-                            text: "开关"
-                            Layout.preferredHeight: 25
-                            onClicked: {
-
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled: {
+                                console.log("Switch toggled, checked: " + checked)
                             }
                         }
                     }
                 }
             }
-
             Component {
                 id: ntpServer
                 Rectangle {
@@ -96,19 +99,20 @@ Item{
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
-                            text: "NTP服务器"
+                            text: "报警浓度值"
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Item {width: 100}
                         TextField {
-                            text: "ntp.aliyun.com"
+                            text: "40"
                             Layout.preferredHeight: 25
+                            Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Label {
-                            text: "(支持域名或地址)"
+                            text: "ppm.m (5-500000)"
                             color: "white"
                         }
                     }
@@ -116,7 +120,7 @@ Item{
             }
 
             Component {
-                id: syncRound
+                id: autosnap
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -130,26 +134,22 @@ Item{
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
-                            text: "同步周期"
+                            text: "报警自动拍照"
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Item {width: 100}
-                        TextField {
-                            text: "10"
-                            color: "black"
-                            Layout.preferredHeight: 25
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            text: "分钟 (范围1-1440分钟)"
-                            color: "white"
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled: {
+                                console.log("Switch toggled, checked: " + checked)
+                            }
                         }
                     }
                 }
             }
             Component {
-                id: manualInput
+                id: autosnapInter
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -159,11 +159,10 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
-                            text: "手动设置时间"
+                            text: "时间间隔"
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -171,8 +170,77 @@ Item{
                         TextField {
                             text: "10"
                             Layout.preferredHeight: 25
+                            Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                        }
+                        Label {
+                            text: "S (10-3600)"
+                            color: "white"
+                        }
+                    }
+                }
+            }
+            Component {
+                id: autorecord
+                Rectangle {
+                    width: parent.width
+                    height: parent.height
+                    anchors.fill: parent
+                    color: "lightgreen"
+                    border.color: "gray"
+                    border.width: 1
+                    RowLayout {
+                        spacing: 10
+                        Text {
+                            Layout.leftMargin: 30
+                            text: "报警自动录视频"
+                            color: "white"
+                            Layout.preferredHeight: 25
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Item {
+
+                            width: 100
+                        }
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled: {
+                                console.log("Switch toggled, checked: " + checked)
+                            }
+                        }
+                    }
+                }
+            }
+            Component {
+                id: audioalarm
+                Rectangle {
+                    width: parent.width
+                    height: parent.height
+                    anchors.fill: parent
+                    color: "lightgreen"
+                    border.color: "gray"
+                    border.width: 1
+                    RowLayout {
+                        spacing: 10
+                        Text {
+                            Layout.leftMargin: 30
+                            text: "报警语音提示"
+                            color: "white"
+                            Layout.preferredHeight: 25
+                            Layout.preferredWidth: 110
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Item {
+
+                            width: 100
+                        }
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled: {
+                                console.log("Switch toggled, checked: " + checked)
+                            }
                         }
                     }
                 }

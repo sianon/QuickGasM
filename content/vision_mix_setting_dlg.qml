@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
@@ -13,21 +13,16 @@ Item{
         anchors.fill: parent
 
         ListModel{
-            id: pageModelsys_time
+            id: pageSnapShot
             ListElement{type: "type2"}
-            ListElement{type: "ntp_server"}
-            ListElement{type: "syncRound"}
-            ListElement{title: "手动校时"}
-            ListElement{type: "manualInput"}
-
+            ListElement{type: "ntpServer"}
         }
 
         ListView{
-            model: pageModelsys_time
+            model: pageSnapShot
             anchors.fill: parent
             delegate: AndroidDelegate{
                 text: title
-                onClicked: stackView.push(Qt.resolvedUrl(page))
                 Loader {
                     width: parent.width
                     sourceComponent: {
@@ -35,12 +30,8 @@ Item{
                             //                        return delegate;
                         } else if (model.type === "type2") {
                             return type2Component;
-                        } else if (model.type === "ntp_server") {
+                        } else if (model.type === "ntpServer") {
                             return ntpServer;
-                        }else if (model.type === "syncRound") {
-                            return syncRound;
-                        }else if (model.type === "manualInput") {
-                            return manualInput;
                         } else {
                             return null;
                         }
@@ -48,7 +39,7 @@ Item{
                 }
             }
 
-            Component {
+            Component{
                 id: type2Component
                 Rectangle {
                     width: parent.width
@@ -57,31 +48,29 @@ Item{
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
-                    RowLayout {
+
+                    RowLayout{
                         spacing: 10
-                        Text {
+                        Text{
                             Layout.leftMargin: 30
-                            text: "NTP自动校时"
+                            text: "画中画自动追踪"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {
-
+                        Item{
                             width: 100
                         }
-                        Button {
-                            text: "开关"
-                            Layout.preferredHeight: 25
-                            onClicked: {
-
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled:{
+                                console.log("Switch toggled, checked: " + checked)
                             }
                         }
                     }
                 }
             }
-
             Component {
                 id: ntpServer
                 Rectangle {
@@ -96,88 +85,86 @@ Item{
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
-                            text: "NTP服务器"
+                            text: "画中画手动调整"
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Item {width: 100}
-                        TextField {
-                            text: "ntp.aliyun.com"
-                            Layout.preferredHeight: 25
-                            color: "black"
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            text: "(支持域名或地址)"
-                            color: "white"
+                        AppleStyleSwitch{
+                            id: highTempretureSwitch
+                            onToggled:{
+                                console.log("Switch toggled, checked: " + checked)
+                            }
                         }
                     }
                 }
             }
 
             Component {
-                id: syncRound
+                id: autorecord
                 Rectangle {
                     width: parent.width
                     height: parent.height
+                    anchors.fill: parent
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
-
                     RowLayout {
                         spacing: 10
-
                         Text {
                             Layout.leftMargin: 30
-                            Layout.preferredWidth: 110
-                            text: "同步周期"
+                            text: "拍摄张数"
                             color: "white"
+                            Layout.preferredHeight: 25
+                            Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Item {width: 100}
                         TextField {
                             text: "10"
-                            color: "black"
+                            id: autoSnapNum
                             Layout.preferredHeight: 25
+                            Layout.preferredWidth: 50
+                            color: "black"
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Label {
-                            text: "分钟 (范围1-1440分钟)"
+                            text: "张 (5-1000)"
                             color: "white"
                         }
                     }
                 }
             }
             Component {
-                id: manualInput
+                id: audioalarm
                 Rectangle {
                     width: parent.width
                     height: parent.height
+                    anchors.fill: parent
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
-
                     RowLayout {
                         spacing: 10
-
                         Text {
                             Layout.leftMargin: 30
-                            Layout.preferredWidth: 110
-                            text: "手动设置时间"
+                            text: "视频格式"
                             color: "white"
+                            Layout.preferredHeight: 25
+                            Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
-                        TextField {
-                            text: "10"
-                            Layout.preferredHeight: 25
-                            color: "black"
-                            Layout.alignment: Qt.AlignHCenter
+                        Item {
+
+                            width: 100
+                        }
+                        Label{
+                            text: "mp4格式"
+                            color: "white"
                         }
                     }
                 }
             }
         }
     }
-
 }

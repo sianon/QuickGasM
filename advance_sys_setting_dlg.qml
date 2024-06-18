@@ -64,31 +64,31 @@ Dialog{
             id: pageModel
             ListElement{
                 title: "报警管理"
-                //             page: "content/ButtonPage.qml"
+                page: "content/alarm_manage_dlg.qml"
             }
             ListElement{
                 title: "拍照设置"
-                //             page: "content/SliderPage.qml"
+                page: "content/snapshot_setting_dlg.qml"
             }
             ListElement{
                 title: "录像设置"
-                //             page: "content/ProgressBarPage.qml"
+                page: "content/recorder_setting_dlg.qml"
             }
             ListElement{
                 title: "云服务"
-                //             page: "content/TabBarPage.qml"
+                page: "content/login.qml"
             }
             ListElement{
                 title: "网络设置"
-                //             page: "content/TextInputPage.qml"
+                page: "content/network_setting_dlg.qml"
             }
             ListElement{
                 title: "双光设置"
-                //             page: "content/ListPage.qml"
+                page: "content/vision_mix_setting_dlg.qml"
             }
             ListElement{
                 title: "测量单位设置"
-                //             page: "content/TextInputPage.qml"
+                page: "content/measurement_unit_dlg.qml"
             }
             ListElement{
                 title: "系统设置"
