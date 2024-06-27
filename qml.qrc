@@ -41,5 +41,10 @@
         <file>content/vision_mix_setting_dlg.qml</file>
         <file>content/measurement_unit_dlg.qml</file>
         <file>content/network_setting_dlg.qml</file>
+        <file>content/messagebox.qml</file>
+        <file>content/pic_preview_dlg.qml</file>
+        <file>content/video_preview_dlg.qml</file>
+        <file>content/noticebox.qml</file>
+        <file>content/upgrade_msgbox.qml</file>
     </qresource>
 </RCC>

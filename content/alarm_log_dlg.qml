@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls.Styles 1.4
 
 Item{
-    //    id: dialog
+        id: alarmLogDlg
     //    modal: true
     width: 800
     //        marginLeft: 10
@@ -45,15 +45,39 @@ Item{
                 text: "2020-01-01"
                 Layout.preferredWidth: 93
             }
-            Button{
+            RoundButton{
                 text: "查询"
                 Layout.preferredWidth: 80
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 30
+                    radius: 20
+                    opacity: enabled ? 1 : 0.3
+                    color: "#02a7f0"
+                }
+
                 onClicked: {
+                    var component = Qt.createComponent("noticebox.qml");
+                    var dlg = component.createObject(alarmLogDlg);
+                    if(dlg == null) {
+                        console.log("Failed to create component");
+                        return;
+                    }
+                    dlg.title = "结束时间应大于开始时间"
+                    dlg.show();
                 }
             }
-            Button{
+            RoundButton{
                 text: "重置"
                 Layout.preferredWidth: 80
+                background: Rectangle {
+                    implicitWidth: 100
+                    implicitHeight: 30
+                    radius: 20
+                    opacity: enabled ? 1 : 0.3
+                    color: "#aaaaaa"
+                }
+
                 onClicked: {
                 }
             }
@@ -91,18 +115,31 @@ Item{
                 Layout.alignment: Qt.AlignRight
                 text: "删除"
                 onClicked:{
+                    var component = Qt.createComponent("messagebox.qml");
+                    var dlg = component.createObject(alarmLogDlg);
+                    dlg.title = "确定删除报警记录？"
+                    dlg.show();
                 }
             }
             Button{
                 Layout.alignment: Qt.AlignRight
                 text: "上传"
                 onClicked:{
+                    var component = Qt.createComponent("noticebox.qml");
+                    var dlg = component.createObject(alarmLogDlg);
+                    dlg.title = "上传成功"
+                    dlg.isvisible = false
+                    dlg.show();
                 }
             }
             Button{
                 Layout.alignment: Qt.AlignRight
                 text: "蓝牙传输"
                 onClicked:{
+                    var component = Qt.createComponent("messagebox.qml");
+                    var dlg = component.createObject(alarmLogDlg);
+                    dlg.title = "检测到已配对设备："+ "xxxx" + "\n是否将文件传输到该设备"
+                    dlg.show();
                 }
             }
             Item{
