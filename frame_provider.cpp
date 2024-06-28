@@ -25,11 +25,8 @@ cv::Mat oQImage2Mat(const QImage& image){
         case QImage::Format_Grayscale8:
             mat = cv::Mat(image.height(), image.width(), CV_8UC1, (void*) image.constBits(), image.bytesPerLine());
             break;
-        case QImage::Format_ARGB32: // uint32存储0xAARRGGBB，pc一般小端存储低位在前，所以字节顺序就成了BGRA
-        case QImage::Format_RGB32: // Alpha为FF
-            //    case QImage::Format_ARGB32_Premultiplied:
-            //        mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*)image.constBits(), image.bytesPerLine());
-            //        break;
+        case QImage::Format_ARGB32:
+        case QImage::Format_RGB32:
         case QImage::Format_ARGB32_Premultiplied:{
             mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*) image.constBits(), image.bytesPerLine());
             std::vector<cv::Mat> channels;
@@ -38,14 +35,13 @@ cv::Mat oQImage2Mat(const QImage& image){
             cv::merge(channels, mat);
             return mat;
         }
-        case QImage::Format_RGB888: // RR,GG,BB字节顺序存储
+        case QImage::Format_RGB888:
         case QImage::Format_RGBA8888:
             mat = cv::Mat(image.height(), image.width(), CV_8UC4, (void*) image.constBits(), image.bytesPerLine());
             return mat.clone();
             break;
-        case QImage::Format_RGBA64: // uint64存储，顺序和Format_ARGB32相反，RGBA
+        case QImage::Format_RGBA64:
             mat = cv::Mat(image.height(), image.width(), CV_16UC4, (void*) image.constBits(), image.bytesPerLine());
-            // opencv需要转为BGRA的字节顺序
             cv::cvtColor(mat, mat, cv::COLOR_RGBA2BGRA);
             break;
 
@@ -62,14 +58,6 @@ cv::Mat oQImage2Mat(const QImage& image){
         default:
             return mat;
     }
-    //    int x, y;
-    //    height = image.height() * ratio;
-    //    width = image.width() * ratio;
-    //
-    //    x = (image.width() - width) / 2;
-    //    y = (image.height() - height) / 2;
-    //
-    //    cv::Mat roi(mat, cv::Rect(x, y, width, height));
     return mat;
 }
 
@@ -127,7 +115,6 @@ void FrameProvider::test(){
     //    }
     QVideoFrame video_frame(image);
 
-    //按照视频帧设置格式
     setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
     if(m_surface)
         m_surface->present(video_frame);
@@ -148,7 +135,6 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
     QVideoFrame video_frame(image);
     video_frame.unmap();
 
-    //按照视频帧设置格式
     setFormat(video_frame.width(), video_frame.height(), video_frame.pixelFormat());
     if(m_surface)
         m_surface->present(video_frame);

@@ -90,7 +90,6 @@ ApplicationWindow{
         ColumnLayout{
             anchors.horizontalCenter: parent.horizontalCenter
             Button{
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 id: mybutton
@@ -100,11 +99,10 @@ ApplicationWindow{
                 }
                 Image{
                     anchors.fill: parent
-                    source: "./images/back.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                    source: "./images/back.png"
                 }
             }
             Button{
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked:{
@@ -115,22 +113,20 @@ ApplicationWindow{
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image{
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/iso.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/iso.png"
                     }
                 }
             }
             Button{
                 id: ls
-                //                Layout.fillWidth: true
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 MouseArea{
                     anchors.fill: parent
                     onClicked:{
-                        // 在点击时创建并显示新窗口
                         var component = Qt.createComponent("ls_mode_dlg.qml");
                         var dialog = component.createObject(mainWindow);
                         dialog.open();
@@ -139,10 +135,10 @@ ApplicationWindow{
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image{
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/ls.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/ls.png"
                     }
                 }
             }
@@ -150,7 +146,6 @@ ApplicationWindow{
                 Layout.preferredWidth: 34
                 Layout.preferredHeight: 34
                 onClicked:{
-                    // 在点击时创建并显示新窗口
                     var component = Qt.createComponent("color_setting_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
@@ -158,10 +153,10 @@ ApplicationWindow{
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image{
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/color.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/color.png"
                     }
                 }
             }
@@ -176,10 +171,10 @@ ApplicationWindow{
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image{
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/param.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/param.png"
                     }
                 }
             }
@@ -194,17 +189,17 @@ ApplicationWindow{
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"  // 将 Rectangle 颜色设置为透明，使得背景图片显示
+                    color: "transparent"
                     Image{
-                        anchors.fill: parent  // 图片充满整个 Rectangle 区域
-                        source: "./images/settings.png"  // 图片路径，这里使用资源路径，也可以使用绝对或相对路径
+                        anchors.fill: parent
+                        source: "./images/settings.png"
                     }
                 }
             }
             ColumnLayout{
                 Timer{
                     id: timer
-                    interval: 1000  // 更新间隔为 1000 毫秒 (1 秒)
+                    interval: 1000
                     running: true
                     repeat: true
                     onTriggered: updateTime()
@@ -264,7 +259,6 @@ ApplicationWindow{
         anchors.right: floating_subcontrol_right.left
         background: Rectangle{
             color: "transparent"
-//            border.color: "#21be2b"
         }
 
         RowLayout{
@@ -274,7 +268,7 @@ ApplicationWindow{
             anchors.verticalCenter: parent.verticalCenter
             ColumnLayout{
                 Rectangle{
-                    radius: 5 // 设置圆角大小
+                    radius: 5
                     color: "#553c3f41"
                     anchors.fill: parent
                 }
@@ -340,7 +334,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -357,7 +351,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -372,7 +366,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -387,7 +381,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -402,7 +396,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -417,7 +411,7 @@ ApplicationWindow{
                     Layout.preferredWidth: 33
                     Layout.preferredHeight: 33
                     background: Rectangle{
-                        radius: 15 // 设置圆角大小
+                        radius: 15
                         color: parent.pressed ? "#881d262f" : "#00552623"
                         border.width: 1
                         anchors.fill: parent
@@ -452,7 +446,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 33
                 Layout.preferredHeight: 33
                 background: Rectangle{
-                    radius: 15 // 设置圆角大小
+                    radius: 15
                     color: parent.pressed ? "#1d262f" : "#552623"
                     border.width: 1
                     anchors.fill: parent

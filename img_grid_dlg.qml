@@ -124,7 +124,7 @@ Dialog{
             visible: false
             Layout.alignment: Qt.AlignHCenter
             Rectangle{
-                radius: 5 // 设置圆角大小
+                radius: 5
                 color: "#3c3f41"
                 anchors.fill: parent
             }

@@ -37,7 +37,6 @@ Dialog{
             Item {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                // 此 Item 是占位布局，不显示内容
             }
             Button {
                 Layout.preferredWidth: 30
