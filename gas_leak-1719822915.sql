@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS `SystemLog` (
+	`TimeStamp` VARCHAR NOT NULL PRIMARY KEY,
+	`Address` VARCHAR NOT NULL,
+	`Operation` INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `AlarmLog` (
+	`TimeStamp` VARCHAR NOT NULL PRIMARY KEY,
+	`AlarmType` INTEGER NOT NULL,
+	`AlarmValue` VARCHAR NOT NULL,
+	`Address` VARCHAR NOT NULL,
+	`Picture` VARCHAR NOT NULL,
+	`Video` VARCHAR NOT NULL,
+FOREIGN KEY(`TimeStamp`) REFERENCES `SystemLog`(`TimeStamp`)
+);
+
+FOREIGN KEY(`TimeStamp`) REFERENCES `SystemLog`(`TimeStamp`)
