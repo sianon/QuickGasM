@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.15
 import Qt.labs.folderlistmodel 2.1
 import QtMultimedia 5.15
 
-Popup{
+Item{
     id: dialog_preview
     width: 800
     height: 480
@@ -12,6 +12,23 @@ Popup{
     Rectangle{
         color: "#333333"
         anchors.fill: parent
+    }
+
+    Component.onCompleted:{
+    }
+
+    function closingHandler() {
+        providers.mvStopPreviewMediaByPath();
+    }
+
+    Timer{
+        id: closingTimer
+        interval: 500
+        running: false
+        repeat: false
+        onTriggered:{
+            providers.mvPlayPreviewMediaByPath();
+        }
     }
 
     ColumnLayout{
@@ -28,10 +45,12 @@ Popup{
                 ColumnLayout{
                     Layout.alignment: Qt.AlignTop
                     Button{
-                        text: "<"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
-
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/back.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -41,9 +60,13 @@ Popup{
                         Layout.preferredHeight: 80
                     }
                     Button{
-                        text: "<"
+                        //                        text: "<"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/left_page.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -78,9 +101,13 @@ Popup{
                 }
                 ColumnLayout{
                     Button{
-                        text: ">"
+
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/right_page.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -106,18 +133,24 @@ Popup{
             visible: true
             spacing: 50
             Button{
-                text: "编"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/edit.png"
+                }
                 onClicked:{
                     mediaPlayer.stop();
                     dialog_preview.close();
                 }
             }
             Button{
-                text: "拍"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/snapshot.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -126,9 +159,12 @@ Popup{
                 }
             }
             Button{
-                text: "上"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/upload.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -137,9 +173,12 @@ Popup{
                 }
             }
             Button{
-                text: "蓝"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/bluetooth.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -148,9 +187,12 @@ Popup{
                 }
             }
             Button{
-                text: "删"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/delete.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -159,10 +201,13 @@ Popup{
                 }
             }
             CheckBox {
-                background: Image {
-//                    source: control.checked ? "checked.png" : "unchecked.png"
+                id: volumn
+                implicitWidth: 40
+                implicitHeight: 40
+
+                indicator: Image {
                     anchors.fill: parent
-                    fillMode: Image.PreserveAspectFit
+                    source: volumn.checked ? "../images/mute.png" : "../images/open.png"
                 }
             }
         }

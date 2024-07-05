@@ -45,10 +45,12 @@ Item{
                 ColumnLayout{
                     Layout.alignment: Qt.AlignTop
                     Button{
-                        text: "<"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
-
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/back.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -58,9 +60,13 @@ Item{
                         Layout.preferredHeight: 80
                     }
                     Button{
-                        text: "<"
+//                        text: "<"
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/left_page.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -95,9 +101,13 @@ Item{
                 }
                 ColumnLayout{
                     Button{
-                        text: ">"
+
                         Layout.preferredHeight: 40
                         Layout.preferredWidth: 40
+                        background: Image {
+                            anchors.fill: parent
+                            source: "../images/right_page.png"
+                        }
                         onClicked:{
                             mediaPlayer.stop();
                             dialog_preview.close();
@@ -123,18 +133,24 @@ Item{
             visible: true
             spacing: 50
             Button{
-                text: "编"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/edit.png"
+                }
                 onClicked:{
                     mediaPlayer.stop();
                     dialog_preview.close();
                 }
             }
             Button{
-                text: "上"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/upload.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -143,9 +159,12 @@ Item{
                 }
             }
             Button{
-                text: "蓝"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/bluetooth.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
@@ -154,9 +173,12 @@ Item{
                 }
             }
             Button{
-                text: "删"
                 Layout.preferredHeight: 40
                 Layout.preferredWidth: 40
+                background: Image {
+                    anchors.fill: parent
+                    source: "../images/delete.png"
+                }
                 onClicked:{
                     var component = Qt.createComponent("messagebox.qml");
                     var dlg = component.createObject(dialog_preview);
