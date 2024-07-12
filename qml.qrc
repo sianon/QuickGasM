@@ -22,7 +22,21 @@
         <file>images/open.png</file>
         <file>images/snapshot.png</file>
         <file>images/upload.png</file>
-        <file>ls_dlg.qml</file>
+        <file>images/settings.png</file>
+        <file>images/media.png</file>
+        <file>images/colormap.png</file>
+        <file>images/mode.png</file>
+        <file>images/envTemp.png</file>
+        <file>images/gasprobe.png</file>
+        <file>images/tempmeasure.png</file>
+        <file>images/battery.png</file>
+        <file>images/signal_4.png</file>
+        <file>images/gps.png</file>
+        <file>images/flap.png</file>
+        <file>images/battery_f.png</file>
+        <file>images/battery_3.png</file>
+        <file>images/battery_2.png</file>
+        <file>images/battery_1.png</file>
         <file>settings_dlg.qml</file>
         <file>gas_enhance_dlg.qml</file>
         <file>ls_mode_dlg.qml</file>
@@ -57,5 +71,6 @@
         <file>content/video_preview_dlg.qml</file>
         <file>content/noticebox.qml</file>
         <file>content/upgrade_msgbox.qml</file>
+        <file>ColorBtn.qml</file>
     </qresource>
 </RCC>

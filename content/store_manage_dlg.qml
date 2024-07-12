@@ -30,7 +30,7 @@ Item{
                 Layout.alignment: Qt.AlignHCenter
                 Text {
                     text: "68"
-                    font.pixelSize: 38
+                    font.pixelSize: 36
                     font.bold: true
                     color: "#ffffff"
                     Layout.alignment: Qt.AlignLeft

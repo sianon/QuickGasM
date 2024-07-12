@@ -9,7 +9,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_PREFIX_PATH "/opt/Qt/5.15.2/gcc_64/lib/cmake")
+ set(CMAKE_PREFIX_PATH /opt/Qt/5.15.2/gcc_64/lib/cmake)
 set(FFMPEG_DIR /home/cao/code/aarch64-hilis/ffmpeg_aarch64)
 
 find_package(PkgConfig REQUIRED)

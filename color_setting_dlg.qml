@@ -4,13 +4,14 @@ import QtQuick.Layouts 1.15
 
 Dialog{
     id: dialog
-    modal: true
-    width: 280
-    height: 150
+//    modal: true
+    width: 300
+    height: 80
+    padding: 0
     x: (parent.width - width) / 2
     y: (parent.height - height) / 2
     background: Rectangle{
-        color: "#010101"
+        color: "#333333"
     }
 
     function colorTempletChange(val_arg){
@@ -21,84 +22,54 @@ Dialog{
 
     GridLayout {
         anchors.fill: parent
-        columns: 4
+        columns: 5
+        rowSpacing: 0
+        columnSpacing: 0
         width: dialog.width
         height: dialog.height
-        RowLayout {
-            Layout.columnSpan: 4
-            anchors.left: parent.left
-            Layout.fillWidth: true
-            Layout.preferredHeight: 10
-            Text {
-                Layout.alignment: Qt.AlignHCenter
-                text: "伪彩设置"
-                color: "#ffffffff"
-            }
-            Item {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-            }
-            Button {
-                Layout.preferredWidth: 30
-                anchors.centerIn: dialog.right
-                text: "X"
-                onClicked: dialog.close()
-            }
-        }
-        Button {
-            text: "紫红"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 60
-            onClicked: {
-                colorTempletChange("color_type_iron_red");
-            }
-        }
-        Button {
+        ColorBtn {
             text: "白热"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 60
             onClicked: {
                 colorTempletChange("color_type_black_white");
             }
         }
-        Button {
+        ColorBtn {
+            text: "黑热"
+        }
+        ColorBtn{
+            text: "铁红"
+            onClicked: {
+                colorTempletChange("color_type_iron_red");
+            }
+        }
+        ColorBtn {
+            text: "花青"
+        }
+        ColorBtn {
             text: "彩虹"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 60
             onClicked: {
                 colorTempletChange("color_type_rainbow");
             }
         }
-        Button {
-            text: "羽红"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 60
+        ColorBtn {
+            text: "反彩虹"
+        }
+        ColorBtn {
+            text: "红棕"
             onClicked: {
                 colorTempletChange("color_type_red");
             }
         }
-        Button {
-            text: "白热"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 40
-            onClicked: dialog.close()
+
+        ColorBtn {
+            text: "热铁"
         }
-        Button {
-            text: "黑热"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 40
-            onClicked: dialog.close()
+
+        ColorBtn {
+            text: "冷色"
         }
-        Button {
-            text: "反彩虹"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 40
-            onClicked: dialog.close()
-        }
-        Button {
-            text: "白"
-            Layout.preferredHeight: 40
-            Layout.preferredWidth: 40
+        ColorBtn {
+            text: "火灾"
             onClicked: {
                 colorTempletChange();
             }

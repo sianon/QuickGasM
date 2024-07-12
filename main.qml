@@ -63,6 +63,7 @@ ApplicationWindow{
     }
 
     background: Rectangle{
+        color: "#000000"
         VideoOutput{
             id: video_outputs
             anchors.fill: parent
@@ -75,6 +76,7 @@ ApplicationWindow{
             repeat: true
 
             onTriggered:{
+                //TODO:视频刷新函数调用处
                 providers.test();
             }
         }
@@ -82,123 +84,35 @@ ApplicationWindow{
     Frame{
         id: floating_subcontrol_left
         visible: true
-        width: 65
-        height: parent.height
+        width: 800
+        height: 30
+        padding: 0
         background: Rectangle{
-            color: "#010101"
+            color: "#56282828"
         }
-        ColumnLayout{
-            anchors.horizontalCenter: parent.horizontalCenter
-            Button{
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                id: mybutton
-
-                onClicked:{
-                    testbtn(123);
+        RowLayout{
+            anchors.fill: parent
+            RowLayout{
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                Label{
+                    text: "中心温度："
+                    font.pixelSize: 18
+                    color: "#ffffff"
                 }
-                Image{
-                    anchors.fill: parent
-                    source: "./images/back.png"
-                }
-            }
-            Button{
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                onClicked:{
-                    var component = Qt.createComponent("iso_dlg.qml");
-                    var dialog = component.createObject(mainWindow);            
-                    dialog.open();
-                }
-                Rectangle{
-                    implicitHeight: parent.height
-                    implicitWidth: parent.height
-                    color: "transparent"
-                    Image{
-                        anchors.fill: parent
-                        source: "./images/iso.png"
-                    }
+                Text{
+                    id: tempLabel
+                    text: "25.1C"
+                    font.pixelSize: 18
+                    color: "#ffffff"
                 }
             }
-            Button{
-                id: ls
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked:{
-                        var component = Qt.createComponent("ls_mode_dlg.qml");
-                        var dialog = component.createObject(mainWindow);
-                        dialog.open();
-                    }
-                }
-                Rectangle{
-                    implicitHeight: parent.height
-                    implicitWidth: parent.height
-                    color: "transparent"
-                    Image{
-                        anchors.fill: parent
-                        source: "./images/ls.png"
-                    }
-                }
-            }
-            Button{
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                onClicked:{
-                    var component = Qt.createComponent("color_setting_dlg.qml");
-                    var dialog = component.createObject(mainWindow);
-                    dialog.open();
-                }
-                Rectangle{
-                    implicitHeight: parent.height
-                    implicitWidth: parent.height
-                    color: "transparent"
-                    Image{
-                        anchors.fill: parent
-                        source: "./images/color.png"
-                    }
-                }
-            }
-            Button{
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                onClicked:{
-                    var component = Qt.createComponent("param_dlg.qml");
-                    var dialog = component.createObject(mainWindow);
-                    dialog.open();
-                }
-                Rectangle{
-                    implicitHeight: parent.height
-                    implicitWidth: parent.height
-                    color: "transparent"
-                    Image{
-                        anchors.fill: parent
-                        source: "./images/param.png"
-                    }
-                }
-            }
-            Button{
-                Layout.preferredWidth: 34
-                Layout.preferredHeight: 34
-                onClicked:{
-                    var component = Qt.createComponent("advance_sys_setting_dlg.qml");
-                    var dialog = component.createObject(mainWindow);
-                    dialog.open();
-                }
-                Rectangle{
-                    implicitHeight: parent.height
-                    implicitWidth: parent.height
-                    color: "transparent"
-                    Image{
-                        anchors.fill: parent
-                        source: "./images/settings.png"
-                    }
-                }
-            }
-            ColumnLayout{
+            RowLayout{
+                anchors.right: parent.right
+                anchors.rightMargin: 10
                 Timer{
                     id: timer
+                    //TODO:定时器刷新时间信号等数据
                     interval: 1000
                     running: true
                     repeat: true
@@ -210,216 +124,241 @@ ApplicationWindow{
 
                     function updateTime(){
                         var currentDate = new Date();
+                        var date = currentDate.toDateString();
                         var hours = currentDate.getHours();
                         var minutes = currentDate.getMinutes();
                         var seconds = currentDate.getSeconds();
 
-                        var formattedTime = padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
+                        var formattedTime =date + "  " + padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
                         timeLabel.text = formattedTime;
-                        signal_label.text = device_status.mvGetSignalLevel();
-                        battery_label.text = device_status.mvGetBatteryLevel();
-                        wifi_label.text = device_status.mvGetWifiLevel();
+                        //                        signal_label.text = device_status.mvGetSignalLevel();
+                        var bat_lel = device_status.mvGetBatteryLevel();
+                        if(bat_lel <= 25){
+                            battery_label.source = "images/battery_1.png";
+                        }else if(bat_lel > 25 && bat_lel <= 50){
+                            battery_label.source = "images/battery_2.png";
+                        }else if(bat_lel > 50 && bat_lel <= 75){
+                            battery_label.source = "images/battery_3.png";
+                        }else if(bat_lel > 75 && bat_lel <= 100){
+                            battery_label.source = "images/battery_f.png";
+                        }
+                        //                        wifi_label.text = device_status.mvGetWifiLevel();
                     }
                 }
 
                 Text{
                     id: timeLabel
                     text: ""
-                    font.pixelSize: 12
+                    font.pixelSize: 18
                     color: "#ffffff"
                 }
-                Label{
-                    id: signal_label
-                    text: "signal"
-                    font.pixelSize: 12
-                    color: "#ffffff"
+                Item{
+                    width: 10
+                    height: 10
                 }
-                Label{
-                    id: battery_label
-                    text: "battery"
-                    font.pixelSize: 12
-                    color: "#ffffff"
+                Image{
+                    id: gps_label
+                    sourceSize.height: 28
+                    sourceSize.width: 28
+                    source: "images/gps.png"
                 }
-                Label{
+                Item{
+                    width: 8
+                    height: 8
+                }
+                Image{
+                    id: bluetooth_label
+                    sourceSize.height: 28
+                    sourceSize.width: 28
+                    source: "images/bluetooth.png"
+                }
+                Item{
+                    width: 8
+                    height: 8
+                }
+                Image{
                     id: wifi_label
-                    text: "wifi"
-                    font.pixelSize: 12
-                    color: "#ffffff"
+                    sourceSize.height: 28
+                    sourceSize.width: 28
+                    source: "images/WIFI.png"
+                }
+                Item{
+                    width: 8
+                    height: 8
+                }
+                Image{
+                    id: signal_label
+                    sourceSize.height: 28
+                    sourceSize.width: 28
+                    source: "images/signal_4.png"
+                }
+                Item{
+                    width: 8
+                    height: 8
+                }
+                Image{
+                    id: battery_label
+                    Layout.alignment: Qt.AlignRight
+                    sourceSize.height: 28
+                    sourceSize.width: 28
+                    source: "images/battery_f.png"
                 }
             }
         }
     }
     Pane{
         id: floating_subcontrol_mid
-        visible: true
-        height: 110
-        Layout.fillWidth: true
-        anchors.left: floating_subcontrol_left.right
-        anchors.bottom: floating_subcontrol_left.bottom
-        anchors.right: floating_subcontrol_right.left
+        visible: false
+        height: 360
+        width: parent.width
+        anchors.left: parent.left
+        anchors.top: floating_subcontrol_left.bottom
         background: Rectangle{
-            color: "transparent"
+            color: "green"
         }
-
         RowLayout{
             id: grid_right
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            anchors.verticalCenter: parent.verticalCenter
+            width: parent.width
+            height: parent.height
             ColumnLayout{
-                Rectangle{
-                    radius: 5
-                    color: "#553c3f41"
-                    anchors.fill: parent
+                Layout.alignment: Qt.AlignTop
+                Item{
+                    width: 10
+                    height: 100
                 }
-                Layout.preferredWidth: 120
-                Layout.preferredHeight: 110
-                Layout.fillWidth: true
-                Label{
-                    Layout.alignment: Qt.AlignTop
-                    text: "辐射率：1.00"
-                    color: "#ffffff"
-                    font.pixelSize: 12
-                    leftPadding: 6
-                    topPadding: 6
-                    bottomPadding: 0
-                }
-                Label{
-                    Layout.alignment: Qt.AlignTop
-                    id: distance_label
-                    text: "距离："
-                    color: "#ffffff"
-                    font.pixelSize: 12
-                    leftPadding: 6
-                    topPadding: 2
-                    bottomPadding: 0
-                }
-                Label{
-                    Layout.alignment: Qt.AlignTop
-                    id: consentration_label
-                    text: "浓度："
-                    color: "#ffffff"
-                    font.pixelSize: 12
-                    leftPadding: 6
-                    topPadding: 2
-                    bottomPadding: 0
-                }
-                Label{
-                    Layout.alignment: Qt.AlignTop
-                    text: "环境湿度："
-                    color: "#ffffff"
-                    font.pixelSize: 12
-                    leftPadding: 6
-                    topPadding: 2
-                    bottomPadding: 0
-                }
-                Timer{
-                    id: tdlas_timer
-                    interval: 500
-                    running: true
-                    repeat: true
+                ColumnLayout{
+                    visible: true
+                    Layout.preferredWidth: 120
+                    Layout.preferredHeight: 118
+                    Rectangle{
+                        radius: 5
+                        color: "#553c3f41"
+                        anchors.fill: parent
+                    }
+                    Label{
+                        Layout.alignment: Qt.AlignTop
+                        //TODO:发射率显示
+                        text: "发射率：1.00"
+                        color: "#ffffff"
+                        font.pixelSize: 12
+                        leftPadding: 6
+                        topPadding: 6
+                        bottomPadding: 0
+                    }
+                    Label{
+                        Layout.alignment: Qt.AlignTop
+                        id: distance_label
+                        //TODO:测量距离显示
+                        text: "测量距离："
+                        color: "#ffffff"
+                        font.pixelSize: 12
+                        leftPadding: 6
+                        topPadding: 2
+                        bottomPadding: 0
+                    }
+                    Label{
+                        Layout.alignment: Qt.AlignTop
+                        id: consentration_label
+                        //TODO:环境湿度显示
+                        text: "环境湿度："
+                        color: "#ffffff"
+                        font.pixelSize: 12
+                        leftPadding: 6
+                        topPadding: 2
+                        bottomPadding: 0
+                    }
+                    Label{
+                        Layout.alignment: Qt.AlignTop
+                        //TODO:环境温度显示
+                        text: "环境温度："
+                        color: "#ffffff"
+                        font.pixelSize: 12
+                        leftPadding: 6
+                        topPadding: 2
+                        bottomPadding: 0
+                    }
+                    Timer{
+                        id: tdlas_timer
+                        interval: 500
+                        running: true
+                        repeat: true
 
-                    onTriggered:{
-                        distance_label.text = "距离：" + tdlas_ctrl.mvGetValueByPropertyName("consentration") + "ppm";
-                        consentration_label.text = "浓度：" + tdlas_ctrl.mvGetValueByPropertyName("distance") + "m";
+                        onTriggered:{
+                            //                        distance_label.text = distance_label.text + tdlas_ctrl.mvGetValueByPropertyName("consentration") + "ppm";
+                            //                        consentration_label.text = consentration_label.text + tdlas_ctrl.mvGetValueByPropertyName("distance") + "m";
+                        }
                     }
+                }
+                Label{
+                    id: scal_label
+                    text: "x1"
+                    font.pixelSize: 18
+                    font.weight: Font.Bold
+                    color: "yellow"
+                    //TODO:显示放大倍率
                 }
             }
-            Item{
-                width: 50
-            }
-            RowLayout{
+            ColumnLayout{
+                visible: true
+                Layout.alignment: Qt.AlignRight | Qt.AlignTop
+                spacing: 0
+                width: 120
+                height: parent.height
                 Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
+                    Layout.preferredWidth: 46
+                    Layout.preferredHeight: 46
+                    Layout.alignment: Qt.AlignTop|Qt.AlignHCenter
+                    background: Rectangle {
+                        color: "transparent"
+                    }
+                    contentItem: Image {
+                        sourceSize.height: parent.height
+                        sourceSize.width: parent.width
+                        source: "images/flap.png"
+                        fillMode: Image.PreserveAspectFit
                     }
                     onClicked:{
-                        var component = Qt.createComponent("gas_enhance_dlg.qml");
-                        var dialog = component.createObject(mainWindow);
-                        dialog.open();
+                        //TODO:校准挡板按钮
+                        console.log("flap");
                     }
-                    text: "增"
                 }
-                Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
+                Label{
+                    id: upper_boundary
+                    //TODO:归一化上边界
+                    Layout.alignment: Qt.AlignTop|Qt.AlignHCenter
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 22
+                    text: "35.6C"
+                    color: "black"
+                    font.pixelSize: 12
+                    padding: 0
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    background: Rectangle {
+                        color: "#f2f2f2"
                     }
-                    onClicked:{
-                        testbtn(123);
-                    }
-                    text: "曝"
                 }
-                Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
-                    }
-                    onClicked:{
-                        testbtn(123);
-                    }
-                    text: "锁"
+                Rectangle{
+                    Layout.alignment: Qt.AlignTop|Qt.AlignHCenter
+                    id: distance_labels
+                    height: 230
+                    width: 30
+                    color: "#ec5306"
                 }
-                Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
+                Label{
+                    id: lower_boundary
+                    //TODO:归一化下边界
+                    Layout.preferredWidth: 60
+                    Layout.preferredHeight: 22
+                    Layout.alignment: Qt.AlignTop|Qt.AlignHCenter
+                    text: "31.6C"
+                    color: "black"
+                    font.pixelSize: 12
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    background: Rectangle {
+                        color: "#f2f2f2"
                     }
-                    onClicked:{
-                        testbtn(123);
-                    }
-                    text: "激"
-                }
-                Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
-                    }
-                    onClicked:{
-                        zoomin(123);
-                    }
-                    text: "+"
-                }
-                Button{
-                    Layout.fillWidth: true
-                    Layout.preferredWidth: 33
-                    Layout.preferredHeight: 33
-                    background: Rectangle{
-                        radius: 15
-                        color: parent.pressed ? "#881d262f" : "#00552623"
-                        border.width: 1
-                        anchors.fill: parent
-                    }
-                    onClicked:{
-                        zoomout(123);
-                    }
-                    text: "-"
                 }
             }
         }
@@ -427,113 +366,132 @@ ApplicationWindow{
     Pane{
         id: floating_subcontrol_right
         visible: true
-        width: 65
-        height: parent.height
-        anchors.right: parent.right
+        width: 800
+        height: 42
+        anchors.bottom: parent.bottom
         anchors.margins: 0
+        padding: 0
         background: Rectangle{
-            color: "#010101"
-            //border.color: "#21be2b"
+            color: "#333333"
         }
-        ColumnLayout{
+        RowLayout{
             id: grid_pane_right
-            //            Layout.fillWidth: true
-            //            Layout.fillHeight: true
-            anchors.margins: 0
+            anchors.leftMargin: 60
             anchors.fill: parent
             Button{
-                Layout.fillWidth: true
-                Layout.preferredWidth: 33
-                Layout.preferredHeight: 33
-                background: Rectangle{
-                    radius: 15
-                    color: parent.pressed ? "#1d262f" : "#552623"
-                    border.width: 1
-                    anchors.fill: parent
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
+                Layout.margins: 0
+                Rectangle{
+                    implicitHeight: parent.height
+                    implicitWidth: parent.height
+                    color: "#333333"
+                    Image{
+                        anchors.fill: parent
+                        source: "./images/tempmeasure.png"
+                    }
+                }
+                onClicked:{
+                }
+            }
+            Button{
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
+                Layout.margins: 0
+                Rectangle{
+                    implicitHeight: parent.height
+                    implicitWidth: parent.height
+                    color: "#333333"
+                    Image{
+                        anchors.fill: parent
+                        source: "./images/gasprobe.png"
+                    }
                 }
                 onClicked:{
                     switchRenderMode(123);
                 }
-                text: "切"
             }
+
             Button{
-                Layout.fillWidth: true
-                //                Layout.preferredWidth: 65
-                //                Layout.preferredHeight: 30
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
                 Layout.margins: 0
-                onPressed:{
-                    canvas.circleColor = "#cacacb";
-                    canvas.requestPaint();
-                    snapshot();
-                }
-                onReleased:{
-                    canvas.circleColor = "white"
-                    canvas.requestPaint();
-                }
-                contentItem: Canvas{
-                    id: canvas
-                    property color circleColor: "white"
-                    anchors.fill: parent
-                    onPaint:{
-                        var ctx = getContext("2d");
-                        ctx.clearRect(0, 0, width, height);
-
-                        var centerX = width / 2;
-                        var centerY = height / 2;
-                        var radius = Math.min(width, height) / 2;
-
-                        var startAngle = 0; // 开始角度
-                        var endAngle = 2 * Math.PI; // 结束角度
-
-                        ctx.fillStyle = "#010101";
-                        ctx.fillRect(0, 0, width, height);
-                        // 外圆环
-                        ctx.beginPath();
-                        ctx.arc(centerX, centerY, radius - 2, startAngle, endAngle);
-                        ctx.strokeStyle = circleColor;
-                        ctx.lineWidth = 4;
-                        ctx.stroke();
-                        ctx.fillStyle = "rgba(255, 0, 0, 0.5)";
-                        // 内圆
-                        var innerRadius = radius - 6;
-                        ctx.beginPath();
-                        ctx.arc(centerX, centerY, innerRadius, startAngle, endAngle);
-                        ctx.fillStyle = circleColor;
-                        ctx.fill();
+                Rectangle{
+                    implicitHeight: parent.height
+                    implicitWidth: parent.height
+                    color: "#333333"
+                    Image{
+                        anchors.fill: parent
+                        source: "./images/envTemp.png"
                     }
                 }
             }
             Button{
-                Layout.fillWidth: true
-                Layout.preferredWidth: 47
-                Layout.preferredHeight: 47
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
                 onClicked:{
                     testbtn(123);
                 }
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"
+                    color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "./images/record.png"
+                        source: "./images/mode.png"
                     }
                 }
             }
             Button{
-                Layout.fillWidth: true
-                Layout.preferredWidth: 47
-                Layout.preferredHeight: 47
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
+                onClicked:{
+                    var component = Qt.createComponent("color_setting_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
+                }
+                Rectangle{
+                    implicitHeight: parent.height
+                    implicitWidth: parent.height
+                    color: "#333333"
+                    Image{
+                        anchors.fill: parent
+                        source: "./images/colormap.png"
+                    }
+                }
+            }
+            Button{
+                //                Layout.fillWidth: true
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
                 onClicked:{
                     showMediaWind();
                 }
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
-                    color: "transparent"
+                    color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "./images/playback.png"
+                        source: "./images/media.png"
+                    }
+                }
+            }
+            Button{
+                Layout.preferredWidth: 36
+                Layout.preferredHeight: 36
+                onClicked:{
+                    var component = Qt.createComponent("advance_sys_setting_dlg.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
+                }
+                Rectangle{
+                    implicitHeight: parent.height
+                    implicitWidth: parent.height
+                    color: "#333333"
+                    Image{
+                        anchors.fill: parent
+                        source: "./images/settings.png"
                     }
                 }
             }
