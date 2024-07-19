@@ -392,6 +392,7 @@ ApplicationWindow{
                     }
                 }
                 onClicked:{
+                    snapshot();
                 }
             }
             Button{
@@ -408,7 +409,9 @@ ApplicationWindow{
                     }
                 }
                 onClicked:{
-                    switchRenderMode(123);
+                    var component = Qt.createComponent("./content/gas_detect_mode.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
             }
 
@@ -416,6 +419,11 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 Layout.margins: 0
+                onClicked:{
+                    var component = Qt.createComponent("./content/gas_detect_env_param.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
+                }
                 Rectangle{
                     implicitHeight: parent.height
                     implicitWidth: parent.height
@@ -430,7 +438,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 onClicked:{
-                    testbtn(123);
+                    switchRenderMode(123);
                 }
                 Rectangle{
                     implicitHeight: parent.height
@@ -465,7 +473,10 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 onClicked:{
-                    showMediaWind();
+                    var component = Qt.createComponent("./content/media_bar.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
+//                    showMediaWind();
                 }
                 Rectangle{
                     implicitHeight: parent.height

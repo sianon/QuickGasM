@@ -37,6 +37,22 @@
         <file>images/battery_3.png</file>
         <file>images/battery_2.png</file>
         <file>images/battery_1.png</file>
+        <file>images/snap.png</file>
+        <file>images/preview_pic.png</file>
+        <file>images/preview_video.png</file>
+        <file>images/gas_probe.png</file>
+        <file>images/gas_detect.png</file>
+        <file>images/distribution.png</file>
+        <file>images/concentration.png</file>
+        <file>images/plume_enhance.png</file>
+        <file>images/distance.png</file>
+        <file>images/distance_auto.png</file>
+        <file>images/emissivity.png</file>
+        <file>images/env_humidity.png</file>
+        <file>images/env_humidity_auto.png</file>
+        <file>images/env_tmp_auto.png</file>
+        <file>images/env_tmp.png</file>
+        <!-- //////////////////////// -->
         <file>settings_dlg.qml</file>
         <file>gas_enhance_dlg.qml</file>
         <file>ls_mode_dlg.qml</file>
@@ -71,6 +87,9 @@
         <file>content/video_preview_dlg.qml</file>
         <file>content/noticebox.qml</file>
         <file>content/upgrade_msgbox.qml</file>
+        <file>content/media_bar.qml</file>
         <file>ColorBtn.qml</file>
+        <file>content/gas_detect_mode.qml</file>
+        <file>content/gas_detect_env_param.qml</file>
     </qresource>
 </RCC>

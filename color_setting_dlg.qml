@@ -4,12 +4,11 @@ import QtQuick.Layouts 1.15
 
 Dialog{
     id: dialog
-//    modal: true
     width: 300
     height: 80
     padding: 0
-    x: (parent.width - width) / 2
-    y: (parent.height - height) / 2
+    x: 388
+    y: 330
     background: Rectangle{
         color: "#333333"
     }
@@ -35,6 +34,9 @@ Dialog{
         }
         ColorBtn {
             text: "黑热"
+            onClicked: {
+                colorTempletChange("color_type_black_hot");
+            }
         }
         ColorBtn{
             text: "铁红"
@@ -44,6 +46,9 @@ Dialog{
         }
         ColorBtn {
             text: "花青"
+            onClicked: {
+                colorTempletChange("color_type_green");
+            }
         }
         ColorBtn {
             text: "彩虹"
@@ -53,20 +58,29 @@ Dialog{
         }
         ColorBtn {
             text: "反彩虹"
+            onClicked: {
+                colorTempletChange("color_type_rainbow_reverse");
+            }
         }
         ColorBtn {
             text: "红棕"
+            onClicked: {
+                colorTempletChange("color_type_red_brown");
+            }
+        }
+
+        ColorBtn {
+            text: "热铁"
             onClicked: {
                 colorTempletChange("color_type_red");
             }
         }
 
         ColorBtn {
-            text: "热铁"
-        }
-
-        ColorBtn {
             text: "冷色"
+            onClicked: {
+                colorTempletChange("color_type_cold");
+            }
         }
         ColorBtn {
             text: "火灾"
