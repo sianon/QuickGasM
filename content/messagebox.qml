@@ -2,12 +2,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Item {
+Popup {
     id: messageBox
     visible: true
     width: 350
     height: 220
     anchors.centerIn: parent
+    padding: 0
     Rectangle {
         anchors.fill: parent
         color: "#f2f2f2"

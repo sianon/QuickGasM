@@ -27,7 +27,7 @@ Dialog{
             anchors.horizontalCenter: parent.horizontalCenter
             Text{
                 Layout.alignment: Qt.AlignLeft
-                text: "拍照图片设置"
+                text: "录像设置"
                 font.pixelSize: 20
                 Layout.leftMargin: 16
                 color: "#ffffffff"
@@ -43,7 +43,7 @@ Dialog{
 
             Text{
                 Layout.alignment: Qt.AlignLeft
-                text: "图片名称"
+                text: "视频名称"
                 color: "#ffffffff"
             }
             TextField{
@@ -69,7 +69,7 @@ Dialog{
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/mic.png"
+                        source: "../images/mic.png"
                     }
                 }
                 onClicked:{
@@ -85,7 +85,7 @@ Dialog{
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/Beidou.png"
+                        source: "../images/Beidou.png"
                     }
                 }
                 onClicked:{
@@ -101,7 +101,7 @@ Dialog{
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/qr_scan.png"
+                        source: "../images/qr_scan.png"
                     }
                 }
                 onClicked:{
@@ -122,7 +122,7 @@ Dialog{
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/save.png"
+                        source: "../images/save.png"
                     }
                 }
                 onClicked:{
@@ -142,7 +142,7 @@ Dialog{
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/back.png"
+                        source: "../images/back.png"
                     }
                 }
                 onClicked:{

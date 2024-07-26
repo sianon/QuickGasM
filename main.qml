@@ -15,6 +15,16 @@ ApplicationWindow{
     color: "#185abd"
     flags: Qt.FramelessWindowHint
 
+    TdlasDevice{
+        id: tdlas_ctrl
+    }
+
+    FrameProvider{
+        id: providers
+    }
+    DeviceStatus{
+        id: device_status
+    }
     function zoomin(val_arg){
         providers.mvZoomIn();
         console.log("zoomin", val_arg, "return ok")
@@ -26,40 +36,37 @@ ApplicationWindow{
         return "ok"
     }
     function switchRenderMode(val_arg){
-        providers.mvSetRanderMode();
+        providers.mvSetRanderMode(val_arg);
         console.log("qml method runing", val_arg, "return ok");
         return "ok"
     }
 
     function showLsDialog(){
-        var component = Qt.createComponent("snapshot_func_dlg.qml");
-        var dialog = component.createObject(mainWindow);
-        dialog.open();
-        console.log("qml showLsDialog runing", "return ok");
-    }
-
-    function snapshot(){
         providers.mbSnapShot();
         console.log("qml method runing snapshot", "return ok");
     }
 
-    function showMediaWind(){
-        providers.mvRefeshFileList("");
-        var component = Qt.createComponent("img_grid_dlg.qml");
+    function snapshot(){
+        var component = Qt.createComponent("snapshot_func_dlg.qml");
         var dialog = component.createObject(mainWindow);
         dialog.open();
+        console.log("qml snapshot runing", "return ok");
+    }
+    function record(){
+        var component = Qt.createComponent("content/record_dlg.qml");
+        var dialog = component.createObject(mainWindow);
+        dialog.open();
+        console.log("qml record runing", "return ok");
+    }
+
+    function showMediaWind(isvideo){
+        providers.mvRefeshFileList("");
+        var component = Qt.createComponent("img_grid_dlg.qml");
+        // component.isvideo = true;
+        var dialog = component.createObject(mainWindow);
+        dialog.setVideoModel(isvideo);
+        dialog.open();
         console.log("qml showMediaWind runing", "return ok");
-    }
-
-    TdlasDevice{
-        id: tdlas_ctrl
-    }
-
-    FrameProvider{
-        id: providers
-    }
-    DeviceStatus{
-        id: device_status
     }
 
     background: Rectangle{
@@ -438,7 +445,9 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 onClicked:{
-                    switchRenderMode(123);
+                    var component = Qt.createComponent("./content/render_mode_switch.qml");
+                    var dialog = component.createObject(mainWindow);
+                    dialog.open();
                 }
                 Rectangle{
                     implicitHeight: parent.height

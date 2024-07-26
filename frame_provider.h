@@ -40,7 +40,7 @@ public:
     Q_INVOKABLE void mvZoomOut();
     Q_INVOKABLE bool mbSnapShot();
     Q_INVOKABLE QImage mvScaleImage(QImage& img);
-    Q_INVOKABLE void mvSetRanderMode();
+    Q_INVOKABLE void mvSetRanderMode(QString mode);
     Q_INVOKABLE void mvCallBackMsg(QString cmd);
     Q_INVOKABLE void mvStartRecordAudio(QString cmd);
     Q_INVOKABLE void mvRefeshFileList(QString cmd);

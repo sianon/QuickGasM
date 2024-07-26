@@ -52,6 +52,18 @@
         <file>images/env_humidity_auto.png</file>
         <file>images/env_tmp_auto.png</file>
         <file>images/env_tmp.png</file>
+        <file>images/infrared_mode.png</file>
+        <file>images/white_mode.png</file>
+        <file>images/pip_mode.png</file>
+        <file>images/detail_enhance_mode.png</file>
+        <file>images/save.png</file>
+        <file>images/back.png</file>
+        <file>images/mic.png</file>
+        <file>images/Beidou.png</file>
+        <file>images/qr_scan.png</file>
+        <file>images/search.png</file>
+        <file>images/pause.png</file>
+        <file>images/play.png</file>
         <!-- //////////////////////// -->
         <file>settings_dlg.qml</file>
         <file>gas_enhance_dlg.qml</file>
@@ -91,5 +103,7 @@
         <file>ColorBtn.qml</file>
         <file>content/gas_detect_mode.qml</file>
         <file>content/gas_detect_env_param.qml</file>
+        <file>content/render_mode_switch.qml</file>
+        <file>content/record_dlg.qml</file>
     </qresource>
 </RCC>

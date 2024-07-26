@@ -9,7 +9,8 @@ Dialog{
     padding: 0
     x: 0
     y: 370
-    background: Rectangle{
+    Rectangle{
+        anchors.fill: parent
         color: "#333333"
     }
     RowLayout{
@@ -25,11 +26,11 @@ Dialog{
                 color: "#333333"
                 Image{
                     anchors.fill: parent
-                    source: "../images/snap.png"
+                    source: "../images/infrared_mode.png"
                 }
             }
             onPressed:{
-                snapshot();
+                switchRenderMode("infrared");
             }
         }
         Button{
@@ -42,11 +43,11 @@ Dialog{
                 color: "#333333"
                 Image{
                     anchors.fill: parent
-                    source: "../images/record.png"
+                    source: "../images/white_mode.png"
                 }
             }
             onClicked:{
-                record();
+                switchRenderMode("white");
             }
         }
 
@@ -60,18 +61,15 @@ Dialog{
                 color: "#333333"
                 Image{
                     anchors.fill: parent
-                    source: "../images/preview_pic.png"
+                    source: "../images/pip_mode.png"
                 }
-            }
-            onClicked:{
-                showMediaWind(false);
             }
         }
         Button{
             Layout.preferredWidth: 36
             Layout.preferredHeight: 36
             onClicked:{
-                showMediaWind(true);
+                testbtn(123);
             }
             Rectangle{
                 implicitHeight: parent.height
@@ -79,7 +77,7 @@ Dialog{
                 color: "#333333"
                 Image{
                     anchors.fill: parent
-                    source: "../images/preview_video.png"
+                    source: "../images/detail_enhance_mode.png"
                 }
             }
         }

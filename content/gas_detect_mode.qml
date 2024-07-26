@@ -75,7 +75,6 @@ Dialog{
                 }
             }
             onClicked:{
-                switchRenderMode(123);
             }
         }
 

@@ -140,11 +140,14 @@ void FrameProvider::onNewVideoContentReceived(const QVideoFrame& frame){
         m_surface->present(video_frame);
 }
 
-void FrameProvider::mvSetRanderMode(){
-    if(render_type_ == VIDEO_TYPE_WHITE)
-        render_type_ = VIDEO_TYPE_THERMAL;
-    else
+void FrameProvider::mvSetRanderMode(QString mode){
+    qDebug() << "set render mode:" << mode;
+    if(mode.isEmpty() || mode == "white"){
         render_type_ = VIDEO_TYPE_WHITE;
+    }else if(mode == "infrared"){
+        render_type_ = VIDEO_TYPE_THERMAL;
+    }
+
 }
 
 QImage FrameProvider::mvScaleImage(QImage& image){
