@@ -39,13 +39,10 @@ Dialog {
                 {
                     file_name = file_name.substring(0, dotIndex);
                 }
-                console.log("file_name:", file_name, "file_path:", file_path);
-                console.log("isvideo:", isvideo);
                 if (isvideo)
                 {
                     if (file_path.indexOf("mp4") !== -1)
                     {
-                        console.log("includes:", file_path);
                         models.append({name: file_name, path: file_path, selected: true});
                     }
                 }else {
@@ -61,7 +58,6 @@ Dialog {
     {
         gridView.currentIndex = index;
         var cur = models.get(gridView.currentIndex);
-        //        var component = Qt.createComponent("img_preview_dlg.qml");
         var component = Qt.createComponent("content/pic_preview_dlg.qml");
         var dialog = component.createObject(mainWindow);
         if (!isvideo)
@@ -69,8 +65,6 @@ Dialog {
             dialog.hideVideoBtn();
         }
         dialog.open();
-        console.log("this is :", cur.name);
-        console.log("this is paht:", cur.path);
         return "ok";
     }
     ColumnLayout {
@@ -142,8 +136,6 @@ Dialog {
                     onClicked: {
                         for (var i = 0; i < models.count; ++i) {
                             models.get(i).selected = true;
-                            console.log("selected is :", models.get(i).selected);
-                            console.log("this is :", models.get(i).name);
                         }
                     }
                 }
@@ -161,8 +153,6 @@ Dialog {
                     onClicked: {
                         for (var i = 0; i < models.count; ++i) {
                             models.get(i).selected = false;
-                            console.log("selected is :", models.get(i).selected);
-                            console.log("this is :", models.get(i).name);
                         }
                     }
                 }
