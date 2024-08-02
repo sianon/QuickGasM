@@ -6,7 +6,7 @@ Item{
     width: 800
     height: 480
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{

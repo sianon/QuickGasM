@@ -8,7 +8,7 @@ Item{
     id: alarmLogDlg
     width: 800
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{

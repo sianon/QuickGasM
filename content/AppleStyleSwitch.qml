@@ -3,7 +3,7 @@ import QtQuick.Controls 2.15
 
 Switch {
 //    id: appleStyleSwitch
-    text: "开关"
+    text: ""
 //    Layout.preferredHeight: 25
 //    onClicked: {
 //

@@ -7,7 +7,7 @@ Item{
     height: 480
     Rectangle {
         anchors.fill: parent
-        color: "#212126"
+        color: "#333333"
     }
     ScrollView{
         anchors.fill: parent

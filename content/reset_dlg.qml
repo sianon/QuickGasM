@@ -1,43 +1,39 @@
-
 import QtQuick 2.2
 import QtQuick.Controls 2.15
 import QtQuick.Controls 1.4
-import QtQuick.Layouts 1.15
 import QtQuick.Controls.Styles 1.4
+import QtQuick.Layouts 1.15
 
-Item{
+Item {
+    id: restoreDlg
+
     width: 800
     height: 480
+
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
-    ColumnLayout{
+
+    ColumnLayout {
         anchors.fill: parent
 
-        ListModel{
+        ListModel {
             id: pageModelsys_reset
-            ListElement{type: "reset"}
+
+            ListElement {
+                type: "reset"
+            }
+
         }
 
-        ListView{
+        ListView {
             model: pageModelsys_reset
             anchors.fill: parent
-            delegate: AndroidDelegate{
-                text: title
-                Loader {
-                    width: parent.width
-                    sourceComponent: {
-                        if (model.type === "reset") {
-                            return reset;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            }
+
             Component {
                 id: reset
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -47,6 +43,8 @@ Item{
 
                     RowLayout {
                         spacing: 10
+                        height: 40
+
                         Text {
                             text: "恢复出厂设置"
                             color: "white"
@@ -55,17 +53,30 @@ Item{
                             Layout.leftMargin: 30
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         Button {
                             Layout.preferredHeight: 25
                             text: "恢复出厂设置"
-                            style: ButtonStyle{
-                                background: Rectangle{
+                            onClicked: {
+                                var component = Qt.createComponent("restore_msgbox.qml");
+                                var dlg = component.createObject(mainWindow);
+                                dlg.title = "是否确定恢复出厂设置！";
+                                dlg.show();
+                            }
+
+                            style: ButtonStyle {
+
+                                background: Rectangle {
                                     implicitWidth: 100
                                     implicitHeight: 40
                                     radius: 9
                                     color: control.pressed ? "#ffffff" : "#d9001b"
                                 }
+
                                 label: Text {
                                     text: control.text
                                     font.pixelSize: 16
@@ -73,11 +84,34 @@ Item{
                                     horizontalAlignment: Text.AlignHCenter
                                     verticalAlignment: Text.AlignVCenter
                                 }
+
                             }
+
                         }
+
+                    }
+
+                }
+
+            }
+
+            delegate: AndroidDelegate {
+                text: title
+
+                Loader {
+                    width: parent.width
+                    sourceComponent: {
+                        if (model.type === "reset")
+                            return reset;
+                        else
+                            return null;
                     }
                 }
+
             }
+
         }
+
     }
+
 }

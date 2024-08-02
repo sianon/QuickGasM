@@ -50,22 +50,14 @@ Item{
 
                     RowLayout{
                         spacing: 10
+                        height: 40
                         Text{
                             Layout.leftMargin: 30
-                            text: "手动录像后自动保存"
+                            text: " 文件夹"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item{
-                            width: 100
-                        }
-                        AppleStyleSwitch{
-                            id: highTempretureSwitch
-                            onToggled:{
-                                console.log("Switch toggled, checked: " + checked)
-                            }
                         }
                     }
                 }
@@ -84,19 +76,11 @@ Item{
                         height: 40
                         Text {
                             Layout.leftMargin: 30
-                            text: "视频格式"
+                            text: "文件"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
-                        }
-                        Item {
-
-                            width: 100
-                        }
-                        Label{
-                            text: "mp4格式"
-                            color: "white"
                         }
                     }
                 }

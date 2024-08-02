@@ -9,7 +9,7 @@ Item{
 //    height: 480
 //    padding: 0
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{

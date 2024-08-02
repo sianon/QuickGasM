@@ -2,52 +2,52 @@ import QtQuick 2.2
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Item{
+Item {
+    property int selectedOption: 0
+
     width: 800
     height: 480
+
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
-    ColumnLayout{
+
+    ColumnLayout {
         anchors.fill: parent
 
-        ListModel{
+        ListModel {
             id: pageModelsys_bat
-            ListElement{type: "batShow"}
-            ListElement{type: "screenLevel"}
-            ListElement{type: "screenLevelHigh"}
-            ListElement{type: "screenLevelMid"}
-            ListElement{type: "screenLevelLow"}
+
+            ListElement {
+                type: "batShow"
+            }
+
+            ListElement {
+                type: "screenLevel"
+            }
+
+            ListElement {
+                type: "screenLevelHigh"
+            }
+
+            ListElement {
+                type: "screenLevelMid"
+            }
+
+            ListElement {
+                type: "screenLevelLow"
+            }
+
         }
 
-        ListView{
+        ListView {
             model: pageModelsys_bat
             anchors.fill: parent
-            delegate: AndroidDelegate{
-                text: title
-                onClicked: stackView.push(Qt.resolvedUrl(page))
-                Loader {
-                    width: parent.width
-                    sourceComponent: {
-                        if (model.type === "batShow") {
-                            return batShow;
-                        } else if (model.type === "screenLevel") {
-                            return screenLevel;
-                        } else if (model.type === "screenLevelHigh") {
-                            return screenLevelHigh;
-                        } else if (model.type === "screenLevelMid") {
-                            return screenLevelMid;
-                        } else if (model.type === "screenLevelLow") {
-                            return screenLevelLow;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            }
+
             Component {
                 id: batShow
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -57,6 +57,8 @@ Item{
 
                     RowLayout {
                         spacing: 10
+                        height: 40
+
                         Text {
                             text: "电量图表展示"
                             color: "white"
@@ -65,28 +67,37 @@ Item{
                             Layout.leftMargin: 30
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         AppleStyleSwitch {
-                            text: "开关"
+                            text: ""
                             Layout.preferredHeight: 25
                             onClicked: {
                             }
                         }
+
                     }
+
                 }
+
             }
 
             Component {
                 id: screenLevel
+
                 Rectangle {
-                    width: parent.width
-                    height: parent.height
-                    color: "lightgreen"
-                    border.color: "gray"
-                    border.width: 1
+                    width: 800
+                    height: 38
+                    color: "#555555"
+                    // border.color: "gray"
+                    // border.width: 1
 
                     RowLayout {
                         spacing: 10
+                        height: 40
 
                         Text {
                             text: "屏幕亮度"
@@ -98,10 +109,12 @@ Item{
                         }
                     }
                 }
+
             }
 
             Component {
                 id: screenLevelHigh
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -118,22 +131,33 @@ Item{
                             Layout.preferredWidth: 110
                             Layout.leftMargin: 30
                             color: "white"
-                            Layout.alignment: Qt.AlignHCenter
+                            Layout.alignment: Qt.AlignVCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
-                            text: "Group 1, Option 2"
+                            text: ""
+                            checked: selectedOption === 0
                             onCheckedChanged: {
                                 if (checked) {
-                                    console.log("Group 1, Option 2 selected");
+                                    selectedOption = 0;
+                                    console.log("screenLevelHigh");
                                 }
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: screenLevelMid
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -152,20 +176,31 @@ Item{
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
-                            text: "Group 1, Option 2"
+                            text: ""
+                            checked: selectedOption === 1
                             onCheckedChanged: {
                                 if (checked) {
-                                    console.log("Group 1, Option 2 selected");
+                                    selectedOption = 1;
+                                    console.log("screenLevelMid");
                                 }
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: screenLevelLow
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -184,18 +219,54 @@ Item{
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
-                            text: "Group 1, Option 2"
+                            text: ""
+                            checked: selectedOption === 2
                             onCheckedChanged: {
                                 if (checked) {
-                                    console.log("Group 1, Option 2 selected");
+                                    selectedOption = 2;
+                                    console.log("screenLevelLow");
                                 }
                             }
                         }
+
+                    }
+
+                }
+
+            }
+
+            delegate: AndroidDelegate {
+                text: title
+                onClicked: stackView.push(Qt.resolvedUrl(page))
+
+                Loader {
+                    width: parent.width
+                    sourceComponent: {
+                        if (model.type === "batShow")
+                            return batShow;
+                        else if (model.type === "screenLevel")
+                            return screenLevel;
+                        else if (model.type === "screenLevelHigh")
+                            return screenLevelHigh;
+                        else if (model.type === "screenLevelMid")
+                            return screenLevelMid;
+                        else if (model.type === "screenLevelLow")
+                            return screenLevelLow;
+                        else
+                            return null;
                     }
                 }
+
             }
+
         }
+
     }
+
 }

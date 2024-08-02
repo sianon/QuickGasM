@@ -10,29 +10,31 @@ Dialog{
     height: 480
     padding: 0
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{
         anchors.fill: parent
+        spacing: 0
         BorderImage{
             border.bottom: 8
-            source: "images/toolbar.png"
             width: parent.width
             height: 40
             Rectangle{
                 id: backButton
-                width: opacity ? 60 : 0
+                width: opacity ? 30 : 0
                 anchors.left: parent.left
                 anchors.leftMargin: 20
-                opacity: stackView.depth > 1 ? 1 : 0
+                opacity: 1
                 anchors.verticalCenter: parent.verticalCenter
                 antialiasing: true
                 height: 40
                 radius: 4
-                color: backmouse.pressed ? "#222" : "transparent"
+                color: backmouse.pressed ? "red" : "transparent"
                 Behavior on opacity{ NumberAnimation{} }
                 Image{
+                    sourceSize.height: 28
+                    sourceSize.width: 28
                     anchors.verticalCenter: parent.verticalCenter
                     source: "images/navigation_previous_item.png"
                 }
@@ -94,6 +96,11 @@ Dialog{
                 title: "系统设置"
                 page: "content/sys_setting_dlg.qml"
             }
+        }
+        Rectangle{
+            color: "#ffffff"
+            height: 4
+            width: parent.width
         }
 
         StackView{

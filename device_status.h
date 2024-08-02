@@ -33,7 +33,7 @@ public:
         wifi_level_ = rand() % 100;
         return wifi_level_;
     }
-
+    
     inline void mvSetSignalLevel(int level){
         signal_level_ = level;
     }

@@ -2,46 +2,42 @@ import QtQuick 2.2
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Item{
+Item {
+    id: sysUpgradeDlg
+
     width: 800
     height: 480
-    id: sysUpgradeDlg
+
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
-    ColumnLayout{
+
+    ColumnLayout {
         anchors.fill: parent
 
-        ListModel{
+        ListModel {
             id: pageModelsys_up
-            ListElement{type: "sysVersion"}
-            ListElement{type: "screenLevelHigh"}
+
+            ListElement {
+                type: "sysVersion"
+            }
+
+            ListElement {
+                type: "screenLevelHigh"
+            }
+
         }
 
-        ListView{
+        ListView {
             model: pageModelsys_up
             anchors.fill: parent
-            delegate: AndroidDelegate{
-                text: title
-                onClicked: stackView.push(Qt.resolvedUrl(page))
-                Loader {
-                    width: parent.width
-                    sourceComponent: {
-                        if (model.type === "sysVersion") {
-                            return sysVersion;
-                        } else if (model.type === "screenLevelHigh") {
-                            return screenLevelHigh;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            }
 
             Component {
                 id: sysVersion
+
                 RowLayout {
+                    height: 40
                     Text {
                         text: "当前系统版本号"
                         color: "white"
@@ -50,18 +46,24 @@ Item{
                         Layout.leftMargin: 30
                         Layout.alignment: Qt.AlignLeft
                     }
+
                     Text {
                         text: "V01.20240805"
                         color: "white"
                         Layout.rightMargin: 30
                         Layout.alignment: Qt.AlignRight
                     }
+
                 }
+
             }
 
             Component {
                 id: screenLevelHigh
+
                 RowLayout {
+                    height: 40
+
                     Text {
                         text: "搜索本地升级包"
                         color: "white"
@@ -70,6 +72,7 @@ Item{
                         Layout.leftMargin: 30
                         Layout.alignment: Qt.AlignLeft
                     }
+
                     RoundButton {
                         Layout.preferredHeight: 25
                         Layout.preferredWidth: 110
@@ -78,14 +81,15 @@ Item{
                         text: "开始搜索"
                         onClicked: {
                             var component = Qt.createComponent("upgrade_msgbox.qml");
-                            var dlg = component.createObject(sysUpgradeDlg);
+                            var dlg = component.createObject(mainWindow);
                             if (dlg === null) {
                                 console.log("Error creating object");
-                                return;
+                                return ;
                             }
-                            dlg.title = "搜索到升级文件包\n" + "是否进行升级？"
+                            dlg.title = "搜索到升级文件包\n" + "是否进行升级？";
                             dlg.show();
                         }
+
                         background: Rectangle {
                             implicitWidth: 100
                             implicitHeight: 40
@@ -93,10 +97,33 @@ Item{
                             opacity: enabled ? 1 : 0.3
                             color: "#169bd5"
                         }
+
+                    }
+
+                }
+
+            }
+
+            delegate: AndroidDelegate {
+                text: title
+                onClicked: stackView.push(Qt.resolvedUrl(page))
+
+                Loader {
+                    width: parent.width
+                    sourceComponent: {
+                        if (model.type === "sysVersion")
+                            return sysVersion;
+                        else if (model.type === "screenLevelHigh")
+                            return screenLevelHigh;
+                        else
+                            return null;
                     }
                 }
+
             }
 
         }
+
     }
+
 }

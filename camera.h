@@ -27,7 +27,6 @@ public:
     };
 
     bool mbSetValueByPropertyName(QString property_name){
-
         return true;
     };
 

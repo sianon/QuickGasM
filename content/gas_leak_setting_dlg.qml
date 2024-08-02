@@ -2,59 +2,60 @@ import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-Item{
+Item {
     width: 800
     height: 480
+
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
-    ColumnLayout{
+
+    ColumnLayout {
         anchors.fill: parent
 
-        ListModel{
+        ListModel {
             id: pageModelsys_gas_leak
-            ListElement{type: "leakAlarm"}
-            ListElement{type: "leakNum"}
-            ListElement{type: "autosnap"}
-            ListElement{type: "autosnapInter"}
-            ListElement{type: "autorecord"}
-            ListElement{type: "audioalarm"}
+
+            ListElement {
+                type: "leakAlarm";
+                visible: true
+            }
+
+            ListElement {
+                type: "leakNum";
+                visible: true
+            }
+
+            ListElement {
+                type: "autosnap";
+                visible: true
+            }
+
+            ListElement {
+                type: "autosnapInter";
+                visible: true
+            }
+
+            ListElement {
+                type: "autorecord";
+                visible: true
+            }
+
+            ListElement {
+                type: "audioalarm";
+                visible: true
+            }
 
         }
 
-        ListView{
+        ListView {
             model: pageModelsys_gas_leak
             anchors.fill: parent
-            delegate: AndroidDelegate{
-                text: title
-                onClicked: stackView.push(Qt.resolvedUrl(page))
-                Loader {
-                    width: parent.width
-                    sourceComponent: {
-                        if (model.type === "type1") {
-                            //                        return delegate;
-                        } else if (model.type === "leakAlarm") {
-                            return leakAlarm;
-                        } else if (model.type === "leakNum") {
-                            return leakNum;
-                        }else if (model.type === "autosnap") {
-                            return autosnap;
-                        }else if (model.type === "autosnapInter") {
-                            return autosnapInter;
-                        }else if (model.type === "autorecord") {
-                            return autorecord;
-                        }else if (model.type === "audioalarm") {
-                            return audioalarm;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
-            }
 
             Component {
                 id: leakAlarm
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -62,8 +63,10 @@ Item{
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
+
                     RowLayout {
                         spacing: 10
+
                         Text {
                             Layout.leftMargin: 30
                             text: "气体报警"
@@ -72,21 +75,28 @@ Item{
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {
 
+                        Item {
                             width: 100
                         }
-                        AppleStyleSwitch{
+
+                        AppleStyleSwitch {
                             id: highTempretureSwitch
+
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                console.log("Switch toggled, checked: " + checked);
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: leakNum
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -96,6 +106,8 @@ Item{
 
                     RowLayout {
                         spacing: 10
+                        height: 40
+
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
@@ -103,24 +115,33 @@ Item{
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         TextField {
                             text: "40"
-                            Layout.preferredHeight: 25
+                            Layout.preferredHeight: 28
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                         }
+
                         Label {
                             text: "ppm.m (5-500000)"
                             color: "white"
                         }
+
                     }
+
                 }
+
             }
 
             Component {
                 id: autosnap
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -138,18 +159,32 @@ Item{
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
-                        AppleStyleSwitch{
+
+                        Item {
+                            width: 100
+                        }
+
+                        AppleStyleSwitch {
                             id: highTempretureSwitch
+
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                // console.log("Switch toggled, checked: " + checked);
+                                // var itm = pageModelsys_gas_leak.get(0);
+                                // console.log("0: " + itm.visible);
+                                // console.log("0: " + itm.type);
+                                // itm.visible = !itm.visible;
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: autosnapInter
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -159,6 +194,8 @@ Item{
 
                     RowLayout {
                         spacing: 10
+                        height: 40
+
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
@@ -166,23 +203,33 @@ Item{
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         TextField {
                             text: "10"
-                            Layout.preferredHeight: 25
+                            Layout.preferredHeight: 28
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                         }
+
                         Label {
                             text: "S (10-3600)"
                             color: "white"
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: autorecord
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -190,8 +237,10 @@ Item{
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
+
                     RowLayout {
                         spacing: 10
+
                         Text {
                             Layout.leftMargin: 30
                             text: "报警自动录视频"
@@ -200,21 +249,28 @@ Item{
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {
 
+                        Item {
                             width: 100
                         }
-                        AppleStyleSwitch{
+
+                        AppleStyleSwitch {
                             id: highTempretureSwitch
+
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                console.log("Switch toggled, checked: " + checked);
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: audioalarm
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -222,8 +278,10 @@ Item{
                     color: "lightgreen"
                     border.color: "gray"
                     border.width: 1
+
                     RowLayout {
                         spacing: 10
+
                         Text {
                             Layout.leftMargin: 30
                             text: "报警语音提示"
@@ -232,20 +290,56 @@ Item{
                             Layout.preferredWidth: 110
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {
 
+                        Item {
                             width: 100
                         }
-                        AppleStyleSwitch{
+
+                        AppleStyleSwitch {
                             id: highTempretureSwitch
+
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                console.log("Switch toggled, checked: " + checked);
                             }
                         }
+
+                    }
+
+                }
+
+            }
+
+            delegate: AndroidDelegate {
+                text: title
+                onClicked: stackView.push(Qt.resolvedUrl(page))
+                visible: model.visible
+
+                Loader {
+                    //                        return delegate;
+                    width: parent.width
+                    sourceComponent: {
+                        if (model.type === "type1") {
+                        } else if (model.type === "leakAlarm")
+                            return leakAlarm;
+                        else if (model.type === "leakNum")
+                            return leakNum;
+                        else if (model.type === "autosnap")
+                            return autosnap;
+                        else if (model.type === "autosnapInter")
+                            return autosnapInter;
+                        else if (model.type === "autorecord")
+                            return autorecord;
+                        else if (model.type === "audioalarm")
+                            return audioalarm;
+                        else
+                            return null;
                     }
                 }
+
             }
+
         }
+
     }
 
 }

@@ -3,9 +3,9 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 Popup {
-    id: upgradeMsgBox
+    id: restoreMsgBox
 
-    property string title: "搜索到升级文件包\n" + "是否进行升级？"
+    property string title: "是否确定格式化TF卡？"
 
     visible: true
     width: 350
@@ -37,10 +37,10 @@ Popup {
                 text: "取消"
                 width: 80
                 onClicked: {
-                    upgradeMsgBox.close();
+                    restoreMsgBox.close();
                     var component = Qt.createComponent("noticebox.qml");
                     var dlg = component.createObject(mainWindow);
-                    dlg.title = "升级失败，请重新升级！";
+                    dlg.title = "TF格式化失败！\n请重试";
                     dlg.show();
                 }
 
@@ -62,13 +62,13 @@ Popup {
             }
 
             RoundButton {
-                text: "开始升级"
+                text: "确定"
                 width: 80
                 onClicked: {
-                    upgradeMsgBox.close();
+                    restoreMsgBox.close();
                     var component = Qt.createComponent("noticebox_succeed.qml");
                     var dlg = component.createObject(mainWindow);
-                    dlg.title = "升级成功！";
+                    dlg.title = "TF格式化成功！";
                     dlg.show();
                 }
 

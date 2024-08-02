@@ -393,3 +393,7 @@ QString FrameProvider::mvGetVideoThumbnailByPath(QString path){
 
     return file_map.value(path);
 }
+
+QString FrameProvider::mobGetStorageInfo(){
+    return QString("{ \"used\":18, \"total\":28, \"free\": 38}");
+}

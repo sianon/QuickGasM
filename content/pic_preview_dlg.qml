@@ -88,13 +88,17 @@ Dialog {
                     }
                     ColumnLayout {
                         Layout.topMargin: 10
-                        Image {
-                            id: img_preview
+                        Rectangle {
+                            id: imgItem_back
                             Layout.preferredWidth: 710
                             Layout.preferredHeight: 360
-                            Layout.alignment: Qt.AlignHCenter
+                            color: "#000"
+                            Image {
+                                id: img_preview
+                                anchors.fill: parent
+                                fillMode: Image.PreserveAspectFit
+                            }
                         }
-
                         MediaPlayer {
                             id: mediaPlayer
                             Component.onCompleted: {
@@ -169,11 +173,11 @@ Dialog {
                     if (file.endsWith(".mp4"))
                     {
                         videoItem_back.visible = true;
-                        img_preview.visible = false;
+                        imgItem_back.visible = false;
                         mediaPlayer.source = "file://" + file;
                     }else {
                     videoItem_back.visible = false;
-                    img_preview.visible = true;
+                    imgItem_back.visible = true;
                     mediaPlayer.source = "";
                     img_preview.source = "file://" + file;
                 }

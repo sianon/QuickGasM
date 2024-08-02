@@ -7,7 +7,7 @@ Item{
     width: 800
     height: 480
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{
@@ -60,7 +60,7 @@ Item{
                 height: expanded ? 150 : 50
                 property bool expanded: false  // Track the expanded/collapsed state
                 Rectangle {
-                    color: "#212126"
+                    color: "#333333"
                     anchors.fill: parent
                 }
                 Column {
@@ -120,7 +120,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "温度单位设置"
                             Layout.preferredHeight: 25
@@ -144,7 +144,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "摄氏度 ℃"
                             Layout.preferredHeight: 25
@@ -176,7 +176,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "华氏度 ℉"
                             Layout.preferredHeight: 25
@@ -208,7 +208,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "开尔文 K"
                             Layout.preferredHeight: 25
@@ -241,7 +241,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "距离单位设置"
                             Layout.preferredHeight: 25
@@ -265,7 +265,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "米 m"
                             Layout.preferredHeight: 25
@@ -297,7 +297,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             text: "英尺 ft"
                             Layout.preferredHeight: 25

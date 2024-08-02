@@ -6,7 +6,7 @@ Item{
     width: 800
     height: 480
     Rectangle {
-        color: "#212126"
+        color: "#333333"
         anchors.fill: parent
     }
     ColumnLayout{
@@ -128,7 +128,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
-
+height: 40
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
@@ -157,6 +157,7 @@ Item{
 
                     RowLayout {
                         spacing: 10
+                        height: 40
                         Text {
                             Layout.leftMargin: 30
                             Layout.preferredWidth: 110
@@ -168,7 +169,7 @@ Item{
                         TextField {
                             id: autoSnapInter
                             text: "10"
-                            Layout.preferredHeight: 25
+                            Layout.preferredHeight: 28
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
@@ -213,6 +214,7 @@ Item{
                     border.width: 1
                     RowLayout {
                         spacing: 10
+                        height: 40
                         Text {
                             Layout.leftMargin: 30
                             text: "拍摄张数"
@@ -225,7 +227,7 @@ Item{
                         TextField {
                             text: "10"
                             id: autoSnapNum
-                            Layout.preferredHeight: 25
+                            Layout.preferredHeight: 28
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
@@ -248,6 +250,7 @@ Item{
                     border.width: 1
                     RowLayout {
                         spacing: 10
+                        height: 40
                         Text {
                             Layout.leftMargin: 30
                             text: "照片格式"

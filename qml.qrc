@@ -65,6 +65,21 @@
         <file>images/pause.png</file>
         <file>images/play.png</file>
         <!-- //////////////////////// -->
+        <file>images/navigation_previous_item.png</file>
+        <file>images/navigation_next_item.png</file>
+        <file>images/alarm_settings.png</file>
+        <file>images/snapshot_settings.png</file>
+        <file>images/cloud_settings.png</file>
+        <file>images/net_settings.png</file>
+        <file>images/vision_mix_settings.png</file>
+        <file>images/measurement_settings.png</file>
+        <file>images/record_settings.png</file>
+        <file>images/gas_leak_settings.png</file>
+        <file>images/low_high_tempreture_settings.png</file>
+        <file>images/alarm_log_settings.png</file>
+        <file>images/succeed.png</file>
+        <file>images/failed.png</file>
+        <!-- /////////////////////////////// -->
         <file>settings_dlg.qml</file>
         <file>gas_enhance_dlg.qml</file>
         <file>ls_mode_dlg.qml</file>
@@ -105,5 +120,9 @@
         <file>content/gas_detect_env_param.qml</file>
         <file>content/render_mode_switch.qml</file>
         <file>content/record_dlg.qml</file>
+        <file>content/restore_msgbox.qml</file>
+        <file>content/noticebox_succeed.qml</file>
+        <file>content/format_msgbox.qml</file>
+        <file>content/explore.qml</file>
     </qresource>
 </RCC>
