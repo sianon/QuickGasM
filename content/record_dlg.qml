@@ -73,6 +73,7 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbRecord("");
                 }
             }
             Button{
@@ -89,6 +90,7 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbRecordBeidouInfo("");
                 }
             }
             Button{
@@ -105,6 +107,7 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbRecordQRScan("");
                 }
             }
         }
@@ -126,9 +129,8 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mvCallBackMsg("save");
+                    providers.mbRecordSave("");
                     dialog.close();
-                    return "save";
                 }
             }
             Button{

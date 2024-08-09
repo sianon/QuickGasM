@@ -64,7 +64,7 @@ Item{
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled:{
-                                console.log("Switch toggled, checked: " + checked)
+                                providers.mvSetManualRecordVideoAutoSave(checked);
                             }
                         }
                     }

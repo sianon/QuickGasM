@@ -14,7 +14,7 @@ ApplicationWindow{
     title: "Floating Subcontrol Example"
     color: "#185abd"
     flags: Qt.FramelessWindowHint
-
+    property int bat_status_last: 0;
     TdlasDevice{
         id: tdlas_ctrl
     }
@@ -37,7 +37,6 @@ ApplicationWindow{
     }
     function switchRenderMode(val_arg){
         providers.mvSetRanderMode(val_arg);
-        console.log("qml method runing", val_arg, "return ok");
         return "ok"
     }
 
@@ -47,6 +46,7 @@ ApplicationWindow{
     }
 
     function snapshot(){
+        providers.mbSnap("");
         var component = Qt.createComponent("snapshot_func_dlg.qml");
         var dialog = component.createObject(mainWindow);
         dialog.open();
@@ -138,18 +138,38 @@ ApplicationWindow{
 
                         var formattedTime =date + "  " + padZero(hours) + ":" + padZero(minutes) + ":" + padZero(seconds);
                         timeLabel.text = formattedTime;
-                        //                        signal_label.text = device_status.mvGetSignalLevel();
-                        var bat_lel = device_status.mvGetBatteryLevel();
-                        if(bat_lel <= 25){
-                            battery_label.source = "images/battery_1.png";
-                        }else if(bat_lel > 25 && bat_lel <= 50){
-                            battery_label.source = "images/battery_2.png";
-                        }else if(bat_lel > 50 && bat_lel <= 75){
-                            battery_label.source = "images/battery_3.png";
-                        }else if(bat_lel > 75 && bat_lel <= 100){
-                            battery_label.source = "images/battery_f.png";
+
+                        if(!device_status.mbGetShowBat()){
+                            battery_label.visible = false;
+                        }else{
+                            battery_label.visible = true;
                         }
-                        //                        wifi_label.text = device_status.mvGetWifiLevel();
+                        var res = device_status.mbGetChargingStatus();
+                        if(!res){
+                            var bat_lel = device_status.mvGetBatteryLevel();
+                            if(bat_lel <= 25){
+                                battery_label.source = "images/battery_1.png";
+                            }else if(bat_lel > 25 && bat_lel <= 50){
+                                battery_label.source = "images/battery_2.png";
+                            }else if(bat_lel > 50 && bat_lel <= 75){
+                                battery_label.source = "images/battery_3.png";
+                            }else if(bat_lel > 75 && bat_lel <= 100){
+                                battery_label.source = "images/battery_f.png";
+                            }
+                        }else{
+                            console.log("bat_status_last:", bat_status_last);
+                            bat_status_last = bat_status_last%100;
+                            bat_status_last += 25;
+                            if(bat_status_last <= 25){
+                                battery_label.source = "images/battery_1.png";
+                            }else if(bat_status_last > 25 && bat_status_last <= 50){
+                                battery_label.source = "images/battery_2.png";
+                            }else if(bat_status_last > 50 && bat_status_last <= 75){
+                                battery_label.source = "images/battery_3.png";
+                            }else if(bat_status_last > 75 && bat_status_last <= 100){
+                                battery_label.source = "images/battery_f.png";
+                            }
+                        }
                     }
                 }
 

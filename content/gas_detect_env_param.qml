@@ -37,18 +37,12 @@ Dialog{
                 }
                 ListModel {
                     id: rateModel
-                    ListElement { name: "0.09"}
-                    ListElement { name: "0.15" }
-                    ListElement { name: "0.94" }
-                    ListElement { name: "0.09"}
-                    ListElement { name: "0.15" }
-                    ListElement { name: "0.94" }
-                    ListElement { name: "0.09"}
-                    ListElement { name: "0.15" }
-                    ListElement { name: "0.94" }
-                    ListElement { name: "0.09"}
-                    ListElement { name: "0.15" }
-                    ListElement { name: "0.94" }
+                    Component.onCompleted: {
+                        for (var i = 1; i <= 100; i++) {
+                            var rate = (i*0.01).toFixed(2);
+                            rateModel.append({name: rate});
+                        }
+                    }
                 }
                 Column {
                     Rectangle {
@@ -70,10 +64,10 @@ Dialog{
                         model: rateModel
                         clip: true
                         delegate: Item {
-                            width: parent.width
+                            width: 60
                             height: 20
                             Rectangle {
-                                width: parent.width
+                                width: 60
                                 height: 20
                                 color: ratelist.currentIndex === index ? "darkgray" : "#414141"
                                 MouseArea {
@@ -92,9 +86,8 @@ Dialog{
                             }
                         }
                         onCurrentIndexChanged: {
-                            console.log("Selected index changed to:", currentIndex);
                             if (currentIndex !== -1) {
-                                console.log("Selected item:", rateModel.get(currentIndex).name);
+                                providers.mvSetEmissivity(rateModel.get(currentIndex).name);
                             }
                         }
                     }
@@ -152,9 +145,8 @@ Dialog{
                             }
                         }
                         onCurrentIndexChanged: {
-                            console.log("Selected index changed to:", currentIndex);
                             if (currentIndex !== -1) {
-                                console.log("Selected item:", fruitModel.get(currentIndex).name);
+                                providers.mvSetEmissivity(fruitModel.get(currentIndex).name);
                             }
                         }
                     }
@@ -220,6 +212,7 @@ Dialog{
                     }
                     onClicked:{
                         temp_layout.visible = false;
+                        providers.mvSetEnvTemp(temp.value.toFixed(0));
                     }
                 }
                 Button{
@@ -303,6 +296,7 @@ Dialog{
                     }
                     onClicked:{
                         humidity_layout.visible = false;
+                        providers.mvSetEnvhumidity(humidity.value.toFixed(0));
                     }
                 }
                 Button{
@@ -386,6 +380,7 @@ Dialog{
                     }
                     onClicked:{
                         distance_layout.visible = false;
+                        providers.mvSetDistance(distance.value.toFixed(1));
                     }
                 }
                 Button{
@@ -473,6 +468,7 @@ Dialog{
                     humidity_layout.visible = false;
                     distance_layout.visible = false;
                     slider_layout.visible = false;
+                    providers.mvSetEnvTemp("auto");
                 }
             }
             Button{
@@ -502,6 +498,7 @@ Dialog{
                     humidity_layout.visible = false;
                     distance_layout.visible = false;
                     slider_layout.visible = false;
+                    providers.mvSetEnvhumidity("auto");
                 }
                 Rectangle{
                     implicitHeight: parent.height
@@ -540,6 +537,7 @@ Dialog{
                     humidity_layout.visible = false;
                     distance_layout.visible = false;
                     slider_layout.visible = false;
+                    providers.mvSetDistance("auto");
                 }
                 Rectangle{
                     implicitHeight: parent.height

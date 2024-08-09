@@ -84,7 +84,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked);
+                                providers.mvSetGasDetectWarrning(checked);
                             }
                         }
 
@@ -126,6 +126,9 @@ Item {
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                            onTextChanged: {
+                                providers.mvSetGasDetectWarrningPPM(text);
+                            }
                         }
 
                         Label {
@@ -168,11 +171,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                // console.log("Switch toggled, checked: " + checked);
-                                // var itm = pageModelsys_gas_leak.get(0);
-                                // console.log("0: " + itm.visible);
-                                // console.log("0: " + itm.type);
-                                // itm.visible = !itm.visible;
+                                providers.mvSetGasDetectWarrningAutoSnap(checked);
                             }
                         }
 
@@ -214,6 +213,9 @@ Item {
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                            onTextChanged: {
+                                providers.mvSetGasDetectWarrningAutoSnapInterval(text);
+                            }
                         }
 
                         Label {
@@ -258,7 +260,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked);
+                                providers.mvSetGasDetectWarrningAutoRecord(checked);
                             }
                         }
 
@@ -299,7 +301,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked);
+                                providers.mvSetGasDetectWarrningNotice(checked);
                             }
                         }
 

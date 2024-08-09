@@ -64,12 +64,15 @@ Dialog{
                     source: "../images/pip_mode.png"
                 }
             }
+            onClicked:{
+                switchRenderMode("PIP");
+            }
         }
         Button{
             Layout.preferredWidth: 36
             Layout.preferredHeight: 36
             onClicked:{
-                testbtn(123);
+                switchRenderMode("detail_enhance");
             }
             Rectangle{
                 implicitHeight: parent.height

@@ -9,9 +9,9 @@
 #include <QJsonObject>
 #include "third_device.h"
 
-bool CameraDataIn(){
+// bool CameraDataIn(){
 
-}
+// }
 
 class Camera : public QObject, public IThirdDevice{
 Q_OBJECT

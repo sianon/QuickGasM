@@ -194,6 +194,9 @@ Item {
                             Layout.preferredHeight: 28
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                            onTextChanged: {
+                                providers.mvSetTime(text);
+                            }
                         }
 
                     }

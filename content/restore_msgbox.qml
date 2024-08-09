@@ -66,10 +66,10 @@ Popup {
                 width: 80
                 onClicked: {
                     restoreMsgBox.close();
+                    providers.mbFactoryReset();
                     var component = Qt.createComponent("noticebox_succeed.qml");
                     var dlg = component.createObject(mainWindow);
                     dlg.title = "恢复出厂设置成功！";
-                    dlg.show();
                 }
 
                 background: Rectangle {

@@ -18,15 +18,23 @@
 enum VideoType{
     VIDEO_TYPE_WHITE = 0,
     VIDEO_TYPE_THERMAL,
-    VIDEO_TYPE_MIX
+    VIDEO_TYPE_MIX,
+    VIDEO_PIP,
+    VIDEO_ENHANCE
 };
 
 enum ColorType{
     COLOR_TYPE_NULL = 0,
-    COLOR_TYPE_IRON_RED,
-    COLOR_TYPE_BLACK_WITHE,
-    COLOR_TYPE_RAINBOW,
-    COLOR_TYPE_RED
+    color_type_white_hot,
+    color_type_black_hot,
+    color_type_iron_red,
+    color_type_green,
+    color_type_rainbow,
+    color_type_rainbow_reverse,
+    color_type_red_brown,
+    color_type_hot_iron,
+    color_type_cold,
+    color_type_fire,
 };
 
 class QmlEngineSingleton

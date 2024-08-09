@@ -16,7 +16,7 @@
 #include "video_dlg.h"
 #include "video_hub.h"
 #include "common.h"
-
+#include "camera.h"
 cv::Mat oQImage2Mat(const QImage& image){
     cv::Mat mat;
     int height, width;
@@ -146,8 +146,38 @@ void FrameProvider::mvSetRanderMode(QString mode){
         render_type_ = VIDEO_TYPE_WHITE;
     }else if(mode == "infrared"){
         render_type_ = VIDEO_TYPE_THERMAL;
+    }else if(mode == "PIP"){
+        render_type_ = VIDEO_PIP;
+    }else if(mode == "detail_enhance"){
+        render_type_ = VIDEO_ENHANCE;
+    }else{
+        render_type_ = VIDEO_TYPE_THERMAL;
     }
 
+}
+
+Q_INVOKABLE void FrameProvider::mvSwitchGasDectect(QString on_off)
+{
+    qDebug()<<"switch gas detect:"<<on_off;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSwitchGasSplit(QString on_off)
+{
+    qDebug()<<"switch gas split:"<<on_off;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSwitchConcentrationDistri(QString on_off)
+{
+    qDebug()<<"switch concentrations distri:"<<on_off;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSwitchCloudGasEnhance(QString on_off)
+{
+    qDebug()<<"switch cloud gas enhance:"<<on_off;
+    return Q_INVOKABLE void();
 }
 
 QImage FrameProvider::mvScaleImage(QImage& image){
@@ -186,15 +216,15 @@ QImage FrameProvider::mvScaleImage(QImage& image){
         cv::cvtColor(roi, roi, cv::COLOR_BGRA2GRAY);
         auto color_template = COLORMAP_HOT;
         switch(color_setting_.meGetCurrentColorType()){
-            case COLOR_TYPE_IRON_RED:{
+            case color_type_iron_red:{
                 color_template = COLORMAP_INFERNO;
             }
                 break;
-            case COLOR_TYPE_BLACK_WITHE:{
+            case color_type_white_hot:{
                 color_template = COLORMAP_BONE;
             }
                 break;
-            case COLOR_TYPE_RAINBOW:{
+            case color_type_rainbow:{
                 color_template = COLORMAP_RAINBOW;
             }
                 break;
@@ -231,14 +261,10 @@ void FrameProvider::mvZoomOut(){
 }
 
 bool FrameProvider::mbSnapShot(){
+    qDebug()<<"snapshot";
     using namespace cv;
-    if(render_type_ != VIDEO_TYPE_WHITE){
-        //        QImage image = VideoHub::moGetInstance()->moGetVideoFromQueue(VIDEO_TYPE_THERMAL);
+    if(render_type_ != VIDEO_TYPE_WHITE){;
         QImage res;
-        //        if(image.isNull()){
-        //            cout << "no frame" << endl;
-        //            return false;
-        //        }
         cv::Mat src, im_color;
         src = current_src_mat_;
 
@@ -246,15 +272,15 @@ bool FrameProvider::mbSnapShot(){
             cv::cvtColor(src, src, cv::COLOR_BGRA2GRAY);
             auto color_template = COLORMAP_HOT;
             switch(color_setting_.meGetCurrentColorType()){
-                case COLOR_TYPE_IRON_RED:{
+                case color_type_iron_red:{
                     color_template = COLORMAP_INFERNO;
                 }
                     break;
-                case COLOR_TYPE_BLACK_WITHE:{
+                case color_type_white_hot:{
                     color_template = COLORMAP_BONE;
                 }
                     break;
-                case COLOR_TYPE_RAINBOW:{
+                case color_type_rainbow:{
                     color_template = COLORMAP_RAINBOW;
                 }
                     break;
@@ -278,22 +304,6 @@ bool FrameProvider::mbSnapShot(){
             char timeString[100];
             std::strftime(timeString, sizeof(timeString), "%Y%m%d%H%M%S", std::localtime(&now_c));
             strcat(timeString, ".jpg");
-
-            //        QQmlComponent component(&engine, QUrl(QStringLiteral("qrc:/color_setting_dlg.qml")));
-
-            //        QObject* dialogItem = qobject_cast<QObject*>(component.create());
-            //
-            //        dialogItem->setParent((QQuickWindow*)engine.rootObjects().first());
-            //        if (dialogItem) {
-            //            dialogItem->setProperty("visible", true);
-            ////            dialogItem->show();
-            //            QEventLoop loop;
-            //            QObject::connect(dialogItem, SIGNAL(closed()), &loop, SLOT(quit()));
-            //            loop.exec();
-            //        } else {
-            //            qWarning() << "Failed to cast dialog object to QQuickItem";
-            ////            delete dialogObject;
-            //        }
 
             QEventLoop loop;
             QObject::connect(this, &FrameProvider::mvSnapOver, &loop, &QEventLoop::quit);
@@ -346,7 +356,153 @@ QString FrameProvider::moGetDialogRes(){
     return QString();
 }
 
-void FrameProvider::mvCallBackMsg(QString cmd){
+Q_INVOKABLE void FrameProvider::mvSwitchDisplayTDLAS(QString on_off)
+{
+    qDebug()<<"switch Display TDLAS:"<<on_off;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE bool FrameProvider::mbFactoryReset()
+{
+    qDebug()<<"------factory reset------";
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbSearchUpgradeFile()
+{
+    qDebug()<<"------mbSearchUpgradeFile------";
+    return true;
+}
+
+Q_INVOKABLE QString FrameProvider::msGetSysVersion(int index)
+{
+    qDebug()<<"------get sys version:------"<<index;
+    //0:序列号
+    //1:设备版本
+    //2:主控版本
+    //3:算法版本
+    //4:模型版本
+    //5:系统软件版本
+    //6:系统版本
+    return "v1.0.0";
+}
+
+Q_INVOKABLE void FrameProvider::mvSetScreenLvl(QString lvl)
+{
+    qDebug() << "------mvSetScreenLvl:" << lvl;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE bool FrameProvider::mbFormatTF()
+{
+    qDebug()<<"------format tf------";
+    return true;
+}
+
+Q_INVOKABLE void FrameProvider::mvSetScreenLvl(int lvl)
+{
+    qDebug() << "------mvSetScreenLvl:" << lvl;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetTmpUnit(QString val)
+{
+    qDebug() << "------mvSetTmpUnit:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetDistanceUnit(QString val)
+{
+    qDebug() << "------mvSetDistanceUnit:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetEnvTemp(QString val)
+{
+    qDebug() << "------mvSetEnvTemp:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetEnvhumidity(QString val)
+{
+    qDebug() << "------mvSetEnvhumidity:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetDistance(QString val)
+{
+    qDebug() << "------mvSetDistance:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE void FrameProvider::mvSetEmissivity(QString val)
+{
+    qDebug() << "------mvSetEmissivity:" << val;
+    return Q_INVOKABLE void();
+}
+
+Q_INVOKABLE bool FrameProvider::mbSnap(QString val)
+{
+    qDebug() << "------mbSnap:" << val;
+    return true;
+}
+
+Q_INVOKABLE bool FrameProvider::mbSnapSave(QString val)
+{
+    qDebug() << "------mbSnapSave:" << val;
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbSnapRecordVoice(QString val)
+{
+    qDebug() << "------mbSnapRecordVoice:" << val;
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbSnapBeidouInfo()
+{
+    qDebug() << "------mbSnapBeidouInfo------";
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbSnapQRScan()
+{
+    qDebug() << "------mbSnapQRScan------";
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbRecord(QString val)
+{
+    qDebug() << "------mbRecord:" << val;
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbRecordSave(QString val)
+{
+    qDebug() << "------mbRecordSave:" << val;
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbRecordVideoVoice(QString val)
+{
+    qDebug() << "------mbRecordVideoVoice:" << val;
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbRecordBeidouInfo()
+{
+    qDebug() << "------mbRecordBeidouInfo------";
+    return Q_INVOKABLE bool();
+}
+
+Q_INVOKABLE bool FrameProvider::mbRecordQRScan()
+{
+    qDebug() << "------mbRecordQRScan------";
+    return Q_INVOKABLE bool();
+}
+
+void FrameProvider::mvCallBackMsg(QString cmd)
+{
     cmd_ = cmd;
     emit mvSnapOver();
 }
@@ -365,6 +521,7 @@ void FrameProvider::mvRefeshFileList(QString cmd){
 }
 
 void FrameProvider::mvDeleteFile(QString path){
+    qDebug() << "delete file:" << path;
     media_file_manage_.mvDeleteFile(path);
 }
 

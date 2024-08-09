@@ -38,10 +38,6 @@ Popup {
                 width: 80
                 onClicked: {
                     restoreMsgBox.close();
-                    var component = Qt.createComponent("noticebox.qml");
-                    var dlg = component.createObject(mainWindow);
-                    dlg.title = "TF格式化失败！\n请重试";
-                    dlg.show();
                 }
 
                 background: Rectangle {
@@ -53,7 +49,6 @@ Popup {
                     opacity: enabled ? 1 : 0.3
                     color: "#ffffff"
                 }
-
             }
 
             Item {
@@ -66,10 +61,15 @@ Popup {
                 width: 80
                 onClicked: {
                     restoreMsgBox.close();
-                    var component = Qt.createComponent("noticebox_succeed.qml");
-                    var dlg = component.createObject(mainWindow);
-                    dlg.title = "TF格式化成功！";
-                    dlg.show();
+                    if(providers.mbFormatTF()){
+                        var component = Qt.createComponent("noticebox_succeed.qml");
+                        var dlg = component.createObject(mainWindow);
+                        dlg.title = "TF格式化成功！";
+                    }else{
+                        var component1 = Qt.createComponent("noticebox.qml");
+                        var dlg1 = component1.createObject(mainWindow);
+                        dlg1.title = "TF格式化失败！\n请重试";
+                    }
                 }
 
                 background: Rectangle {

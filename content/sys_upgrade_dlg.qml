@@ -38,6 +38,7 @@ Item {
 
                 RowLayout {
                     height: 40
+
                     Text {
                         text: "当前系统版本号"
                         color: "white"
@@ -48,7 +49,7 @@ Item {
                     }
 
                     Text {
-                        text: "V01.20240805"
+                        text: providers.msGetSysVersion(6)
                         color: "white"
                         Layout.rightMargin: 30
                         Layout.alignment: Qt.AlignRight
@@ -80,14 +81,20 @@ Item {
                         Layout.alignment: Qt.AlignRight
                         text: "开始搜索"
                         onClicked: {
-                            var component = Qt.createComponent("upgrade_msgbox.qml");
-                            var dlg = component.createObject(mainWindow);
-                            if (dlg === null) {
-                                console.log("Error creating object");
-                                return ;
+                            var res_search = providers.mbSearchUpgradeFile();
+                            if(res_search){
+                                var component = Qt.createComponent("upgrade_msgbox.qml");
+                                var dlg = component.createObject(mainWindow);
+                                if (dlg === null) {
+                                    console.log("Error creating object");
+                                    return ;
+                                }
+                                dlg.title = "搜索到升级文件包\n" + "是否进行升级？";
+                            }else{
+                                var component = Qt.createComponent("noticebox.qml");
+                                var dlg = component.createObject(mainWindow);
+                                dlg.title = "未搜索到文件！";
                             }
-                            dlg.title = "搜索到升级文件包\n" + "是否进行升级？";
-                            dlg.show();
                         }
 
                         background: Rectangle {

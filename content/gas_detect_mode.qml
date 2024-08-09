@@ -33,7 +33,7 @@ Dialog{
             onClicked: {
                 var siblings = parent.children;
                 var siz = siblings.length;
-
+                providers.mvSwitchGasMode(checked);
                 for(var i = 0; i < siz; i++){
                     if(siblings[i] !== parent && siblings[i] instanceof CheckBox){
                         siblings[i].enabled = checked;
@@ -56,8 +56,8 @@ Dialog{
                 }
             }
             onClicked:{
-                console.log("QmlEnum:", QmlEnum.GasDetectMode_ENHANCE)
-                providers.mvSetGasDetectMode(QmlEnum.GasDetectMode_OFF);
+                console.log(checked);
+                gas_probe.checked ? providers.mvSwitchGasDectect("on") : providers.mvSwitchGasDectect("off");
             }
         }
         CheckBox{
@@ -75,6 +75,7 @@ Dialog{
                 }
             }
             onClicked:{
+                gas_detect.checked ? providers.mvSwitchGasSplit("on") : providers.mvSwitchGasSplit("off");
             }
         }
 
@@ -92,13 +93,16 @@ Dialog{
                     source: "../images/distribution.png"
                 }
             }
+            onClicked:{
+                distribution.checked ? providers.mvSwitchConcentrationDistri("on") : providers.mvSwitchConcentrationDistri("off");
+            }
         }
         CheckBox{
             id: plume_enhance
             Layout.preferredWidth: 36
             Layout.preferredHeight: 36
             onClicked:{
-                testbtn(123);
+                plume_enhance.checked ? providers.mvSwitchCloudGasEnhance("on") : providers.mvSwitchCloudGasEnhance("off");
             }
             indicator:Rectangle{
                 implicitHeight: parent.height
@@ -111,11 +115,11 @@ Dialog{
             }
         }
         CheckBox{
-            id: concentration
+            id: tdlas
             Layout.preferredWidth: 36
             Layout.preferredHeight: 36
             onClicked:{
-                testbtn(123);
+                tdlas.checked ? providers.mvSwitchDisplayTDLAS("on") : providers.mvSwitchDisplayTDLAS("off");
             }
             indicator:Rectangle{
                 implicitHeight: parent.height

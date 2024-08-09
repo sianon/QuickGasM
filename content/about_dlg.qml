@@ -162,7 +162,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(0)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -201,7 +201,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(1)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -240,7 +240,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(2)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -279,7 +279,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(3)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -318,7 +318,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(4)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
@@ -357,7 +357,7 @@ Item {
                         }
 
                         Text {
-                            text: "2024080500001"
+                            text: providers.msGetSysVersion(5)
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }

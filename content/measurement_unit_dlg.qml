@@ -3,66 +3,75 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.15
 
-Item{
+Item {
+    property int tempselectedOption: 0
+
     width: 800
     height: 480
+
     Rectangle {
         color: "#333333"
         anchors.fill: parent
     }
-    ColumnLayout{
+
+    ColumnLayout {
         anchors.fill: parent
 
-        ListModel{
+        ListModel {
             id: pageModelsys_bat
-            ListElement{type: "tempUnit"}
-            ListElement{type: "tempUnitC"}
-            ListElement{type: "tempUnitF"}
-            ListElement{type: "tempUnitk"}
-            ListElement{type: "distenceUnit"}
-            ListElement{type: "miter"}
-            ListElement{type: "inch"}
-        }
-        ExclusiveGroup { id: tabPositionGroup }
-        ListView{
-            model: pageModelsys_bat
-            anchors.fill: parent
-            delegate: AndroidDelegate{
-                text: title
-                Loader {
-                    width: parent.width
-                    sourceComponent: {
-                        if (model.type === "batShow") {
-                            return batShow;
-                        } else if (model.type === "tempUnit") {
-                            return tempUnit;
-                        } else if (model.type === "tempUnitC") {
-                            return tempUnitC;
-                        } else if (model.type === "tempUnitF") {
-                            return tempUnitF;
-                        } else if (model.type === "tempUnitk") {
-                            return tempUnitk;
-                        }else if (model.type === "distenceUnit") {
-                            return distenceUnit;
-                        }else if (model.type === "miter") {
-                            return miter;
-                        }else if (model.type === "inch") {
-                            return inch;
-                        } else {
-                            return null;
-                        }
-                    }
-                }
+
+            ListElement {
+                type: "tempUnit"
             }
 
+            ListElement {
+                type: "tempUnitC"
+            }
+
+            ListElement {
+                type: "tempUnitF"
+            }
+
+            ListElement {
+                type: "tempUnitk"
+            }
+
+            ListElement {
+                type: "distenceUnit"
+            }
+
+            ListElement {
+                type: "miter"
+            }
+
+            ListElement {
+                type: "inch"
+            }
+
+        }
+
+        ExclusiveGroup {
+            id: tabPositionGroup
+        }
+        ExclusiveGroup {
+            id: tabPositionGroup1
+        }
+
+        ListView {
+            model: pageModelsys_bat
+            anchors.fill: parent
+
             Item {
+                property bool expanded: false // Track the expanded/collapsed state
+
                 width: ListView.view.width
                 height: expanded ? 150 : 50
-                property bool expanded: false  // Track the expanded/collapsed state
+
                 Rectangle {
                     color: "#333333"
                     anchors.fill: parent
                 }
+
                 Column {
                     width: parent.width
                     spacing: 5
@@ -75,23 +84,28 @@ Item{
                         Text {
                             text: model.title
                             font.pixelSize: 20
-                            width: 0.8 * parent.width  // Adjust the width to your needs
+                            width: 0.8 * parent.width // Adjust the width to your needs
                         }
 
                         MouseArea {
-                            width: 0.2 * parent.width  // Adjust the width to your needs
+                            width: 0.2 * parent.width // Adjust the width to your needs
                             height: 40
                             onClicked: expanded = !expanded
+
                             Rectangle {
                                 width: parent.width
                                 height: parent.height
                                 color: "lightgray"
+
                                 Text {
                                     anchors.centerIn: parent
                                     text: expanded ? "▼" : "►"
                                 }
+
                             }
+
                         }
+
                     }
 
                     // Description row (collapsible)
@@ -107,10 +121,14 @@ Item{
                         font.pixelSize: 14
                         visible: expanded
                     }
+
                 }
+
             }
+
             Component {
                 id: tempUnit
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -120,7 +138,8 @@ Item{
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "温度单位设置"
                             Layout.preferredHeight: 25
@@ -129,12 +148,16 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
+
                     }
+
                 }
+
             }
 
             Component {
                 id: tempUnitC
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -144,7 +167,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "摄氏度 ℃"
                             Layout.preferredHeight: 25
@@ -153,20 +177,29 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
                             exclusiveGroup: tabPositionGroup
                             onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
+                                if (checked)
+                                    providers.mvSetTmpUnit("C");
+
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: tempUnitF
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -176,7 +209,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "华氏度 ℉"
                             Layout.preferredHeight: 25
@@ -185,20 +219,28 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
                             exclusiveGroup: tabPositionGroup
                             onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
+                                if (checked)
+                                    providers.mvSetTmpUnit("F");
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: tempUnitk
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -208,7 +250,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "开尔文 K"
                             Layout.preferredHeight: 25
@@ -217,21 +260,28 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
                             exclusiveGroup: tabPositionGroup
                             onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
+                                if (checked)
+                                    providers.mvSetTmpUnit("K");
                             }
                         }
+
                     }
+
                 }
+
             }
 
             Component {
                 id: distenceUnit
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -241,7 +291,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "距离单位设置"
                             Layout.preferredHeight: 25
@@ -250,12 +301,16 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
+
                     }
+
                 }
+
             }
 
             Component {
                 id: miter
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -265,7 +320,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "米 m"
                             Layout.preferredHeight: 25
@@ -274,20 +330,28 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
-                            exclusiveGroup: tabPositionGroup
+                            exclusiveGroup: tabPositionGroup1
                             onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
+                                if (checked)
+                                    providers.mvSetDistanceUnit("m");
                             }
                         }
+
                     }
+
                 }
+
             }
+
             Component {
                 id: inch
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -297,7 +361,8 @@ height: 40
 
                     RowLayout {
                         spacing: 10
-height: 40
+                        height: 40
+
                         Text {
                             text: "英尺 ft"
                             Layout.preferredHeight: 25
@@ -306,18 +371,56 @@ height: 40
                             color: "white"
                             Layout.alignment: Qt.AlignHCenter
                         }
-                        Item {width: 100}
+
+                        Item {
+                            width: 100
+                        }
+
                         RadioButton {
-                            exclusiveGroup: tabPositionGroup
+                            exclusiveGroup: tabPositionGroup1
                             onCheckedChanged: {
-                                if (checked) {
-                                    console.log("Group 1, Option 2 selected");
-                                }
+                                if (checked)
+                                    providers.mvSetDistanceUnit("inch");
                             }
                         }
+
+                    }
+
+                }
+
+            }
+
+            delegate: AndroidDelegate {
+                text: title
+
+                Loader {
+                    width: parent.width
+                    sourceComponent: {
+                        if (model.type === "batShow")
+                            return batShow;
+                        else if (model.type === "tempUnit")
+                            return tempUnit;
+                        else if (model.type === "tempUnitC")
+                            return tempUnitC;
+                        else if (model.type === "tempUnitF")
+                            return tempUnitF;
+                        else if (model.type === "tempUnitk")
+                            return tempUnitk;
+                        else if (model.type === "distenceUnit")
+                            return distenceUnit;
+                        else if (model.type === "miter")
+                            return miter;
+                        else if (model.type === "inch")
+                            return inch;
+                        else
+                            return null;
                     }
                 }
+
             }
+
         }
+
     }
+
 }

@@ -38,9 +38,7 @@ Popup {
                 width: 80
                 onClicked: {
                     upgradeMsgBox.close();
-                    var component = Qt.createComponent("noticebox.qml");
-                    var dlg = component.createObject(mainWindow);
-                    dlg.title = "升级失败，请重新升级！";
+
                     dlg.show();
                 }
 
@@ -66,10 +64,16 @@ Popup {
                 width: 80
                 onClicked: {
                     upgradeMsgBox.close();
-                    var component = Qt.createComponent("noticebox_succeed.qml");
-                    var dlg = component.createObject(mainWindow);
-                    dlg.title = "升级成功！";
-                    dlg.show();
+                    var res_search = providers.mbSearchUpgradeFile();
+                    if(res_search){
+                        var component = Qt.createComponent("noticebox_succeed.qml");
+                        var dlg = component.createObject(mainWindow);
+                        dlg.title = "升级成功！";
+                    }else{
+                        var component = Qt.createComponent("noticebox.qml");
+                        var dlg = component.createObject(mainWindow);
+                        dlg.title = "升级失败，请重新升级！";
+                    }
                 }
 
                 background: Rectangle {

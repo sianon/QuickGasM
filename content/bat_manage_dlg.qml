@@ -60,7 +60,7 @@ Item {
                         height: 40
 
                         Text {
-                            text: "电量图表展示"
+                            text: "电量图标展示"
                             color: "white"
                             Layout.preferredHeight: 25
                             Layout.preferredWidth: 110
@@ -76,6 +76,11 @@ Item {
                             text: ""
                             Layout.preferredHeight: 25
                             onClicked: {
+                                if (checked) {
+                                    device_status.mvSetShowBat(true);
+                                }else{
+                                    device_status.mvSetShowBat(false);
+                                }
                             }
                         }
 
@@ -144,7 +149,7 @@ Item {
                             onCheckedChanged: {
                                 if (checked) {
                                     selectedOption = 0;
-                                    console.log("screenLevelHigh");
+                                    providers.mvSetScreenLvl(3);
                                 }
                             }
                         }
@@ -187,7 +192,7 @@ Item {
                             onCheckedChanged: {
                                 if (checked) {
                                     selectedOption = 1;
-                                    console.log("screenLevelMid");
+                                    providers.mvSetScreenLvl(2);
                                 }
                             }
                         }
@@ -230,7 +235,7 @@ Item {
                             onCheckedChanged: {
                                 if (checked) {
                                     selectedOption = 2;
-                                    console.log("screenLevelLow");
+                                    providers.mvSetScreenLvl(1);
                                 }
                             }
                         }

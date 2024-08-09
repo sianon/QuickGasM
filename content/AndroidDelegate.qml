@@ -52,13 +52,10 @@ Item {
                 image.source = "../images/alarm_log_settings.png"
             }
             var path = image.source.toString();
-            console.log("path: " + path.length);
             if(path.length > 0){
                 next.source = "../images/navigation_next_item.png";
-                console.log("path is not null");
             }else{
                 next.source = "";
-                console.log("path is null");
             }
         }
     }

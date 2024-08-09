@@ -15,7 +15,6 @@ Dialog{
 
     function colorTempletChange(val_arg){
         providers.mvSetColorType(val_arg);
-        console.log("colorTempletChange", val_arg, "return ok");
         return "ok";
     }
 
@@ -29,7 +28,7 @@ Dialog{
         ColorBtn {
             text: "白热"
             onClicked: {
-                colorTempletChange("color_type_black_white");
+                colorTempletChange("color_type_white_hot");
             }
         }
         ColorBtn {
@@ -72,7 +71,7 @@ Dialog{
         ColorBtn {
             text: "热铁"
             onClicked: {
-                colorTempletChange("color_type_red");
+                colorTempletChange("color_type_hot_iron");
             }
         }
 
@@ -85,7 +84,7 @@ Dialog{
         ColorBtn {
             text: "火灾"
             onClicked: {
-                colorTempletChange();
+                colorTempletChange("color_type_fire");
             }
         }
     }

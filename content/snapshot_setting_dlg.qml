@@ -77,7 +77,7 @@ Item{
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled:{
-                                console.log("Switch toggled, checked: " + checked)
+                                providers.mvSetManualSnapAutoSave(checked);
                             }
                         }
                     }
@@ -104,13 +104,12 @@ Item{
                             Layout.alignment: Qt.AlignHCenter
                         }
                         Item {
-
                             width: 100
                         }
                         AppleStyleSwitch{
                             id: lowTempretureAlarmSwitch
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                providers.mvSetSnapAutoUpload(checked);
                             }
                         }
                     }
@@ -140,7 +139,7 @@ height: 40
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled: {
-                                console.log("Switch toggled, checked: " + checked)
+                                providers.mvSetAutoSnapPeriod(checked);
                             }
                         }
                     }
@@ -173,6 +172,9 @@ height: 40
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                            onTextChanged: {
+                                providers.mvSetAutoSnapPeriodInterval(text);
+                            }
                         }
                         Label {
                             text: "S (10-3600)"
@@ -231,6 +233,9 @@ height: 40
                             Layout.preferredWidth: 50
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
+                            onTextChanged: {
+                                providers.mvSetAutoSnapPeriodNum(text);
+                            }
                         }
                         Label {
                             text: "张 (5-1000)"

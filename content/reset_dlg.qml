@@ -65,7 +65,6 @@ Item {
                                 var component = Qt.createComponent("restore_msgbox.qml");
                                 var dlg = component.createObject(mainWindow);
                                 dlg.title = "是否确定恢复出厂设置！";
-                                dlg.show();
                             }
 
                             style: ButtonStyle {

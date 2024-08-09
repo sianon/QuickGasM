@@ -22,9 +22,11 @@ Dialog{
     }
 
     ColumnLayout{
-        anchors.fill: parent
+        width: 310
+        // anchors.fill: parent
         ColumnLayout{
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            // anchors.horizontalCenter: parent.horizontalCenter
             Text{
                 Layout.alignment: Qt.AlignLeft
                 text: "拍照图片设置"
@@ -39,8 +41,9 @@ Dialog{
             }
         }
         RowLayout{
-            anchors.horizontalCenter: parent.horizontalCenter
-
+            // anchors.horizontalCenter: parent.horizontalCenter
+Layout.fillWidth: true
+Layout.alignment: Qt.AlignHCenter
             Text{
                 Layout.alignment: Qt.AlignLeft
                 text: "图片名称"
@@ -52,7 +55,8 @@ Dialog{
             }
         }
         RowLayout{
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignHCenter
             spacing: 30
             Text{
                 Layout.alignment: Qt.AlignLeft
@@ -73,6 +77,7 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbSnapRecordVoice("");
                 }
             }
             Button{
@@ -89,6 +94,7 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbSnapBeidouInfo();
                 }
             }
             Button{
@@ -105,12 +111,14 @@ Dialog{
                     }
                 }
                 onClicked:{
+                    providers.mbSnapQRScan();
                 }
             }
         }
         RowLayout{
             Layout.fillWidth: true
-            anchors.horizontalCenter: parent.horizontalCenter
+            Layout.alignment: Qt.AlignHCenter
+            Layout.leftMargin: 25
             spacing: 40
             Button{
                 Layout.preferredWidth: 36
@@ -126,7 +134,7 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mvCallBackMsg("save");
+                    providers.mbSnapSave("save");
                     dialog.close();
                     return "save";
                 }

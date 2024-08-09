@@ -45,11 +45,29 @@ public:
     inline void mvSetWifiLevel(int level){
         wifi_level_ = level;
     }
+    //TODO 充电状态
+    Q_INVOKABLE bool mbGetChargingStatus(){
+        return false;
+    }
+    void mvSetChargingStatus(bool res){
+        is_charging_ = res;
+    }
+
+    Q_INVOKABLE void mvSetShowBat(bool show){
+        qDebug()<<"set show bat:"<<show;
+        show_ = show;
+    }
+
+    Q_INVOKABLE bool mbGetShowBat(){
+        return show_;
+    }
 
 private:
     int signal_level_;
     int battery_level_;
     int wifi_level_;
+    bool is_charging_;
+    bool show_;
 };
 
 #endif // DEVICESTATUS_H
