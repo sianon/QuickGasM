@@ -48,6 +48,8 @@ set(PROJECT_SOURCES
         device_status.h
         src/device_control.h
         color_setting.h
+        snap_instance.h
+        gas_warring_setting.h
         media_file_manage.h
         media_file_preview.h
         SettingsManager.cpp

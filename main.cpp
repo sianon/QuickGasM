@@ -8,10 +8,12 @@
 #include "tdlas_device.h"
 #include "video_hub.h"
 #include "device_status.h"
-
+#include "snap_instance.h"
+#include "gas_warring_setting.h"
 
 int main(int argc, char* argv[]){
 qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -20,24 +22,25 @@ qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
     QCoreApplication::setApplicationName("QuickGas");
 
     QGuiApplication app(argc, argv);
-    QQmlApplicationEngine& engine = QmlEngineSingleton::instance();
+    QQmlApplicationEngine &engine = QmlEngineSingleton::instance();
 
     qmlRegisterType<TdlasDevice>("Local", 1, 0, "TdlasDevice");
     qmlRegisterType<DeviceStatus>("Local", 1, 0, "DeviceStatus");
 
-    thread t1([&](){
-        VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_THERMAL, "thermal1.mp4");
-    });
-    thread t2([&](){
-        VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_WHITE, "thermal2.mp4");
-    });
+    thread t1([&]()
+              { VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_THERMAL, "thermal1.mp4"); });
+    thread t2([&]()
+              { VideoHub::moGetInstance()->mvTest(VideoType::VIDEO_TYPE_WHITE, "thermal2.mp4"); });
 
     qmlRegisterType<FrameProvider>("Local", 1, 0, "FrameProvider");
+    qmlRegisterType<SnapInstance>("Local", 1, 0, "SnapInstance");
+    qmlRegisterType<GasWarringSettingInstance>("Local", 1, 0, "GasWarringSettingInstance");
+    
     const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject* obj, const QUrl& objUrl){
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app, [url](QObject *obj, const QUrl &objUrl)
+                     {
         if(!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+            QCoreApplication::exit(-1); }, Qt::QueuedConnection);
     engine.load(url);
 
     QObject *rootObject = engine.rootObjects().first();

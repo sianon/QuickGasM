@@ -73,7 +73,7 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mbRecord("");
+                    snap_instance.mbRecord("");
                 }
             }
             Button{
@@ -90,7 +90,7 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mbRecordBeidouInfo("");
+                    snap_instance.mbRecordBeidouInfo("");
                 }
             }
             Button{
@@ -107,7 +107,7 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mbRecordQRScan("");
+                    snap_instance.mbRecordQRScan("");
                 }
             }
         }
@@ -129,7 +129,7 @@ Dialog{
                     }
                 }
                 onClicked:{
-                    providers.mbRecordSave("");
+                    snap_instance.mbRecordSave("");
                     dialog.close();
                 }
             }

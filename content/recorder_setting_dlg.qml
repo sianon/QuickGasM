@@ -64,7 +64,7 @@ Item{
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled:{
-                                providers.mvSetManualRecordVideoAutoSave(checked);
+                                snap_instance.mvSetManualRecordVideoAutoSave(checked);
                             }
                         }
                     }

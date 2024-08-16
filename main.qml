@@ -25,6 +25,12 @@ ApplicationWindow{
     DeviceStatus{
         id: device_status
     }
+    SnapInstance{
+        id:snap_instance
+    }
+    GasWarringSettingInstance{
+        id:gas_warring_instance
+    }
     function zoomin(val_arg){
         providers.mvZoomIn();
         console.log("zoomin", val_arg, "return ok")
@@ -46,7 +52,7 @@ ApplicationWindow{
     }
 
     function snapshot(){
-        providers.mbSnap("");
+        snap_instance.mbSnap("");
         var component = Qt.createComponent("snapshot_func_dlg.qml");
         var dialog = component.createObject(mainWindow);
         dialog.open();

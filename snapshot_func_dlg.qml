@@ -77,7 +77,7 @@ Layout.alignment: Qt.AlignHCenter
                     }
                 }
                 onClicked:{
-                    providers.mbSnapRecordVoice("");
+                    snap_instance.mbSnapRecordVoice("");
                 }
             }
             Button{
@@ -94,7 +94,7 @@ Layout.alignment: Qt.AlignHCenter
                     }
                 }
                 onClicked:{
-                    providers.mbSnapBeidouInfo();
+                    snap_instance.mbSnapBeidouInfo();
                 }
             }
             Button{
@@ -111,7 +111,7 @@ Layout.alignment: Qt.AlignHCenter
                     }
                 }
                 onClicked:{
-                    providers.mbSnapQRScan();
+                    snap_instance.mbSnapQRScan();
                 }
             }
         }
@@ -134,7 +134,7 @@ Layout.alignment: Qt.AlignHCenter
                     }
                 }
                 onClicked:{
-                    providers.mbSnapSave("save");
+                    snap_instance.mbSnapSave("save");
                     dialog.close();
                     return "save";
                 }

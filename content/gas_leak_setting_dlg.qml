@@ -84,7 +84,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                providers.mvSetGasDetectWarrning(checked);
+                                gas_warring_instance.mvSetGasDetectWarrning(checked);
                             }
                         }
 
@@ -127,7 +127,7 @@ Item {
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                             onTextChanged: {
-                                providers.mvSetGasDetectWarrningPPM(text);
+                                gas_warring_instance.mvSetGasDetectWarrningPPM(text);
                             }
                         }
 
@@ -171,7 +171,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                providers.mvSetGasDetectWarrningAutoSnap(checked);
+                                gas_warring_instance.mvSetGasDetectWarrningAutoSnap(checked);
                             }
                         }
 
@@ -214,7 +214,7 @@ Item {
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                             onTextChanged: {
-                                providers.mvSetGasDetectWarrningAutoSnapInterval(text);
+                                gas_warring_instance.mvSetGasDetectWarrningAutoSnapInterval(text);
                             }
                         }
 
@@ -260,7 +260,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                providers.mvSetGasDetectWarrningAutoRecord(checked);
+                                gas_warring_instance.mvSetGasDetectWarrningAutoRecord(checked);
                             }
                         }
 
@@ -301,7 +301,7 @@ Item {
                             id: highTempretureSwitch
 
                             onToggled: {
-                                providers.mvSetGasDetectWarrningNotice(checked);
+                                gas_warring_instance.mvSetGasDetectWarrningNotice(checked);
                             }
                         }
 

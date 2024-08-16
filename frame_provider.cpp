@@ -441,65 +441,65 @@ Q_INVOKABLE void FrameProvider::mvSetEmissivity(QString val)
     return Q_INVOKABLE void();
 }
 
-Q_INVOKABLE bool FrameProvider::mbSnap(QString val)
-{
-    qDebug() << "------mbSnap:" << val;
-    return true;
-}
+// Q_INVOKABLE bool FrameProvider::mbSnap(QString val)
+// {
+//     qDebug() << "------mbSnap:" << val;
+//     return true;
+// }
 
-Q_INVOKABLE bool FrameProvider::mbSnapSave(QString val)
-{
-    qDebug() << "------mbSnapSave:" << val;
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbSnapSave(QString val)
+// {
+//     qDebug() << "------mbSnapSave:" << val;
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbSnapRecordVoice(QString val)
-{
-    qDebug() << "------mbSnapRecordVoice:" << val;
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbSnapRecordVoice(QString val)
+// {
+//     qDebug() << "------mbSnapRecordVoice:" << val;
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbSnapBeidouInfo()
-{
-    qDebug() << "------mbSnapBeidouInfo------";
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbSnapBeidouInfo()
+// {
+//     qDebug() << "------mbSnapBeidouInfo------";
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbSnapQRScan()
-{
-    qDebug() << "------mbSnapQRScan------";
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbSnapQRScan()
+// {
+//     qDebug() << "------mbSnapQRScan------";
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbRecord(QString val)
-{
-    qDebug() << "------mbRecord:" << val;
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbRecord(QString val)
+// {
+//     qDebug() << "------mbRecord:" << val;
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbRecordSave(QString val)
-{
-    qDebug() << "------mbRecordSave:" << val;
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbRecordSave(QString val)
+// {
+//     qDebug() << "------mbRecordSave:" << val;
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbRecordVideoVoice(QString val)
-{
-    qDebug() << "------mbRecordVideoVoice:" << val;
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbRecordVideoVoice(QString val)
+// {
+//     qDebug() << "------mbRecordVideoVoice:" << val;
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbRecordBeidouInfo()
-{
-    qDebug() << "------mbRecordBeidouInfo------";
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbRecordBeidouInfo()
+// {
+//     qDebug() << "------mbRecordBeidouInfo------";
+//     return Q_INVOKABLE bool();
+// }
 
-Q_INVOKABLE bool FrameProvider::mbRecordQRScan()
-{
-    qDebug() << "------mbRecordQRScan------";
-    return Q_INVOKABLE bool();
-}
+// Q_INVOKABLE bool FrameProvider::mbRecordQRScan()
+// {
+//     qDebug() << "------mbRecordQRScan------";
+//     return Q_INVOKABLE bool();
+// }
 
 void FrameProvider::mvCallBackMsg(QString cmd)
 {

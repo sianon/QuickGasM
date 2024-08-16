@@ -77,7 +77,7 @@ Item{
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled:{
-                                providers.mvSetManualSnapAutoSave(checked);
+                                snap_instance.mvSetManualSnapAutoSave(checked);
                             }
                         }
                     }
@@ -109,7 +109,7 @@ Item{
                         AppleStyleSwitch{
                             id: lowTempretureAlarmSwitch
                             onToggled: {
-                                providers.mvSetSnapAutoUpload(checked);
+                                snap_instance.mvSetSnapAutoUpload(checked);
                             }
                         }
                     }
@@ -139,7 +139,7 @@ height: 40
                         AppleStyleSwitch{
                             id: highTempretureSwitch
                             onToggled: {
-                                providers.mvSetAutoSnapPeriod(checked);
+                                snap_instance.mvSetAutoSnapPeriod(checked);
                             }
                         }
                     }
@@ -173,7 +173,7 @@ height: 40
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                             onTextChanged: {
-                                providers.mvSetAutoSnapPeriodInterval(text);
+                                snap_instance.mvSetAutoSnapPeriodInterval(text);
                             }
                         }
                         Label {
@@ -234,7 +234,7 @@ height: 40
                             color: "black"
                             Layout.alignment: Qt.AlignHCenter
                             onTextChanged: {
-                                providers.mvSetAutoSnapPeriodNum(text);
+                                snap_instance.mvSetAutoSnapPeriodNum(text);
                             }
                         }
                         Label {
