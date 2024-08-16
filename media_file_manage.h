@@ -78,7 +78,7 @@ public:
             return false;
         }
 
-        AVCodec* codec = avcodec_find_decoder(codec_params->codec_id);
+        const AVCodec* codec = avcodec_find_decoder(codec_params->codec_id);
         if(!codec){
             std::cerr << "Unsupported codec\n";
             return false;

@@ -18,7 +18,7 @@ ApplicationWindow{
     TdlasDevice{
         id: tdlas_ctrl
     }
-
+    
     FrameProvider{
         id: providers
     }
