@@ -58,7 +58,7 @@ Dialog {
     {
         gridView.currentIndex = index;
         var cur = models.get(gridView.currentIndex);
-        var component = Qt.createComponent("content/pic_preview_dlg.qml");
+        var component = Qt.createComponent("pic_preview_dlg.qml");
         var dialog = component.createObject(mainWindow);
         if (!isvideo)
         {
@@ -83,7 +83,7 @@ Dialog {
                     color: "#333333"
                     Image {
                         anchors.fill: parent
-                        source: "images/left.png"
+                        source: "../images/left.png"
                     }
                 }
                 onClicked: {
@@ -200,7 +200,7 @@ Dialog {
                         color: "#3e3e3e"
                         Image {
                             anchors.fill: parent
-                            source: "images/search.png"
+                            source: "../images/search.png"
                         }
                     }
                     onClicked: {
@@ -292,10 +292,6 @@ Dialog {
                 delegate: Item {
                     width: 130
                     height: 130
-                    //                    Rectangle {
-                    //                        width: parent.width
-                    //                        height: parent.height
-                    //                        color: models.selected ? "lightblue" : "gray"
                     ColumnLayout {
                         anchors.fill: parent
                         anchors.topMargin: 5
@@ -339,20 +335,7 @@ Dialog {
             }
         }
 
-        //        GridLayout {
-        //            columns: 4
-        //            width: 736
-        //            height: 400
-        //            visible: false
-        //            Layout.alignment: Qt.AlignHCenter
-        //            Rectangle {
-        //                radius: 5
-        //                color: "#3c3f41"
-        //                anchors.fill: parent
-        //            }
-        //        }
         RowLayout {
-            //            anchors.left: parent.left
             Layout.fillWidth: true
             Layout.preferredHeight: 20
             Layout.alignment: Qt.AlignHCenter

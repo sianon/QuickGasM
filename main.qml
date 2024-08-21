@@ -15,10 +15,10 @@ ApplicationWindow{
     color: "#185abd"
     flags: Qt.FramelessWindowHint
     property int bat_status_last: 0;
+
     TdlasDevice{
         id: tdlas_ctrl
     }
-    
     FrameProvider{
         id: providers
     }
@@ -30,6 +30,9 @@ ApplicationWindow{
     }
     GasWarringSettingInstance{
         id:gas_warring_instance
+    }
+    TempretureDetect{
+        id:tempreture_detect
     }
     function zoomin(val_arg){
         providers.mvZoomIn();
@@ -53,7 +56,7 @@ ApplicationWindow{
 
     function snapshot(){
         snap_instance.mbSnap("");
-        var component = Qt.createComponent("snapshot_func_dlg.qml");
+        var component = Qt.createComponent("content/snapshot_func_dlg.qml");
         var dialog = component.createObject(mainWindow);
         dialog.open();
         console.log("qml snapshot runing", "return ok");
@@ -67,7 +70,7 @@ ApplicationWindow{
 
     function showMediaWind(isvideo){
         providers.mvRefeshFileList("");
-        var component = Qt.createComponent("img_grid_dlg.qml");
+        var component = Qt.createComponent("content/img_grid_dlg.qml");
         // component.isvideo = true;
         var dialog = component.createObject(mainWindow);
         dialog.setVideoModel(isvideo);
@@ -425,7 +428,8 @@ ApplicationWindow{
                     }
                 }
                 onClicked:{
-                    snapshot();
+                    var component = Qt.createComponent("./content/tempreture_bar.qml");
+                    var dialog = component.createObject(mainWindow);
                 }
             }
             Button{
@@ -489,7 +493,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 onClicked:{
-                    var component = Qt.createComponent("color_setting_dlg.qml");
+                    var component = Qt.createComponent("content/color_setting_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
                 }
@@ -527,7 +531,7 @@ ApplicationWindow{
                 Layout.preferredWidth: 36
                 Layout.preferredHeight: 36
                 onClicked:{
-                    var component = Qt.createComponent("advance_sys_setting_dlg.qml");
+                    var component = Qt.createComponent("content/advance_sys_setting_dlg.qml");
                     var dialog = component.createObject(mainWindow);
                     dialog.open();
                 }

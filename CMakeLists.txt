@@ -11,6 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
  set(CMAKE_PREFIX_PATH /opt/Qt/5.15.2/gcc_64/lib/cmake)
 # set(FFMPEG_DIR /home/cao/code/aarch64-hilis/ffmpeg_aarch64)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 find_package(PkgConfig REQUIRED)
 find_package(OpenCV REQUIRED)
@@ -54,6 +57,7 @@ set(PROJECT_SOURCES
         media_file_preview.h
         SettingsManager.cpp
         SettingsManager.h
+        tempreture_detect.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

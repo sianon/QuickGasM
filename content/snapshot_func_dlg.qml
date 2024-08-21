@@ -73,7 +73,7 @@ Layout.alignment: Qt.AlignHCenter
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/mic.png"
+                        source: "../images/mic.png"
                     }
                 }
                 onClicked:{
@@ -90,7 +90,7 @@ Layout.alignment: Qt.AlignHCenter
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/Beidou.png"
+                        source: "../images/Beidou.png"
                     }
                 }
                 onClicked:{
@@ -107,7 +107,7 @@ Layout.alignment: Qt.AlignHCenter
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/qr_scan.png"
+                        source: "../images/qr_scan.png"
                     }
                 }
                 onClicked:{
@@ -130,7 +130,7 @@ Layout.alignment: Qt.AlignHCenter
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/save.png"
+                        source: "../images/save.png"
                     }
                 }
                 onClicked:{
@@ -150,7 +150,7 @@ Layout.alignment: Qt.AlignHCenter
                     color: "#333333"
                     Image{
                         anchors.fill: parent
-                        source: "images/back.png"
+                        source: "../images/back.png"
                     }
                 }
                 onClicked:{

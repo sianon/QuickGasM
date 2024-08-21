@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>quick_item.qml</file>
         <file>images/playback.png</file>
         <file>images/record.png</file>
         <file>images/take_shot.png</file>
@@ -64,6 +63,7 @@
         <file>images/search.png</file>
         <file>images/pause.png</file>
         <file>images/play.png</file>
+        <file>images/WIFI.png</file>
         <!-- //////////////////////// -->
         <file>images/navigation_previous_item.png</file>
         <file>images/navigation_next_item.png</file>
@@ -79,16 +79,18 @@
         <file>images/alarm_log_settings.png</file>
         <file>images/succeed.png</file>
         <file>images/failed.png</file>
+        <file>images/center_pt.png</file>
+        <file>images/cold_pt.png</file>
+        <file>images/hot_pt.png</file>
+        <file>images/cust_pt.png</file>
+        <file>images/cust_line.png</file>
+        <file>images/cust_rect.png</file>
         <!-- /////////////////////////////// -->
-        <file>settings_dlg.qml</file>
-        <file>gas_enhance_dlg.qml</file>
-        <file>ls_mode_dlg.qml</file>
-        <file>iso_dlg.qml</file>
-        <file>advance_sys_setting_dlg.qml</file>
-        <file>color_setting_dlg.qml</file>
-        <file>snapshot_func_dlg.qml</file>
-        <file>img_grid_dlg.qml</file>
-        <file>img_preview_dlg.qml</file>
+        <file>content/advance_sys_setting_dlg.qml</file>
+        <file>content/color_setting_dlg.qml</file>
+        <file>content/snapshot_func_dlg.qml</file>
+        <file>content/img_grid_dlg.qml</file>
+        <file>content/img_preview_dlg.qml</file>
         <file>content/AndroidDelegate.qml</file>
         <file>content/sys_setting_dlg.qml</file>
         <file>content/time_setting_dlg.qml</file>
@@ -115,7 +117,7 @@
         <file>content/noticebox.qml</file>
         <file>content/upgrade_msgbox.qml</file>
         <file>content/media_bar.qml</file>
-        <file>ColorBtn.qml</file>
+        <file>content/ColorBtn.qml</file>
         <file>content/gas_detect_mode.qml</file>
         <file>content/gas_detect_env_param.qml</file>
         <file>content/render_mode_switch.qml</file>
@@ -124,5 +126,6 @@
         <file>content/noticebox_succeed.qml</file>
         <file>content/format_msgbox.qml</file>
         <file>content/explore.qml</file>
+        <file>content/tempreture_bar.qml</file>
     </qresource>
 </RCC>

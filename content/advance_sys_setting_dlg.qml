@@ -1,7 +1,6 @@
 import QtQuick 2.2
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import "content"
 
 Dialog{
     id: dialog
@@ -36,7 +35,7 @@ Dialog{
                     sourceSize.height: 28
                     sourceSize.width: 28
                     anchors.verticalCenter: parent.verticalCenter
-                    source: "images/navigation_previous_item.png"
+                    source: "../images/navigation_previous_item.png"
                 }
                 MouseArea{
                     id: backmouse
@@ -66,35 +65,35 @@ Dialog{
             id: pageModel
             ListElement{
                 title: "报警管理"
-                page: "content/alarm_manage_dlg.qml"
+                page: "alarm_manage_dlg.qml"
             }
             ListElement{
                 title: "拍照设置"
-                page: "content/snapshot_setting_dlg.qml"
+                page: "snapshot_setting_dlg.qml"
             }
             ListElement{
                 title: "录像设置"
-                page: "content/recorder_setting_dlg.qml"
+                page: "recorder_setting_dlg.qml"
             }
             ListElement{
                 title: "云服务"
-                page: "content/login.qml"
+                page: "login.qml"
             }
             ListElement{
                 title: "网络设置"
-                page: "content/network_setting_dlg.qml"
+                page: "network_setting_dlg.qml"
             }
             ListElement{
                 title: "双光设置"
-                page: "content/vision_mix_setting_dlg.qml"
+                page: "vision_mix_setting_dlg.qml"
             }
             ListElement{
                 title: "测量单位设置"
-                page: "content/measurement_unit_dlg.qml"
+                page: "measurement_unit_dlg.qml"
             }
             ListElement{
                 title: "系统设置"
-                page: "content/sys_setting_dlg.qml"
+                page: "sys_setting_dlg.qml"
             }
         }
         Rectangle{

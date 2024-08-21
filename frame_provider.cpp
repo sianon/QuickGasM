@@ -210,35 +210,7 @@ QImage FrameProvider::mvScaleImage(QImage& image){
         resize(tmp_roi, dest, dest.size(), cv::INTER_LINEAR);
         roi = tmp_roi;
     }
-
-    Mat im_color;
-    if(render_type_ == VIDEO_TYPE_THERMAL && color_setting_.meGetCurrentColorType() != COLOR_TYPE_NULL){
-        cv::cvtColor(roi, roi, cv::COLOR_BGRA2GRAY);
-        auto color_template = COLORMAP_HOT;
-        switch(color_setting_.meGetCurrentColorType()){
-            case color_type_iron_red:{
-                color_template = COLORMAP_INFERNO;
-            }
-                break;
-            case color_type_white_hot:{
-                color_template = COLORMAP_BONE;
-            }
-                break;
-            case color_type_rainbow:{
-                color_template = COLORMAP_RAINBOW;
-            }
-                break;
-            default:
-                color_template = COLORMAP_HOT;
-        }
-
-        applyColorMap(roi, im_color, color_template);
-        cv::cvtColor(im_color, im_color, cv::COLOR_RGB2RGBA);
-    }else{
-        cv::cvtColor(roi, im_color, cv::COLOR_RGB2RGBA);
-    }
-
-    QImage res_img(im_color.data, roi.cols, roi.rows, QImage::Format_RGBA8888);
+    QImage res_img(roi.data, roi.cols, roi.rows, QImage::Format_RGBA8888);
     image = res_img.copy();
 
     return QImage();
@@ -268,33 +240,7 @@ bool FrameProvider::mbSnapShot(){
         cv::Mat src, im_color;
         src = current_src_mat_;
 
-        if(render_type_ == VIDEO_TYPE_THERMAL && color_setting_.meGetCurrentColorType() != COLOR_TYPE_NULL){
-            cv::cvtColor(src, src, cv::COLOR_BGRA2GRAY);
-            auto color_template = COLORMAP_HOT;
-            switch(color_setting_.meGetCurrentColorType()){
-                case color_type_iron_red:{
-                    color_template = COLORMAP_INFERNO;
-                }
-                    break;
-                case color_type_white_hot:{
-                    color_template = COLORMAP_BONE;
-                }
-                    break;
-                case color_type_rainbow:{
-                    color_template = COLORMAP_RAINBOW;
-                }
-                    break;
-                default:
-                    color_template = COLORMAP_HOT;
-            }
-
-            applyColorMap(src, im_color, color_template);
-            cv::cvtColor(im_color, im_color, cv::COLOR_BGR2RGBA);
-        }else{
-            cv::cvtColor(src, im_color, cv::COLOR_RGB2RGBA);
-        }
-
-        QImage res_img(im_color.data, im_color.cols, im_color.rows, QImage::Format_RGBA8888);
+        QImage res_img(src.data, src.cols, src.rows, QImage::Format_RGBA8888);
         snap_shot_img_ = res_img.copy();
 
         {
@@ -440,66 +386,6 @@ Q_INVOKABLE void FrameProvider::mvSetEmissivity(QString val)
     qDebug() << "------mvSetEmissivity:" << val;
     return Q_INVOKABLE void();
 }
-
-// Q_INVOKABLE bool FrameProvider::mbSnap(QString val)
-// {
-//     qDebug() << "------mbSnap:" << val;
-//     return true;
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbSnapSave(QString val)
-// {
-//     qDebug() << "------mbSnapSave:" << val;
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbSnapRecordVoice(QString val)
-// {
-//     qDebug() << "------mbSnapRecordVoice:" << val;
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbSnapBeidouInfo()
-// {
-//     qDebug() << "------mbSnapBeidouInfo------";
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbSnapQRScan()
-// {
-//     qDebug() << "------mbSnapQRScan------";
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbRecord(QString val)
-// {
-//     qDebug() << "------mbRecord:" << val;
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbRecordSave(QString val)
-// {
-//     qDebug() << "------mbRecordSave:" << val;
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbRecordVideoVoice(QString val)
-// {
-//     qDebug() << "------mbRecordVideoVoice:" << val;
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbRecordBeidouInfo()
-// {
-//     qDebug() << "------mbRecordBeidouInfo------";
-//     return Q_INVOKABLE bool();
-// }
-
-// Q_INVOKABLE bool FrameProvider::mbRecordQRScan()
-// {
-//     qDebug() << "------mbRecordQRScan------";
-//     return Q_INVOKABLE bool();
-// }
 
 void FrameProvider::mvCallBackMsg(QString cmd)
 {

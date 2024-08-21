@@ -17,6 +17,6 @@ Aarch64-v01c01-linux-musl-gcc
 
 | third_party | version  |
 | --- | --- |
-| QT | 5.15.5 |
+| QT | 5.15.2 |
 | opencv | 4.5.4 |
 | ffmpeg | 6.0.1 |
